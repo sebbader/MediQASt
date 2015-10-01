@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<dataset id="testquestion set">
+
+	<!-- Keyword queries -->
+	<question id="1" source="dbpedia">
+		<query><![CDATA[What is athlete's foot?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Athlete's_foot>. }]]></sparql>
+		<answer>http://dbpedia.org/resource/Athlete's_foot</answer>
+	</question>
+	
+	<question id="2" source="dbpedia">
+		<query><![CDATA[Where is the liver?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Liver> .}]]></sparql>
+		<answer>http://dbpedia.org/resource/Human_liver</answer>
+		<answer>http://dbpedia.org/resource/Liver</answer>
+	</question>
+	
+	<question id="3" source="dbpedia">
+		<query><![CDATA[Who was Magnus Hirschfeld?]]></query>
+		<sparql><![CDATA[SELECT DISTINCT ?uri WHERE { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Magnus_Hirschfeld> .}]]></sparql>
+		<answer>http://dbpedia.org/resource/Magnus_Hirschfeld</answer>
+	</question>
+	
+	<question id="4" source="drugbank">
+		<query><![CDATA[What is Nexium?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736</answer>
+		<answer>http://dbpedia.org/resource/Omeprazole</answer>
+		<answer>http://dbpedia.org/resource/Esomeprazole</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/page/drugs/4594</answer>
+	</question>
+	
+	<question id="5" source="icd">
+		<query><![CDATA[What is alcohol dependence?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri  <http://www.w3.org/2002/07/owl#sameAs> <http://id.who.int/icd/entity/1580466198> .}]]></sparql>
+		<answer>http://id.who.int/icd/entity/1580466198</answer>
+	</question>
+	
+	<question id="6" source="sider">
+		<query><![CDATA[What is bigeminy?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri ?rel <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662</answer>
+	</question>
+	
+	
+	<!-- class queries -->
+	<question id="7" source="icd">
+		<query><![CDATA[What are Narcolepsy and Kleine Levin syndrome?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2004/02/skos/core#narrowerTransitive> <http://id.who.int/icd/entity/1180849398> . ?uri <http://www.w3.org/2004/02/skos/core#narrowerTransitive> <http://id.who.int/icd/entity/1201727099> .}]]></sparql>
+		<answer>http://id.who.int/icd/entity/2024456840</answer>
+	</question>
+	
+	<question id="8" source="dbpedia">
+		<query><![CDATA[What is a type of neoplasia?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Types_of_neoplasia> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Desmoplastic_fibroma</answer>
+		<answer>http://dbpedia.org/resource/Epithelial_dysplasia</answer>
+		<answer>http://dbpedia.org/resource/Mucinous_cystadenoma</answer>
+		<answer>http://dbpedia.org/resource/Myoma</answer>
+		<answer>http://dbpedia.org/resource/Pelvic_tumor</answer>
+		<answer>http://dbpedia.org/resource/Papillary_tumors_of_the_pineal_region</answer>
+		<answer>http://dbpedia.org/resource/Cancer</answer>
+	</question>
+	
+	
+	<!-- one predicate queries -->
+	<question id="9" source="dbpedia">
+		<!-- will most likely not work as literal search is necessary -> example for limitation of approach -->
+		<query><![CDATA[What has the MEsHID D002056?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://dbpedia.org/ontology/meshId> "D002056" . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Burn</answer>
+	</question>
+	
+	<question id="10" source="dbpedia">
+		<!-- will most likely not work yet because predicate needs mapping to different terms -> example for limitation of approach -->
+		<query><![CDATA[Who died of asthma?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://dbpedia.org/property/deathCause> <http://dbpedia.org/resource/Asthma> .}]]></sparql>
+		<answer>http://dbpedia.org/resource/Mary_Dimmick_Harrison</answer>
+		<answer>http://dbpedia.org/resource/Neil_Hamilton_(actor)</answer>
+		<answer>http://dbpedia.org/resource/Pauline_Frederick</answer>
+	</question>
+	
+	<question id="11" source="icd">
+		<query><![CDATA[What is the definition of malignant neoplasms of skin?]]></query>
+		<sparql><![CDATA[select distinct ?uri where {<http://id.who.int/icd/entity/1706880799> <http://www.w3.org/2004/02/skos/core#definition> ?uri . }]]></sparql>
+		<answer>"A primary or metastatic tumor involving the skin. Primary malignant skin tumors most often are carcinomas (either basal cell or squamous cell carcinomas that arise from cells in the epidermis) or melanomas that arise from pigment-containing skin melanocytes. Metastatic tumors to the skin include carcinomas and lymphomas."@en</answer>
+	</question>
+
+	<question id="12" source="drugbank">
+		<query><![CDATA[What has the target MAPK14?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/target> <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/1540> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01953</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01807</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01988</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02277</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02352</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04338</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04632</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04797</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01948</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02195</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02873</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02984</answer>
+	</question>
+	
+	<!-- two predicate queries -->		
+	<question id="13" source="sider">
+		<query><![CDATA[Which drugs have fever as a side effect?]]></query>
+		<sparql><![CDATA[SELECT DISTINCT ?uri WHERE { ?uri a <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/drugs> . ?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0015967> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1046</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/104741</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/104758</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/104865</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/10631</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1065</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1125</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1134</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/115237</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/119182</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/119607</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/122316</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/123606</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/123620</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/123631</answer>
+	</question>
+	
+	<question id="14" source="subject: sider">
+		<query><![CDATA[Which sider drugs have the side effect amnesia?]]></query>
+		<sparql><![CDATA[select distinct ?uri  where {  ?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0002622> . ?uri a <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/drugs> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/110634</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3016</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3081884</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3519</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3736</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3958</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4583</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4585</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4616</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5038</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5070</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5210</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5426</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5719</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/59708</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60815</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/64147</answer>
+	</question>
+	
+	
+	<question id="15" source="dbpedia">
+		<query><![CDATA[Which drugs contain acetylsalicylic acid?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri a <http://dbpedia.org/ontology/Drug> .?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Aspirin> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Aspirin</answer>
+	</question>
+
+	<!-- cross database queries -->
+	<question id="16" source="dbpedia and icd">
+		<query><![CDATA[What is the definition of lung cancer?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { <http://id.who.int/icd/entity/316539081> <http://www.w3.org/2004/02/skos/core#definition> ?label .}} limit 10]]></sparql>
+		<answer>"A primary or metastatic malignant neoplasm involving the lung."@en</answer>
+	</question>
+	
+	<question id="17" source="dbpedia and icd">
+		<query><![CDATA[What are signs or symptoms of bochdalek hernia?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { <http://dbpedia.org/resource/Bochdalek_hernia> <http://id.who.int/icd/icd/schema/signsAndSymptoms> ?uri .}]]></sparql>
+		<answer>"Hernia of abdominal cavity (disorder)"@en</answer>
+		<answer>"Herniated structure (morphologic abnormality)"@en</answer>
+	</question>
+	
+	<question id="18" source="dbpedia and icd">
+		<query><![CDATA[What is the ICD10 code of cerebral ischaemic stroke?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://id.who.int/icd/relation#hasICD10code> <http://id.who.int/icd/entity/636274910> . }]]></sparql>
+		<answer>"I63"</answer>
+	</question>
+	
+	<question id="19" source="dbpedia and drugbank">
+		<query><![CDATA[What is a possible disease target of DBABZHXKTCFAPX-UHFFFAOYAR?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { <http://dbpedia.org/resource/Probenecid> <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/possibleDiseaseTarget> ?uri . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/1436</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2198</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/338</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/81</answer>
+	</question>
+	
+	<!-- three predicate query -->
+	<question id="20" source="sider">
+		<query><![CDATA[Which drug has the side effect hemorrhage and also the side effect with the id C0002792?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri a <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/drugs> .?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0019080> . ?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0002792> .}]]></sparql>		
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1003</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/104865</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/110634</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/119607</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2951</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3736</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3741</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4033</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4052</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4583</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4609</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/50614</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5210</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5487</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/72938</answer>
+	</question>
+	
+	<question id="21" source="subject: dbpedia">
+		<query><![CDATA[Which disease is the death cause of a relative of Patrick_Cudahy?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri a <http://dbpedia.org/ontology/Disease> . _:a  <http://dbpedia.org/ontology/deathCause> ?uri . _:a <http://dbpedia.org/ontology/relative> <http://dbpedia.org/resource/Patrick_Cudahy> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Acute_lung_injury</answer>
+	</question>
+	
+	
+	<!-- relation queries -->
+	<question id="22" source="sider">
+		<query><![CDATA[What is the connection between CID0000001046 and Pyrazinamide?]]></query>
+		<sparql><![CDATA[select distinct ?property where {<http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1046> ?property <http://dbpedia.org/resource/Pyrazinamide> .}]]></sparql>
+		<answer>http://www.w3.org/2002/07/owl#sameAs</answer>
+	</question>
+
+</dataset>

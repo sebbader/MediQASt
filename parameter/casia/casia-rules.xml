@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<!-- patterns which comply with the condition are converted to the triple 
+	format "(a b c)" -->
+<!-- GrammaticalRelation format is "<GrammaticalRelation>(<first>, <second>)" -->
+<rules>
+	<!-- connected rules -->
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>nsubj</GrammaticalRelation>
+			<first>a</first>
+			<second>b</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>nmod:of</GrammaticalRelation>
+			<first>b</first>
+			<second>c</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>nmod:of</GrammaticalRelation>
+			<first>c</first>
+			<second>d</second>
+		</condition>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>nsubj</GrammaticalRelation>
+			<first>d</first>
+			<second>a</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>dobj</GrammaticalRelation>
+			<first>d</first>
+			<second>b</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>nmod:with</GrammaticalRelation>
+			<first>b</first>
+			<second>c</second>
+		</condition>
+	</rule>
+	
+	<!-- standard rules -->
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>nsubj</GrammaticalRelation>
+			<first>b</first>
+			<second>a</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>dobj</GrammaticalRelation>
+			<first>b</first>
+			<second>c</second>
+		</condition>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>nsubj</GrammaticalRelation>
+			<first>b</first>
+			<second>a</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>nmod:of</GrammaticalRelation>
+			<first>b</first>
+			<second>c</second>
+		</condition>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>nsubj</GrammaticalRelation>
+			<first>b</first>
+			<second>a</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>nmod:against</GrammaticalRelation>
+			<first>b</first>
+			<second>c</second>
+		</condition>
+	</rule>
+	<rule>
+		<condition>
+			<GrammaticalRelation>nsubjpass</GrammaticalRelation>
+			<first>b</first>
+			<second>a</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>nmod:agent</GrammaticalRelation>
+			<first>b</first>
+			<second>c</second>
+		</condition>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>nsubjpass</GrammaticalRelation>
+			<first>b</first>
+			<second>a</second>
+		</condition>
+		<condition>
+			<GrammaticalRelation>nmod:for</GrammaticalRelation>
+			<first>b</first>
+			<second>c</second>
+		</condition>
+	</rule>
+	
+	<!-- regex rules -->
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>det</GrammaticalRelation>
+			<first>"which"</first>
+			<second>c</second>
+		</condition>
+		<implies>
+			<a>"which"</a>
+			<b>"type"</b>
+			<c>c</c>
+		</implies>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>det</GrammaticalRelation>
+			<first>c</first>
+			<second>"which"</second>
+		</condition>
+		<implies>
+			<a>"which"</a>
+			<b>"type"</b>
+			<c>c</c>
+		</implies>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>det</GrammaticalRelation>
+			<first>c</first>
+			<second>"what"</second>
+		</condition>
+		<implies>
+			<a>"what"</a>
+			<b>"type"</b>
+			<c>c</c>
+		</implies>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>det</GrammaticalRelation>
+			<first>"what"</first>
+			<second>c</second>
+		</condition>
+		<implies>
+			<a>"what"</a>
+			<b>"type"</b>
+			<c>c</c>
+		</implies>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>det</GrammaticalRelation>
+			<first>c</first>
+			<second>"who"</second>
+		</condition>
+		<implies>
+			<a>"who"</a>
+			<b>"type"</b>
+			<c>"person"</c>
+		</implies>
+	</rule>
+	<rule priority="normal">
+		<condition>
+			<GrammaticalRelation>det</GrammaticalRelation>
+			<first>"who"</first>
+			<second>c</second>
+		</condition>
+		<implies>
+			<a>"who"</a>
+			<b>"type"</b>
+			<c>"person"</c>
+		</implies>
+	</rule>
+	
+	<!-- default rule for keyword query -->
+	<rule priority="default">
+		<condition>
+			<GrammaticalRelation>nsubj</GrammaticalRelation>
+			<first>"wh"</first>
+			<second>c</second>
+		</condition>
+		<implies>
+			<a>"VARIABLE"</a>
+			<b>"sameAs"</b>
+			<c>c</c>
+		</implies>
+	</rule>
+	
+	
+	<GrammaticalRelationsToMerge>
+		<GrammaticalRelation deleteAfterCompress="false">det</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">case</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">nmod:poss</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">amod</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">compound</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">cop</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">advmod</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">aux</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">auxpass</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">conj:and</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">amod</GrammaticalRelation>
+		<GrammaticalRelation deleteAfterCompress="true">dep</GrammaticalRelation>
+	</GrammaticalRelationsToMerge>
+</rules>

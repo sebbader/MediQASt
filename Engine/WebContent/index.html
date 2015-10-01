@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+<title>MediQASt Demo</title>
+</head>
+<body>
+	<br/>
+	<form action="answer" method="get">
+	<h1>Choose the Approach:</h1>
+
+		<input type="radio" name="approach" value="rule based" checked> rule based <br>
+		<input type="radio" name="approach" value="binary relation"> binary relation <br>
+		<input type="radio" name="approach" value="naive"> naive <br>
+		<input type="radio" name="approach" value="pattern based"> pattern based <br>
+
+		<br>
+		<br>
+		
+		<h1> Insert your query: </h1>
+		<input type="text" class="resizedTextbox" name="query" size="200" value="What is cancer?"><br>
+		<input type="submit" class="biggerButton" value="Send Query">
+	</form>
+	
+	<br/>
+	
+</body>
+</html>

@@ -1,0 +1,13 @@
+target/**
+
+rdf-files/**
+nxtmp/**
+rdf-grounded-strings/**
+
+target/
+
+tmp*/**
+models/**
+classifiers/**
+StanfordNerClassifiers/**
+/build/
