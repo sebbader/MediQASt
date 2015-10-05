@@ -62,11 +62,6 @@
 			<version>1.4.1</version>
 		</dependency>
 		<dependency>
-			<groupId>edu.stanford</groupId>
-			<artifactId>ner</artifactId>
-			<version>3.5.2</version>
-		</dependency>
-		<dependency>
 			<groupId>edu.sheffield</groupId>
 			<artifactId>simmetrics</artifactId>
 			<version>1.6.2</version>

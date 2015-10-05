@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,21 +55,28 @@ public class RbQuestionAnalyzer {
 	public Collection<QueryTriple> getQueryTriples(String question) {
 		RbParameterLoader loader = new RbParameterLoader();
 
-		Collection<TypedDependency> dependency_tree = parseDependencyTree(question);
+		Collection<TypedDependency> typed_dependencies = parseDependencyTree(question);
 
 		Collection<QueryTriple> query_triples = new ArrayList<QueryTriple>();
 
 		try {
-			HashMap<String, Boolean> grammatiacalRelationsToMerge = loader
-					.loadMergingRelations(configManager.getHome() + "parameter/casia/casia-rules.xml");
-			Collection<TypedDependency> compressed_dependency_tree = mergeDependencyTree(
-					dependency_tree, grammatiacalRelationsToMerge);
+			
+			
+			List<RbMergingRule> dualGrammatiacalRelationsToMerge = loader.loadDualMergingRelations(configManager.getHome() + "parameter/casia/casia-rules.xml");
+			Collection<TypedDependency> partial_compressed_typed_dependencies = new ArrayList<TypedDependency>(typed_dependencies);
+			for (RbMergingRule rule : dualGrammatiacalRelationsToMerge) {
+				partial_compressed_typed_dependencies = rule.evaluateRule(partial_compressed_typed_dependencies);
+			}
+					
 
-			List<RbRule> rules = loader
-					.loadRules(configManager.getHome() + "parameter/casia/casia-rules.xml");
-			for (RbRule rule : rules) {
-				List<QueryTriple> newQueryTriples = rule.evaluateRule(
-						compressed_dependency_tree, query_triples.isEmpty());
+			HashMap<String, Boolean> singularGrammatiacalRelationsToMerge = loader.loadSingularMergingRelations(configManager.getHome() + "parameter/casia/casia-rules.xml");
+			Collection<TypedDependency> compressed_dependency_tree = mergeTypedDependencies(partial_compressed_typed_dependencies, singularGrammatiacalRelationsToMerge);
+
+			
+			
+			List<RbConstructingRule> rules = loader.loadRules(configManager.getHome() + "parameter/casia/casia-rules.xml");
+			for (RbConstructingRule rule : rules) {
+				List<QueryTriple> newQueryTriples = rule.evaluateRule(compressed_dependency_tree, query_triples.isEmpty());
 
 				if (newQueryTriples != null && !newQueryTriples.isEmpty()) {
 					query_triples.addAll(newQueryTriples);
@@ -78,8 +84,7 @@ public class RbQuestionAnalyzer {
 			}
 
 		} catch (Exception e) {
-			logger.error("Error in CasiaQuestionAnalyser.getQueryTriples("
-					+ question + ") :", e);
+			logger.error("Error in CasiaQuestionAnalyser.getQueryTriples(" + question + ") :", e);
 		}
 
 		query_triples.forEach(query_triple -> query_triple.replaceWhxx());
@@ -87,7 +92,7 @@ public class RbQuestionAnalyzer {
 		return query_triples;
 	}
 
-	private Collection<TypedDependency> mergeDependencyTree(
+	private Collection<TypedDependency> mergeTypedDependencies(
 			Collection<TypedDependency> dependency_tree,
 			HashMap<String, Boolean> grammatiacalRelationsToMerge) {
 		Collection<TypedDependency> merged_dependency_tree = new ArrayList<TypedDependency>(
@@ -116,55 +121,61 @@ public class RbQuestionAnalyzer {
 					}
 
 					// replace the new phrase in the other dependencies
-					for (TypedDependency typedDependency : merged_dependency_tree) {
-						// if (dependency.equals(typedDependency)) continue;
-
-						String rel = typedDependency.reln().toString();
-						String gov = typedDependency.gov().backingLabel()
-								.toString().toLowerCase();
-						String dep = typedDependency.dep().backingLabel()
-								.toString().toLowerCase();
-
-						// do not change relations which will be deleted
-						if (grammatiacalRelationsToMerge.containsKey(rel)) {
-							if (grammatiacalRelationsToMerge.get(rel))
-								continue;
-						}
-
-						String new_gov = new String(gov);
-						String new_dep = new String(dep);
-
-						if (contains(word1, gov)) {
-							new_gov = getNewWord(gov + " " + newWord);
-						}
-						if (contains(word2, gov)) {
-							new_gov = getNewWord(gov + " " + newWord);
-						}
-						if (contains(word1, dep)) {
-							new_dep = getNewWord(dep + " " + newWord);
-						}
-						if (contains(word2, dep)) {
-							new_dep = getNewWord(dep + " " + newWord);
-						}
-
-						// if the newly created words are the same, they are
-						// just overwriting themselfes
-						// therefore ignore them
-						if (new_gov.equalsIgnoreCase(new_dep)) {
-							// do nothing
-						} else {
-							typedDependency.setGov(new IndexedWord(new Word(
-									new_gov)));
-							typedDependency.setDep(new IndexedWord(new Word(
-									new_dep)));
-						}
-
-					}
+					replaceWithNewPhrase(merged_dependency_tree, newWord, word1, word2, grammatiacalRelationsToMerge);
+					
 				}
 			}
 		}
 		logger.info("Compressed Dependency Tree: " + merged_dependency_tree);
 		return merged_dependency_tree;
+	}
+
+	public void replaceWithNewPhrase(Collection<TypedDependency> merged_dependency_tree, String newWord, String word1, String word2, HashMap<String, Boolean> grammatiacalRelationsToMerge) {
+		for (TypedDependency typedDependency : merged_dependency_tree) {
+			// if (dependency.equals(typedDependency)) continue;
+
+			String rel = typedDependency.reln().toString();
+			String gov = typedDependency.gov().backingLabel()
+					.toString().toLowerCase();
+			String dep = typedDependency.dep().backingLabel()
+					.toString().toLowerCase();
+
+			// do not change relations which will be deleted
+			if (grammatiacalRelationsToMerge.containsKey(rel)) {
+				if (grammatiacalRelationsToMerge.get(rel))
+					continue;
+			}
+
+			String new_gov = new String(gov);
+			String new_dep = new String(dep);
+
+			if (contains(word1, gov)) {
+				new_gov = getNewWord(gov + " " + newWord);
+			}
+			if (contains(word2, gov)) {
+				new_gov = getNewWord(gov + " " + newWord);
+			}
+			if (contains(word1, dep)) {
+				new_dep = getNewWord(dep + " " + newWord);
+			}
+			if (contains(word2, dep)) {
+				new_dep = getNewWord(dep + " " + newWord);
+			}
+
+			// if the newly created words are the same, they are
+			// just overwriting themselfes
+			// therefore ignore them
+			if (new_gov.equalsIgnoreCase(new_dep)) {
+				// do nothing
+			} else {
+				typedDependency.setGov(new IndexedWord(new Word(
+						new_gov)));
+				typedDependency.setDep(new IndexedWord(new Word(
+						new_dep)));
+			}
+
+		}
+		
 	}
 
 	private boolean contains(String newtext, String oldtext) {
@@ -192,26 +203,7 @@ public class RbQuestionAnalyzer {
 		return newWord;
 	}
 
-	/**
-	 * Nested helper class to combine the splitted words in correct order.
-	 * 
-	 * @author Sebastian Bader (sebastian.bader@student.kit.edu)
-	 *
-	 */
-	private class PhraseComparator implements Comparator<String> {
-
-		public int compare(String o1, String o2) {
-			int number1 = Integer.parseInt(o1.split("-")[1]);
-			int number2 = Integer.parseInt(o2.split("-")[1]);
-
-			if (number1 > number2) {
-				return 1;
-			} else {
-				return -1;
-			}
-		}
-
-	}
+	
 
 	/**
 	 * Creates a Stanford Dependency Tree from the input question
@@ -248,13 +240,14 @@ public class RbQuestionAnalyzer {
 			// to DocumentPreprocessor
 
 			Tree parse = lp.apply(words.get(0));
-			// parse.pennPrint();
+			parse.pennPrint();
 
 			if (gsf != null) {
 				GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
+//				tdl = gs.typedDependencies();
 				tdl = gs.typedDependenciesCCprocessed();
 
-				logger.info("Dependency Tree: " + tdl);
+				logger.info("Typed Dependencies: " + tdl);
 			}
 
 		} catch (ClassCastException e) {

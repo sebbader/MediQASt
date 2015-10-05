@@ -151,6 +151,8 @@
 		<query><![CDATA[Which drugs contain acetylsalicylic acid?]]></query>
 		<sparql><![CDATA[select distinct ?uri where { ?uri a <http://dbpedia.org/ontology/Drug> .?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Aspirin> . }]]></sparql>
 		<answer>http://dbpedia.org/resource/Aspirin</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00945</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2244</answer>
 	</question>
 
 	<!-- cross database queries -->
@@ -161,6 +163,7 @@
 	</question>
 	
 	<question id="17" source="dbpedia and icd">
+		<!-- kann nicht gelöst werden, da http://dbpedia.org/resource/Bochdalek_hernia nicht im Datensatz liegt -->
 		<query><![CDATA[What are signs or symptoms of bochdalek hernia?]]></query>
 		<sparql><![CDATA[select distinct ?uri where { <http://dbpedia.org/resource/Bochdalek_hernia> <http://id.who.int/icd/icd/schema/signsAndSymptoms> ?uri .}]]></sparql>
 		<answer>"Hernia of abdominal cavity (disorder)"@en</answer>

@@ -2,31 +2,39 @@ package rulebased;
 
 public class RbCondition {
 
-	private String first;
-	private String second;
+	private String gov;
+	private String dep;
 	private String grammaticalRelation;
+	private boolean deleteAfterCompress;
 
-	public RbCondition(String grammaticalRelation, String first,
-			String second) {
-		this.setFirst(first);
-		this.setSecond(second);
+	public RbCondition(String grammaticalRelation, String gov,
+			String dep) {
+		this.setGov(gov);
+		this.setDep(dep);
 		this.setGrammaticalRelation(grammaticalRelation);
 	}
-
-	public String getFirst() {
-		return first;
+	
+	public RbCondition(String grammaticalRelation, String gov, String dep, boolean deleteAfterCompress) {
+		this.setGov(gov);
+		this.setDep(dep);
+		this.setGrammaticalRelation(grammaticalRelation);
+		this.setDeleteAfterCompress(deleteAfterCompress);
 	}
 
-	public void setFirst(String first) {
-		this.first = first;
+	public String getGov() {
+		return gov;
 	}
 
-	public String getSecond() {
-		return second;
+	public void setGov(String gov) {
+		this.gov = gov.trim();
 	}
 
-	public void setSecond(String second) {
-		this.second = second;
+	public String getDep() {
+		return dep;
+	}
+
+	public void setDep(String dep) {
+		this.dep = dep.trim();
 	}
 
 	public String getGrammaticalRelation() {
@@ -34,12 +42,20 @@ public class RbCondition {
 	}
 
 	public void setGrammaticalRelation(String grammaticalRelation) {
-		this.grammaticalRelation = grammaticalRelation;
+		this.grammaticalRelation = grammaticalRelation.trim();
 	}
 
 	@Override
 	public String toString() {
-		return this.grammaticalRelation + "(" + this.first + ", " + this.second
+		return this.grammaticalRelation + "(" + this.gov + ", " + this.dep
 				+ ")";
+	}
+
+	public boolean isDeleteAfterCompress() {
+		return deleteAfterCompress;
+	}
+
+	public void setDeleteAfterCompress(boolean deleteAfterCompress) {
+		this.deleteAfterCompress = deleteAfterCompress;
 	}
 }

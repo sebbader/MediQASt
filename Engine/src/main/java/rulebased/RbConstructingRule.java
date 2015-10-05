@@ -8,7 +8,7 @@ import java.util.List;
 
 import edu.stanford.nlp.trees.TypedDependency;
 
-public class RbRule {
+public class RbConstructingRule {
 
 	private List<RbCondition> conditions;
 	private List<RbImplication> implications;
@@ -105,7 +105,7 @@ public class RbRule {
 			if (!searched_relation.equalsIgnoreCase(reln))
 				continue;
 
-			if (condition.getFirst().equalsIgnoreCase("a")) {
+			if (condition.getGov().equalsIgnoreCase("first")) {
 				if (entity1 == null || entity1.equalsIgnoreCase(gov)) {
 					entity1 = gov;
 					numberOfHits++;
@@ -115,7 +115,7 @@ public class RbRule {
 
 					break;
 				}
-			} else if (condition.getFirst().equalsIgnoreCase("b")) {
+			} else if (condition.getGov().equalsIgnoreCase("second")) {
 				if (relation1 == null || relation1.equalsIgnoreCase(gov)) {
 					relation1 = gov;
 					numberOfHits++;
@@ -124,7 +124,7 @@ public class RbRule {
 					// return null;
 					break;
 				}
-			} else if (condition.getFirst().equalsIgnoreCase("c")) {
+			} else if (condition.getGov().equalsIgnoreCase("third")) {
 				if ((entity2 == null || entity2.equalsIgnoreCase(gov))
 						&& (relation2 == null || relation2
 								.equalsIgnoreCase(gov))) {
@@ -133,7 +133,7 @@ public class RbRule {
 					numberOfHits++;
 				}
 
-			} else if (condition.getFirst().equalsIgnoreCase("d")) {
+			} else if (condition.getGov().equalsIgnoreCase("fourth")) {
 				if (entity3 == null || entity3.equalsIgnoreCase(gov)) {
 					entity3 = gov;
 					numberOfHits++;
@@ -146,7 +146,7 @@ public class RbRule {
 
 			// -----------------------------------
 
-			if (condition.getSecond().equalsIgnoreCase("a")) {
+			if (condition.getDep().equalsIgnoreCase("first")) {
 				if (entity1 == null || entity1.equalsIgnoreCase(dep)) {
 					entity1 = dep;
 					numberOfHits++;
@@ -155,7 +155,7 @@ public class RbRule {
 					// return null;
 					break;
 				}
-			} else if (condition.getSecond().equalsIgnoreCase("b")) {
+			} else if (condition.getDep().equalsIgnoreCase("second")) {
 				if (relation1 == null || relation1.equalsIgnoreCase(dep)) {
 					relation1 = dep;
 					numberOfHits++;
@@ -164,7 +164,7 @@ public class RbRule {
 					// return null;
 					break;
 				}
-			} else if (condition.getSecond().equalsIgnoreCase("c")) {
+			} else if (condition.getDep().equalsIgnoreCase("third")) {
 				if ((entity2 == null || entity2.equalsIgnoreCase(dep))
 						&& (relation2 == null || relation2
 								.equalsIgnoreCase(dep))) {
@@ -173,7 +173,7 @@ public class RbRule {
 					numberOfHits++;
 				}
 
-			} else if (condition.getSecond().equalsIgnoreCase("d")) {
+			} else if (condition.getDep().equalsIgnoreCase("fourth")) {
 				if (entity3 == null || entity3.equalsIgnoreCase(dep)) {
 					entity3 = dep;
 					numberOfHits++;
@@ -216,21 +216,21 @@ public class RbRule {
 			if (!searched_relation.equalsIgnoreCase(reln))
 				continue;
 
-			if (condition.getFirst().equalsIgnoreCase("a")) {
+			if (condition.getGov().equalsIgnoreCase("first")) {
 				if (entity1 == null || entity1.equalsIgnoreCase(gov)) {
 					entity1 = gov;
 				} else {
 					// do nothing
 					// return null;
 				}
-			} else if (condition.getFirst().equalsIgnoreCase("b")) {
+			} else if (condition.getGov().equalsIgnoreCase("second")) {
 				if (relation1 == null || relation1.equalsIgnoreCase(gov)) {
 					relation1 = gov;
 				} else {
 					// do nothing
 					// return null;
 				}
-			} else if (condition.getFirst().equalsIgnoreCase("c")) {
+			} else if (condition.getGov().equalsIgnoreCase("third")) {
 				if (entity2 == null || entity2.equalsIgnoreCase(gov)) {
 					entity2 = gov;
 				} else {
@@ -241,21 +241,21 @@ public class RbRule {
 
 			// -----------------------------------
 
-			if (condition.getSecond().equalsIgnoreCase("a")) {
+			if (condition.getDep().equalsIgnoreCase("first")) {
 				if (entity1 == null || entity1.equalsIgnoreCase(dep)) {
 					entity1 = dep;
 				} else {
 					// do nothing
 					// return null;
 				}
-			} else if (condition.getSecond().equalsIgnoreCase("b")) {
+			} else if (condition.getDep().equalsIgnoreCase("second")) {
 				if (relation1 == null || relation1.equalsIgnoreCase(dep)) {
 					relation1 = dep;
 				} else {
 					// do nothing
 					// return null;
 				}
-			} else if (condition.getSecond().equalsIgnoreCase("c")) {
+			} else if (condition.getDep().equalsIgnoreCase("third")) {
 				if (entity2 == null || entity2.equalsIgnoreCase(dep)) {
 					entity2 = dep;
 				} else {
@@ -275,9 +275,9 @@ public class RbRule {
 
 	private List<QueryTriple> applyRegexRule(RbCondition condition,
 			TypedDependency dependency) {
-		String a = null;
-		String b = null;
-		String c = null;
+		String first = null;
+		String second = null;
+		String third = null;
 
 		String gov = dependency.gov().backingLabel().toString().toLowerCase();
 		String dep = dependency.dep().backingLabel().toString().toLowerCase();
@@ -288,42 +288,42 @@ public class RbRule {
 			return null;
 
 		// check if condition is formulated as regex
-		String first = condition.getFirst();
-		if (first.startsWith("\"")) {
+		String con_first = condition.getGov();
+		if (con_first.startsWith("\"")) {
 
 			// check if GOV matches regex, if not: abort
-			String con = ".*" + condition.getFirst().replace("\"", "") + ".*";
+			String con = ".*" + condition.getGov().replace("\"", "") + ".*";
 			if (!gov.matches(con))
 				return null;
 
-		} else if (condition.getFirst().equalsIgnoreCase("a")) {
-			// start of dependency is on place 'a' of triple <a, b, c>
-			a = gov;
-		} else if (condition.getFirst().equalsIgnoreCase("b")) {
-			// start of dependency is on place 'b' of triple <a, b, c>
-			b = gov;
-		} else if (condition.getFirst().equalsIgnoreCase("c")) {
-			// start of dependency is on place 'c' of triple <a, b, c>
-			c = gov;
+		} else if (condition.getGov().equalsIgnoreCase("first")) {
+			// start of dependency is on place 'first' of triple <first, second, third>
+			first = gov;
+		} else if (condition.getGov().equalsIgnoreCase("second")) {
+			// start of dependency is on place 'second' of triple <first, second, third>
+			second = gov;
+		} else if (condition.getGov().equalsIgnoreCase("third")) {
+			// start of dependency is on place 'third' of triple <first, second, third>
+			third = gov;
 		}
 		// check if condition is formulated as regex
-		String second = condition.getSecond();
-		if (second.startsWith("\"")) {
+		String con_second = condition.getDep();
+		if (con_second.startsWith("\"")) {
 
 			// check if DEP matches regex, if not: abort
-			String con = ".*" + condition.getSecond().replace("\"", "") + ".*";
+			String con = ".*" + condition.getDep().replace("\"", "") + ".*";
 			if (!dep.matches(con))
 				return null;
 
-		} else if (condition.getSecond().equalsIgnoreCase("a")) {
-			// end of dependency is on place 'a' of triple <a, b, c>
-			a = dep;
-		} else if (condition.getSecond().equalsIgnoreCase("b")) {
-			// end of dependency is on place 'b' of triple <a, b, c>
-			b = dep;
-		} else if (condition.getSecond().equalsIgnoreCase("c")) {
-			// end of dependency is on place 'c' of triple <a, b, c>
-			c = dep;
+		} else if (condition.getDep().equalsIgnoreCase("first")) {
+			// end of dependency is on place 'first' of triple <first, second, third>
+			first = dep;
+		} else if (condition.getDep().equalsIgnoreCase("second")) {
+			// end of dependency is on place 'second' of triple <first, second, third>
+			second = dep;
+		} else if (condition.getDep().equalsIgnoreCase("third")) {
+			// end of dependency is on place 'third' of triple <first, second, third>
+			third = dep;
 		}
 
 		List<QueryTriple> triples = new ArrayList<QueryTriple>();
@@ -334,28 +334,28 @@ public class RbRule {
 			String relation = implication.getRelation();
 			String entity2 = implication.getEntity2();
 
-			if (entity1.equalsIgnoreCase("a")) {
-				entity1 = a;
-			} else if (entity1.equalsIgnoreCase("b")) {
-				entity1 = b;
-			} else if (entity1.equalsIgnoreCase("c")) {
-				entity1 = c;
+			if (entity1.equalsIgnoreCase("first")) {
+				entity1 = first;
+			} else if (entity1.equalsIgnoreCase("second")) {
+				entity1 = second;
+			} else if (entity1.equalsIgnoreCase("third")) {
+				entity1 = third;
 			}
 
-			if (relation.equalsIgnoreCase("a")) {
-				relation = a;
-			} else if (relation.equalsIgnoreCase("b")) {
-				relation = b;
-			} else if (relation.equalsIgnoreCase("c")) {
-				relation = c;
+			if (relation.equalsIgnoreCase("first")) {
+				relation = first;
+			} else if (relation.equalsIgnoreCase("second")) {
+				relation = second;
+			} else if (relation.equalsIgnoreCase("third")) {
+				relation = third;
 			}
 
-			if (entity2.equalsIgnoreCase("a")) {
-				entity2 = a;
-			} else if (entity2.equalsIgnoreCase("b")) {
-				entity2 = b;
-			} else if (entity2.equalsIgnoreCase("c")) {
-				entity2 = c;
+			if (entity2.equalsIgnoreCase("first")) {
+				entity2 = first;
+			} else if (entity2.equalsIgnoreCase("second")) {
+				entity2 = second;
+			} else if (entity2.equalsIgnoreCase("third")) {
+				entity2 = third;
 			}
 
 			if (notEmpty(entity1) && notEmpty(relation) && notEmpty(entity2)) {

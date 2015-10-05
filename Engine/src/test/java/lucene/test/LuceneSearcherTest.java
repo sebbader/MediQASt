@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class LuceneSearcherTest {
 
-	private String text = "drug";// "DBABZHXKTCFAPX-UHFFFAOYAR";
+	private String text = "the amnesia";// "DBABZHXKTCFAPX-UHFFFAOYAR";
 
 	@Test
 	public void searchForEntityTest() throws CorruptIndexException,
@@ -34,8 +34,10 @@ public class LuceneSearcherTest {
 		LuceneSearcher searcher = new LuceneSearcher();
 
 		HashMap<String, String> param = new HashMap<String, String>();
-		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
 		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
+//		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");	
 
 		searcher.setNumberOfHits(50);
 		List<EntityCandidate> result = searcher.searchEntity(arg,
@@ -63,6 +65,8 @@ public class LuceneSearcherTest {
 		HashMap<String, String> param = new HashMap<String, String>();
 		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
 		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
+//		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");	
 
 		searcher.setNumberOfHits(20);
 		List<EntityCandidate> result = searcher.searchClass(arg,
@@ -89,6 +93,8 @@ public class LuceneSearcherTest {
 		HashMap<String, String> param = new HashMap<String, String>();
 		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
 		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
+//		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");		
 
 		List<RelationCandidate> result = searcher.searchRelation(rel,
 				new InputManagerImpl("", "", param));

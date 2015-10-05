@@ -61,7 +61,7 @@ public class LuceneSearcher {
 	public static final int maxNumberRelationLabels = 10;
 	public static final int maxNumberLemonLabels = 10;
 
-	private int numberOfHits = 10;
+	private int numberOfHits = 20;
 
 	public LuceneSearcher() {
 		ConfigManager configManager = new ConfigManagerImpl();
@@ -128,7 +128,7 @@ public class LuceneSearcher {
 		}
 
 		// prepare term for the Lucene searcher
-		term = "\"" + term + "\"";
+//		term = "\"" + term + "\"";
 		// term = term + "~";
 
 		switch (type) {
@@ -238,8 +238,7 @@ public class LuceneSearcher {
 					"LuceneStandardMapper:BoostPerfectMatch", true))
 				boost = 1;
 
-			float new_score = (float) (score * boost / Math
-					.sqrt(numberOfLabelsContainingTerm));
+			float new_score = (float) (score * boost / Math.sqrt(numberOfLabelsContainingTerm));
 
 			candidates.add(createCandidate(uri, new_score, label, keywords, type));
 		}

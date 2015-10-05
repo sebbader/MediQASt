@@ -22,8 +22,8 @@ public class LuceneIndexTest {
 	public void test() throws IOException, ParseException {
 
 		LuceneIndexer indexer = new LuceneIndexer();
-		 indexer.indexEntities();
-		// indexer.indexClasses();
+//		 indexer.indexEntities();
+		 indexer.indexClasses();
 		// indexer.indexRelations();
 		// indexer.indexLemonDict();
 	}

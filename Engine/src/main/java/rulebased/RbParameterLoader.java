@@ -33,10 +33,10 @@ public class RbParameterLoader {
 		this.logger = configManager.getLogger();
 	}
 
-	public List<RbRule> loadRules(String path) throws SAXException,
+	public List<RbConstructingRule> loadRules(String path) throws SAXException,
 			IOException, ParserConfigurationException, XPathExpressionException {
-		List<RbRule> rules = new ArrayList<RbRule>();
-		List<RbRule> defaultRules = new ArrayList<RbRule>();
+		List<RbConstructingRule> rules = new ArrayList<RbConstructingRule>();
+		List<RbConstructingRule> defaultRules = new ArrayList<RbConstructingRule>();
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
@@ -48,7 +48,7 @@ public class RbParameterLoader {
 		XPathExpression expr = xpath.compile("/rules/rule");
 		NodeList nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
 		for (int i = 0; i < nl.getLength(); i++) {
-			RbRule rule = new RbRule();
+			RbConstructingRule rule = new RbConstructingRule();
 
 			Node ruleNode = nl.item(i);
 
@@ -71,41 +71,41 @@ public class RbParameterLoader {
 						XPathConstants.NODESET);
 				String grammaticalRelation = gr.item(0).getTextContent();
 
-				expr = xpath.compile("first");
+				expr = xpath.compile("gov");
 				NodeList f = (NodeList) expr.evaluate(conditionsNL.item(j),
 						XPathConstants.NODESET);
-				String first = f.item(0).getTextContent();
+				String gov = f.item(0).getTextContent();
 
-				expr = xpath.compile("second");
+				expr = xpath.compile("dep");
 				NodeList s = (NodeList) expr.evaluate(conditionsNL.item(j),
 						XPathConstants.NODESET);
-				String second = s.item(0).getTextContent();
+				String dep = s.item(0).getTextContent();
 
 				rule.addCondition(new RbCondition(grammaticalRelation,
-						first, second));
+						gov, dep));
 			}
 
-			expr = xpath.compile("implies");
-			NodeList implificationNL = (NodeList) expr.evaluate(ruleNode,
+			expr = xpath.compile("implication");
+			NodeList implicationNL = (NodeList) expr.evaluate(ruleNode,
 					XPathConstants.NODESET);
-			for (int j = 0; j < implificationNL.getLength(); j++) {
+			for (int j = 0; j < implicationNL.getLength(); j++) {
 				try {
-					expr = xpath.compile("a");
+					expr = xpath.compile("first");
 					NodeList aNL = (NodeList) expr.evaluate(
-							implificationNL.item(j), XPathConstants.NODESET);
-					String a = aNL.item(0).getTextContent();
+							implicationNL.item(j), XPathConstants.NODESET);
+					String first = aNL.item(0).getTextContent();
 
-					expr = xpath.compile("b");
+					expr = xpath.compile("second");
 					NodeList bNL = (NodeList) expr.evaluate(
-							implificationNL.item(j), XPathConstants.NODESET);
-					String b = bNL.item(0).getTextContent();
+							implicationNL.item(j), XPathConstants.NODESET);
+					String second = bNL.item(0).getTextContent();
 
-					expr = xpath.compile("c");
+					expr = xpath.compile("third");
 					NodeList cNL = (NodeList) expr.evaluate(
-							implificationNL.item(j), XPathConstants.NODESET);
-					String c = cNL.item(0).getTextContent();
+							implicationNL.item(j), XPathConstants.NODESET);
+					String third = cNL.item(0).getTextContent();
 
-					rule.addImplication(new RbImplication(a, b, c));
+					rule.addImplication(new RbImplication(first, second, third));
 				} catch (NullPointerException e) {
 					logger.error(
 							"Error in CasiaParameterLoader: could not parse XML rule file: ",
@@ -124,8 +124,59 @@ public class RbParameterLoader {
 		logger.debug("CasiaParameterLoader - Found Rules: " + rules.toString());
 		return rules;
 	}
+	
+	public List<RbMergingRule> loadDualMergingRelations(String path)
+			throws ParserConfigurationException, SAXException, IOException,
+			XPathExpressionException {
+		List<RbMergingRule> rules = new ArrayList<RbMergingRule>();
 
-	public HashMap<String, Boolean> loadMergingRelations(String path)
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document doc = builder.parse(new File(path));
+		XPathFactory xPathfactory = XPathFactory.newInstance();
+		XPath xpath = xPathfactory.newXPath();
+
+		// get all rules
+		XPathExpression expr = xpath
+				.compile("//CombinedGrammaticalRelationsToMerge/mergeRule");
+		NodeList mergeRulesNodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+		for (int i = 0; i < mergeRulesNodeList.getLength(); i++) {
+			List<RbCondition> conditions = new ArrayList<RbCondition>();
+			
+			// load conditions
+			expr = xpath.compile("condition");
+			NodeList conditionsNL = (NodeList) expr.evaluate(mergeRulesNodeList.item(i), XPathConstants.NODESET);
+			for (int j = 0; j < conditionsNL.getLength(); j++) {
+				expr = xpath.compile("GrammaticalRelation");
+				NodeList gr = (NodeList) expr.evaluate(conditionsNL.item(j),
+						XPathConstants.NODESET);
+				String grammaticalRelation = gr.item(0).getTextContent();
+				boolean deleteAfterCompress = gr.item(0).getAttributes().item(0)
+						.getNodeValue().equalsIgnoreCase("true");
+
+				expr = xpath.compile("gov");
+				NodeList f = (NodeList) expr.evaluate(conditionsNL.item(j),
+						XPathConstants.NODESET);
+				String gov = f.item(0).getTextContent();
+
+				expr = xpath.compile("dep");
+				NodeList s = (NodeList) expr.evaluate(conditionsNL.item(j),
+						XPathConstants.NODESET);
+				String dep = s.item(0).getTextContent();
+
+				conditions.add(new RbCondition(grammaticalRelation, gov, dep, deleteAfterCompress));
+			}
+			
+			RbMergingRule rule = new RbMergingRule();
+			rule.setConditions(conditions);
+			rules.add( rule );
+
+		}
+		logger.debug("Found CombinedGrammaticalRelationsToMerge: " + rules.toString());
+		return rules;
+	}
+	
+	public HashMap<String, Boolean> loadSingularMergingRelations(String path)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
 		HashMap<String, Boolean> gr = new HashMap<String, Boolean>();

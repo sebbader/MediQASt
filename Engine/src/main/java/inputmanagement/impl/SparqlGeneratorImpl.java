@@ -81,8 +81,7 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 	}
 
 	@Override
-	public List<SparqlCandidate> getSparqlCanidates(
-			List<QueryTriple> queryTriples) throws GenerateSparqlException {
+	public List<SparqlCandidate> getSparqlCanidates(List<QueryTriple> queryTriples) throws GenerateSparqlException {
 		sparqlCandidates = new ArrayList<SparqlCandidate>();
 
 		// convert queryTriples to SparqlLineCandidates

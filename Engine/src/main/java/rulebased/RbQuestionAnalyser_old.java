@@ -85,13 +85,13 @@ public class RbQuestionAnalyser_old {
 
 		try {
 			HashMap<String, Boolean> grammatiacalRelationsToMerge = loader
-					.loadMergingRelations("../parameter/casia/casia-rules.xml");
+					.loadSingularMergingRelations("../parameter/casia/casia-rules.xml");
 			Collection<TypedDependency> compressed_dependency_tree = mergeDependencyTree(
 					dependency_tree, grammatiacalRelationsToMerge);
 
-			List<RbRule> rules = loader
+			List<RbConstructingRule> rules = loader
 					.loadRules("../parameter/casia/casia-rules.xml");
-			for (RbRule rule : rules) {
+			for (RbConstructingRule rule : rules) {
 				// QueryTriple queryTriple =
 				// rule.evaluateRule(compressed_dependency_tree,
 				// query_triples.isEmpty());

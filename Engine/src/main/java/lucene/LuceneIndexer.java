@@ -47,7 +47,7 @@ public class LuceneIndexer {
 		// Main.main(args);
 
 		String inputDir = configManager.getHome()
-				+ "rdf-files/classes/Classes_allDBs_allLiterals_sorted.nq";
+				+ "rdf-files/classes/Classes_allDBs_allLiterals_sorted_noCategories.nq";
 		String outputDir = configManager.getHome()
 				+ "lucene-index/classes_index";
 
