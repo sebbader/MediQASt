@@ -21,6 +21,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -39,14 +40,14 @@ public class App
 {
 	private Logger logger;
 	private InputManagerImpl manager;
-	private HashMap<String, Integer> evaluationResults;
+	private HashMap<String, EvaluationResult> evaluationResults;
 	private List<TestQuestion> testQuestions;
 	private HashMap<String, String> param;
-	
+
 	String endpoint = "http://aifb-ls3-vm8.aifb.kit.edu:8890/sparql";
-//	String endpoint = "http://localhost:8890/sparql";
-	
-//	private String path_to_testset = "TestQuestions/testquestions.xml";
+	//	String endpoint = "http://localhost:8890/sparql";
+
+	//	private String path_to_testset = "TestQuestions/testquestions.xml";
 	private String path_to_testset = "TestQuestions/testquestions2.xml";
 
 	public static void main( String[] args ) throws NumberFormatException, IOException
@@ -61,10 +62,11 @@ public class App
 
 	public App() throws IOException {
 		ConfigManager configManager = new ConfigManagerImpl();
+		ConfigManagerImpl.setLogLevel(Level.DEBUG);
 		configManager.loadProperties();
 		logger = configManager.getLogger();
 
-		evaluationResults = new HashMap<String, Integer>();
+		evaluationResults = new HashMap<String, EvaluationResult>();
 		try {
 			testQuestions = loadTestQuestions(path_to_testset);
 		} catch (Exception e) {
@@ -73,48 +75,49 @@ public class App
 
 		param = new HashMap<String, String>();
 		param.put("directSparqlPossible", "true");
-		
-//		param.put("questionAnalyser", "rulebased");
-//		
+
+		param.put("questionAnalyser", "rulebased");
+		//		
 		param.put("resourceMapper", "luceneStandard");
 		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-//		param.put("LuceneStandardMapper:Lemmatize", "true");
+		//		param.put("LuceneStandardMapper:Lemmatize", "true");
+		param.put("LuceneStandardMapper:StopwordRemoval", "true");
 		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
-//		param.put("considerRelationEnvironment", false);
+		//		param.put("considerRelationEnvironment", false);
 		param.put("findEntityAndClass", "true");
 		param.put("RelationManagerSimilarity", "Levenshtein");
-		
-		param.put("resourceMapper", "naive");
-		param.put("NaiveMapper:windows", "3");
-		param.put("NaiveMapper:threshold", "0.5");
-		param.put("NaiveMapper:filter", "true");
-		
-		
-//		param.put("questionAnalyser", "RdfGroundedString");
-//		param.put("resourceMapper", "RdfGroundedString");
-//		param.put("findEntityAndClass", "true");
-//		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");
-		
+
+		//		param.put("resourceMapper", "naive");
+		//		param.put("NaiveMapper:windows", "3");
+		//		param.put("NaiveMapper:threshold", "0.5");
+		//		param.put("NaiveMapper:filter", "true");
+
+
+		//		param.put("questionAnalyser", "RdfGroundedString");
+		//		param.put("resourceMapper", "RdfGroundedString");
+		//		param.put("findEntityAndClass", "true");
+		//		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+		//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");
+
 		param.put("sparqlGenerator", "standard");
 		param.put("NumberOfSparqlCandidates", "30");
 		param.put("SparqlLimit", "100");
 		param.put("numberOfTriplesPerSparql", "2");
 		param.put("sparqlOption", "greedy");
-		
+
 		param.put("KeyWordQuestionThreshold", "0.5");
 	}
 
 	public void startEvaluationOfAllQuestions() throws IOException {
-		
+
 		printParameter(param);
-		
+
 		int counter = 0;
 		for (TestQuestion testQuestion : testQuestions) {
 			evaluateTestQuestion(testQuestion, counter);
 			counter++;
 		}
-		
+
 		printEvaluation(evaluationResults);
 	}
 
@@ -124,7 +127,7 @@ public class App
 		logger.info("-------------------------------------------------------------");
 		logger.info("Parameter Set: ");
 		logger.info("-------------------------------------------------------------");
-		
+
 		Iterator<Entry<String, String>> iter = parameter.entrySet().iterator();
 		while (iter.hasNext()) {
 			Entry<String, String> entry = iter.next();
@@ -147,14 +150,26 @@ public class App
 		logger.info("-------------------------------------------------------------");
 		logger.info("Evaluate query #" + number + ": " + testQuestion.getNaturalQuestion());
 		logger.info("-------------------------------------------------------------");
+
 		try {
 			List<SparqlCandidate> sparqlList = manager.generateSparql();
-			for (SparqlCandidate candidate : sparqlList) {
-				List<String> result = manager.executeSparql(candidate.getSparqlQuery());
-				candidate.addSolution( result );
-			}
-			int pos = getPositionOfCorrectSparql(sparqlList, testQuestion.getCorrectAnswers());
-			evaluationResults.put(number + ": " + testQuestion.getNaturalQuestion(), pos);
+			List<String> results = new ArrayList<String>();
+//			for (SparqlCandidate candidate : sparqlList) {
+//				List<String> result = manager.executeSparql(candidate.getSparqlQuery());
+//				candidate.addSolution( result );
+//				results.addAll(result);
+//			}
+			
+			results = manager.executeSparqlSet(sparqlList);
+			logger.info("----------------------------------");
+			logger.info("received results:");
+			results.forEach(result -> logger.info(result));
+			logger.info("----------------------------------");
+			
+			List<String> true_positives = getTruePositives(results, testQuestion.getCorrectAnswers());
+
+			EvaluationResult evaluationResult = new EvaluationResult(true_positives, results, testQuestion.getCorrectAnswers());
+			evaluationResults.put(number + ": " + testQuestion.getNaturalQuestion(), evaluationResult);
 		} catch (GenerateSparqlException e) {
 			logger.error("ERROR: ", e);
 		}
@@ -214,31 +229,28 @@ public class App
 	 * @param sparqlList
 	 * @return
 	 */
-	private int getPositionOfCorrectSparql(List<SparqlCandidate> sparqlList, List<String> correctAnswers) {
-		int positionOfCorrectSparqlCandidate = Integer.MAX_VALUE;
-		String result = "";
+	private List<String> getTruePositives(List<String> results, List<String> correctAnswers) {
+		List<String> truePositives = new ArrayList<String>();
+		int counter = 0;
 
-		for (int i = 0; i < sparqlList.size(); i++) {
-			List<String> solutions = sparqlList.get(i).getSolutions();
-			int postitionOfCorrectAnswer = Integer.MAX_VALUE;
-			for (int j = 0; j < solutions.size(); j++) {
-				for (String corAnswer : correctAnswers ) {
-					if (solutions.get(j).equalsIgnoreCase(corAnswer)) {
-						logger.info("found correct answer at position " + (j + 1) + " of SPARQL query #" + (i + 1));
 
-						// only return the best found position
-						if (i + 1 < positionOfCorrectSparqlCandidate) positionOfCorrectSparqlCandidate = i + 1;
-						if (j + 1 < postitionOfCorrectAnswer) postitionOfCorrectAnswer = j + 1;
-					}
+		for (int j = 0; j < results.size(); j++) {
+			for (String corAnswer : correctAnswers ) {
+				counter++;
+				if (results.get(j).equalsIgnoreCase(corAnswer)) {
+					logger.info("found correct answer at position #" + counter);
+					logger.info("position " + (j + 1) + ":" + corAnswer);
+
+					truePositives.add(results.get(j));
 				}
 			}
 		}
-		if (positionOfCorrectSparqlCandidate == Integer.MAX_VALUE) logger.info("could not find any correct answers");
-		return positionOfCorrectSparqlCandidate;
+		if (truePositives.isEmpty()) logger.warn("Could not find any correct answer!");
+		return truePositives;
 	}
 
 
-	private void printEvaluation(HashMap<String, Integer> evaluationResults) {
+	private void printEvaluation(HashMap<String, EvaluationResult> evaluationResults) {
 		int[] correctResultsDistrinution = new int[12];
 
 		logger.warn("");
@@ -246,30 +258,43 @@ public class App
 		logger.warn("Evaluation:");
 		logger.warn("-------------------------------------------------");
 
-		Iterator<Entry<String, Integer>> iterator = evaluationResults.entrySet().iterator();
+		Iterator<Entry<String, EvaluationResult>> iterator = evaluationResults.entrySet().iterator();
+		List<Double> precisions = new ArrayList<Double>();
+		List<Double> recalls = new ArrayList<Double>();
+		List<Double> fMeasures = new ArrayList<Double>();
 		while (iterator.hasNext()) {
-			Entry<String, Integer> entry = iterator.next();
-			if (entry.getValue() < Integer.MAX_VALUE) {
-				logger.warn("Query '" + entry.getKey() + "' has correct SPARQL at position " + entry.getValue());
-				if (entry.getValue() < 10) {
-					correctResultsDistrinution[entry.getValue()] += 1;
-				} else {
-					correctResultsDistrinution[11] += 1;
-				}
-			} else {
-				logger.warn("Query '" + entry.getKey() + "' has no answer.");
-				correctResultsDistrinution[0] += 1;
-			}
+			Entry<String, EvaluationResult> entry = iterator.next();
+
+			double precision = entry.getValue().getPrecision();
+			double recall = entry.getValue().getRecall();
+			double fMeasure = entry.getValue().getFMeasure();
+
+			// results for each test question
+			precisions.add(precision);
+			recalls.add(recall);
+			fMeasures.add(fMeasure);
+			logger.warn(entry.getKey() + " has result:");
+			logger.warn("Precision " + precision + " | Recall " + recall + " | F-Measure " + fMeasure);
 		}
 
-		// also show the distribution of top 10 positions
-		for (int i = 1; i <= 10; i++) {
-			logger.warn("Number of Test Questions with correct SPARQL at position " + i + ": " + correctResultsDistrinution[i] );
-		}
-		logger.warn("Number of Test Questions with correct SPARQL at position above 10: " + correctResultsDistrinution[11] );
-		logger.warn("Number of Test Questions with NO correct SPARQL: " + correctResultsDistrinution[0] );
+		// return the average results
+		double avg_precision = getAverage(precisions);
+		double avg_recall = getAverage(recalls);
+		double avg_fMeasure = getAverage(fMeasures);
+
+		logger.warn("-------------------------------------------------");
+		logger.warn("Average results:");
+		logger.warn("Precision " + avg_precision + " | Recall " + avg_recall + " | F-Measure " + avg_fMeasure);
 		logger.warn("-------------------------------------------------");
 		logger.warn("");
+	}
+
+	private double getAverage(List<Double> list) {
+		double sum = 0;
+		for (Double value : list) {
+			sum += value;
+		}
+		return sum / ((double) list.size());
 	}
 
 }

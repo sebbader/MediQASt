@@ -472,12 +472,6 @@ several
 shall
 she
 should
-show
-showed
-showing
-shows
-side
-sides
 since
 small
 smaller
@@ -505,9 +499,7 @@ these
 they
 thing
 things
-
 think
-
 thinks
 this
 those

@@ -75,7 +75,7 @@ public class InputManagerImpl implements InputManager {
 		configManager = new ConfigManagerImpl();
 		configManager.loadProperties();
 		logger = configManager.initLogger();
-		
+
 		logger.info("Start converting NL to SPARQL");
 
 		this.inputQuestion = inputQuestion;
@@ -430,7 +430,7 @@ public class InputManagerImpl implements InputManager {
 
 	@Override
 	public List<String> executeSparql(String query) throws QueryParseException,
-			QueryException {
+	QueryException {
 
 		ResultSet rs = endpointConnector.executeQuery(query);
 		List<String> results = new ArrayList<String>();
@@ -439,6 +439,30 @@ public class InputManagerImpl implements InputManager {
 			QuerySolution qs = rs.next();
 			if (qs.get("uri") != null)
 				results.add(qs.get("uri").toString());
+		}
+
+		return results;
+	}
+
+	@Override
+	public List<String> executeSparqlSet(List<SparqlCandidate> sparqlCandidates) throws QueryParseException,
+	QueryException {
+
+		List<String> results = new ArrayList<String>();
+		
+		for (SparqlCandidate candidate : sparqlCandidates) {
+			ResultSet rs = endpointConnector.executeQuery(candidate.getSparqlQuery());
+
+			logger.debug(candidate + " returns results:");
+			
+			while (rs.hasNext()) {
+				QuerySolution qs = rs.next();
+				if (qs.get("uri") != null) {
+					String new_uri = qs.get("uri").toString();
+					logger.debug(new_uri);
+					if (!results.contains(new_uri)) results.add(new_uri);
+				}
+			}
 		}
 
 		return results;

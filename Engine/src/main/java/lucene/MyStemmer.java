@@ -41,6 +41,18 @@ public class MyStemmer {
 		}
 	}
 
+	public String removeStopwords(String phrase) {
+		String core_phrase = "";
+		
+		for (String str : phrase.split(" ")) {
+			if (!stop_words.contains(str)) {
+				core_phrase = core_phrase.concat(" ").concat(str);
+			}
+		}
+		return core_phrase.trim();
+	}
+	
+	
 	public String doRemoveStopwordsStemming(String phrase) {
 		String core_phrase = "";
 

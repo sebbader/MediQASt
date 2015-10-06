@@ -42,7 +42,7 @@ public class LuceneSearcher {
 
 	private Logger logger;
 	private ConfigManager configManager = new ConfigManagerImpl();
-	
+
 	private final String entitiesIndex = configManager.getHome()
 			+ "lucene-index/entities_index/lucene";
 	private final String relationsIndex = configManager.getHome()
@@ -119,16 +119,21 @@ public class LuceneSearcher {
 		term = term.replaceAll("\\-[0-9]+_", " ").replaceAll("\\-[0-9]+", "");
 		term = term.replace(" 's ", "'s ");
 		String original_term = term.toLowerCase();
-		
-		
+
 		// lemmatize if needed
 		if (inputManager.isActiveOption("LuceneStandardMapper:Lemmatize", "true") ) {
 			StanfordLemmatizer lemmatizer = inputManager.getLemmatizer();
 			term = lemmatizer.lemmatize(term);
 		}
 
+		// remove stopwords
+		if (inputManager.isActiveOption("LuceneStandardMapper:StopwordRemoval", "true") ) {
+			MyStemmer stemmer = new MyStemmer();
+			term = stemmer.removeStopwords(term);
+		}
+		
 		// prepare term for the Lucene searcher
-//		term = "\"" + term + "\"";
+		//		term = "\"" + term + "\"";
 		// term = term + "~";
 
 		switch (type) {
@@ -204,7 +209,7 @@ public class LuceneSearcher {
 									.contains(words[i])) {
 								numberOfLabelsContainingTerm++;
 							}
-//							String test = f.stringValue();
+							//							String test = f.stringValue();
 							// boost in case of a partial match
 							if (f.stringValue().equalsIgnoreCase(words[i])) {
 								boost += 1;

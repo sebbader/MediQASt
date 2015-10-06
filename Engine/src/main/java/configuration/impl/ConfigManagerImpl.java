@@ -22,6 +22,7 @@ public class ConfigManagerImpl implements ConfigManager {
 
 	private static Logger logger;
 	private static String home;
+	private static Level logLevel;
 
 	@Override
 	public boolean indexEntities() {
@@ -62,32 +63,40 @@ public class ConfigManagerImpl implements ConfigManager {
 	@Override
 	public Logger initLogger() {
 		try {
+			if (logger != null) {
+				//logger is already initialized
+				return logger;
+			}
+			
 			PatternLayout layout = new PatternLayout();
 			layout.setConversionPattern("[%p] %d %C %M - %m%n");
+			
+			//logger = Logger.getLogger("MediQAStLogger");
+			logger = Logger.getRootLogger();
 
-			try {
-				logger.getAllAppenders().nextElement();
-			} catch (NoSuchElementException | NullPointerException | LinkageError e) {
-				logger = Logger.getLogger("MediQAStLogger");
+			// add appenders for console and log file if and only if no one
+			// has been created yet
+			ConsoleAppender consoleAppender = new ConsoleAppender(layout);
+			logger.addAppender(consoleAppender);
 
-				// add appenders for console and log file if and only if no one
-				// has been created yet
-				ConsoleAppender consoleAppender = new ConsoleAppender(layout);
-				logger.addAppender(consoleAppender);
+			Date date = new Date();
+			@SuppressWarnings("deprecation")
+			FileAppender fileAppender = new FileAppender(layout,
+					ConfigManagerImpl.home + "logs/MediQASt-"
+							+ date.toLocaleString().replace(" ", "_")
+							.replace(":", "-") + ".log", true);
+			logger.addAppender(fileAppender);
 
-				Date date = new Date();
-				@SuppressWarnings("deprecation")
-				FileAppender fileAppender = new FileAppender(layout,
-						ConfigManagerImpl.home + "logs/MediQASt-"
-								+ date.toLocaleString().replace(" ", "_")
-										.replace(":", "-") + ".log", true);
-				logger.addAppender(fileAppender);
+			if (ConfigManagerImpl.logLevel == null) {
+				//default log level
+				ConfigManagerImpl.logLevel = Level.INFO;
+				logger.setLevel(ConfigManagerImpl.logLevel);
+			} else {
+				logger.setLevel(ConfigManagerImpl.logLevel);
 			}
-
-			logger.setLevel(Level.INFO);
 		} catch (Exception ex) {
 			System.out
-					.println("Error: Could not initialize Logger. Terminate Application.");
+			.println("Error: Could not initialize Logger. Terminate Application.");
 			System.out.println(ex);
 			System.exit(1);
 		}
@@ -110,14 +119,14 @@ public class ConfigManagerImpl implements ConfigManager {
 	@Override
 	public String getHome() {
 		if (ConfigManagerImpl.home == null) {
-			
+
 			try {
 				loadProperties();
 			} catch (IOException e) {
 				logger.error("Could not read 'config.properties'.", e);
 			}
 		}
-		
+
 		return ConfigManagerImpl.home;
 	}
 
@@ -125,32 +134,40 @@ public class ConfigManagerImpl implements ConfigManager {
 	public void loadProperties() throws IOException {
 		Properties properties = new Properties();
 		InputStream inputStream = null;
-		
+
 		try {
-	 
-	        System.out.println("Your dir to place 'config.properties': " + System.getProperty("user.dir"));
-	        
+
+			System.out.println("Your dir to place 'config.properties': " + System.getProperty("user.dir"));
+
 			inputStream = new FileInputStream("config.properties");
-			
+
 			properties.load(inputStream);
-			
+
 			ConfigManagerImpl.home = properties.getProperty("home_dir");
 			if (!ConfigManagerImpl.home.endsWith("/")){
 				ConfigManagerImpl.home = ConfigManagerImpl.home + "/";
 			}
-			
+
 		} catch (IOException e) {
-			
+
 			String errorText = "Could not load 'config.properties'. Please check if file exists and format is correct.";
 			if (logger != null) {
 				logger.error(errorText, e);
 			} else {
 				System.err.println(errorText);
 			}
-			
+
 			throw e;
 		}
-		
+
+	}
+
+	public static Level getLogLevel() {
+		return logLevel;
+	}
+
+	public static void setLogLevel(Level logLevel) {
+		ConfigManagerImpl.logLevel = logLevel;
 	}
 
 }

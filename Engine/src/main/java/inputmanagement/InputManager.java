@@ -42,6 +42,10 @@ public interface InputManager {
 	public List<String> executeSparql(String query) throws QueryParseException,
 			QueryException;
 
+	public List<String> executeSparqlSet(List<SparqlCandidate> sparqlCandidates)
+			throws QueryParseException, QueryException;
+	
+	
 	/**
 	 * adds a parameter map to the InputManager possible parameters are: -
 	 * "directSparqlPossible" : true/false the input question can be treated as
@@ -92,5 +96,6 @@ public interface InputManager {
 	 * @return
 	 */
 	public StanfordLemmatizer getLemmatizer();
+
 
 }
