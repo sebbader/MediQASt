@@ -21,7 +21,7 @@ public class LuceneIndexer {
 		// Main.main(args);
 
 		String inputDir = configManager.getHome()
-				+ "rdf-files/entities/Instances_allDBs_LabelsNamesAndIdentifiers.nq";
+				+ "rdf-files/entities/Instances_certainIdentifier.nq";
 		String outputDir = configManager.getHome()
 				+ "lucene-index/entities_index";
 
@@ -30,8 +30,8 @@ public class LuceneIndexer {
 		// options += " -X";
 		options += " -i " + inputDir;
 		options += " -o " + outputDir;
-		options += " -n " + LuceneSearcher.maxNumberEntityLabels;
 		options += " -F " + 50;
+		options += " -B ";
 
 		// run /nxindexer/src/com/ontologycentral/nxindexer/cli/BuildIndex.java
 		BuildIndex.main(options.split(" "));
@@ -56,8 +56,8 @@ public class LuceneIndexer {
 		// options += " -X";
 		options += " -i " + inputDir;
 		options += " -o " + outputDir;
-		options += " -n " + LuceneSearcher.maxNumberClassLabels;
 		options += " -F " + 50;
+		options += " -B ";
 
 		// run /nxindexer/src/com/ontologycentral/nxindexer/cli/BuildIndex.java
 		BuildIndex.main(options.split(" "));
@@ -82,8 +82,8 @@ public class LuceneIndexer {
 		// options += " -X";
 		options += " -i " + inputDir;
 		options += " -o " + outputDir;
-		options += " -n " + LuceneSearcher.maxNumberRelationLabels;
 		options += " -F " + 50;
+		options += " -B ";
 
 		// run /nxindexer/src/com/ontologycentral/nxindexer/cli/BuildIndex.java
 		BuildIndex.main(options.split(" "));

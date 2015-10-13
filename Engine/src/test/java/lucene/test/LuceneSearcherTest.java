@@ -10,13 +10,64 @@ import java.util.List;
 
 import lucene.LuceneSearcher;
 
+import org.apache.log4j.Level;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.junit.Before;
 import org.junit.Test;
+
+import configuration.ConfigManager;
+import configuration.impl.ConfigManagerImpl;
 
 public class LuceneSearcherTest {
 
-	private String text = "the amnesia";// "DBABZHXKTCFAPX-UHFFFAOYAR";
+	HashMap<String, String> param = new HashMap<String, String>();
+	
+//	private String text = "cancer";
+//	 private String text = "athlete's foot";
+//	 private String text = "lung cancer";
+//	 private String text = "side effect"; 
+	 private String text = "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"; 	
+
+
+	@Before
+	public void prepare() {
+		ConfigManagerImpl.setLogLevel(Level.INFO);
+		
+		param.put("resourceMapper", "luceneStandard");
+		param.put("findEntityAndClass", "true");
+		param.put("RelationManagerSimilarity", "Levenshtein");
+		
+//		param.put("LuceneStandardMapper:QueryType", "standard");
+//		param.put("LuceneStandardMapper:QueryType", "boolean");
+//		param.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
+		
+		param.put("LuceneStandardMapper:AdjustFieldNorm", "true");
+//		param.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+		
+//		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+		
+//		param.put("LuceneStandardMapper:Lemmatize", "true");
+		param.put("LuceneStandardMapper:Lemmatize", "false");
+		
+//		param.put("LuceneStandardMapper:StopwordRemoval", "true");
+		param.put("LuceneStandardMapper:StopwordRemoval", "false");
+		
+		param.put("LuceneStandardMapper:SearchPerfect", "only");
+//		param.put("LuceneStandardMapper:SearchPerfect", "also");
+//		param.put("LuceneStandardMapper:SearchPerfect", "no");
+		
+		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
+//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");
+		
+//		param.put("considerRelationEnvironment", false);
+		
+		param.put("LuceneStandardMapper:FuzzySearch", "true");
+//		param.put("LuceneStandardMapper:FuzzySearch", "false");
+		
+		param.put("LuceneStandardMapper:FuzzyParam", "1");
+	}
 
 	@Test
 	public void searchForEntityTest() throws CorruptIndexException,
@@ -30,16 +81,12 @@ public class LuceneSearcherTest {
 		// String arg = "Hirschfeld";
 		// String arg = "acetylsalicylic acid";
 		String arg = text;
+		
 
 		LuceneSearcher searcher = new LuceneSearcher();
 
-		HashMap<String, String> param = new HashMap<String, String>();
-		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
-//		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");	
 
-		searcher.setNumberOfHits(50);
+		searcher.setNumberOfHits(20);
 		List<EntityCandidate> result = searcher.searchEntity(arg,
 				new InputManagerImpl("", "", param));
 
@@ -62,11 +109,6 @@ public class LuceneSearcherTest {
 
 		LuceneSearcher searcher = new LuceneSearcher();
 
-		HashMap<String, String> param = new HashMap<String, String>();
-		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
-//		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");	
 
 		searcher.setNumberOfHits(20);
 		List<EntityCandidate> result = searcher.searchClass(arg,
@@ -89,12 +131,7 @@ public class LuceneSearcherTest {
 		String rel = text;
 
 		LuceneSearcher searcher = new LuceneSearcher();
-
-		HashMap<String, String> param = new HashMap<String, String>();
-		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
-//		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");		
+	
 
 		List<RelationCandidate> result = searcher.searchRelation(rel,
 				new InputManagerImpl("", "", param));

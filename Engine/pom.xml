@@ -99,7 +99,9 @@
 		<dependency>
 			<groupId>nxindexer</groupId>
 			<artifactId>nxindexer</artifactId>
-			<version>0.9</version>
+			<version>0.9.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/../nxindexer/target/nxindexer-0.9.1.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>nxparser</groupId>

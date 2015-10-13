@@ -80,10 +80,11 @@ public class App
 		//		
 		param.put("resourceMapper", "luceneStandard");
 		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-		//		param.put("LuceneStandardMapper:Lemmatize", "true");
+//		param.put("LuceneStandardMapper:Lemmatize", "true");
 		param.put("LuceneStandardMapper:StopwordRemoval", "true");
+		param.put("LuceneStandardMapper:SearchPerfect", "also");
 		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
-		//		param.put("considerRelationEnvironment", false);
+//		param.put("considerRelationEnvironment", false);
 		param.put("findEntityAndClass", "true");
 		param.put("RelationManagerSimilarity", "Levenshtein");
 
@@ -100,12 +101,12 @@ public class App
 		//		param.put("LuceneStandardMapper:DivideByOccurrence", "false");
 
 		param.put("sparqlGenerator", "standard");
-		param.put("NumberOfSparqlCandidates", "30");
-		param.put("SparqlLimit", "100");
+		param.put("NumberOfSparqlCandidates", "10");
+		param.put("SparqlLimit", "10");
 		param.put("numberOfTriplesPerSparql", "2");
 		param.put("sparqlOption", "greedy");
 
-		param.put("KeyWordQuestionThreshold", "0.5");
+		param.put("KeyWordQuestionThreshold", "0.4");
 	}
 
 	public void startEvaluationOfAllQuestions() throws IOException {
@@ -270,7 +271,7 @@ public class App
 			double fMeasure = entry.getValue().getFMeasure();
 
 			// results for each test question
-			precisions.add(precision);
+			precisions.add( precision);
 			recalls.add(recall);
 			fMeasures.add(fMeasure);
 			logger.warn(entry.getKey() + " has result:");
@@ -292,7 +293,8 @@ public class App
 	private double getAverage(List<Double> list) {
 		double sum = 0;
 		for (Double value : list) {
-			sum += value;
+			if (!value.isNaN())
+				sum += value.doubleValue();
 		}
 		return sum / ((double) list.size());
 	}

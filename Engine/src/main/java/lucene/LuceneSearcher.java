@@ -7,6 +7,7 @@ import inputmanagement.candidates.impl.EntityCandidate;
 import inputmanagement.candidates.impl.GeneralCandidate;
 import inputmanagement.candidates.impl.RelationCandidate;
 import inputmanagement.impl.CustomComparator;
+import inputmanagement.impl.GenerateSparqlException;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -22,16 +24,32 @@ import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexableField;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.analyzing.AnalyzingQueryParser;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.queryparser.complexPhrase.ComplexPhraseQueryParser;
+import org.apache.lucene.queryparser.xml.builders.DisjunctionMaxQueryBuilder;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.DisjunctionMaxQuery;
+import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.PhraseQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.similarities.DefaultSimilarity;
+import org.apache.lucene.search.similarities.Similarity;
+import org.apache.lucene.search.spans.SpanTermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.netlib.util.booleanW;
 
+import com.hp.hpl.jena.sparql.function.library.max;
+import com.ontologycentral.nxindexer.keyword.KeywordIndexWriter;
 import com.ontologycentral.nxindexer.keyword.KeywordSearcher;
 
 import configuration.ConfigManager;
@@ -107,35 +125,8 @@ public class LuceneSearcher {
 		int maxLabels = Integer.MAX_VALUE;
 		List<Candidate> candidates = new ArrayList<Candidate>();
 
-		// handle empty input parameters
-		if (input_term == null)
-			return candidates;
-		if (input_term.equalsIgnoreCase(""))
-			return candidates;
 
-		String term = input_term;
-
-		// clean term
-		term = term.replaceAll("\\-[0-9]+_", " ").replaceAll("\\-[0-9]+", "");
-		term = term.replace(" 's ", "'s ");
-		String original_term = term.toLowerCase();
-
-		// lemmatize if needed
-		if (inputManager.isActiveOption("LuceneStandardMapper:Lemmatize", "true") ) {
-			StanfordLemmatizer lemmatizer = inputManager.getLemmatizer();
-			term = lemmatizer.lemmatize(term);
-		}
-
-		// remove stopwords
-		if (inputManager.isActiveOption("LuceneStandardMapper:StopwordRemoval", "true") ) {
-			MyStemmer stemmer = new MyStemmer();
-			term = stemmer.removeStopwords(term);
-		}
-		
-		// prepare term for the Lucene searcher
-		//		term = "\"" + term + "\"";
-		// term = term + "~";
-
+		// load index
 		switch (type) {
 		case CANDIDATE:
 			indexDir = new File(lemonDictionaryIndex);
@@ -157,24 +148,168 @@ public class LuceneSearcher {
 			throw new InvalidParameterException(
 					"Wrong type parameter. Only 0=CANDIDATE, 1=ENTITY, 2=CLASS or 3=RELATION are permitted.");
 		}
-
 		StandardAnalyzer analyzer = new StandardAnalyzer();
 		Path indexPath = indexDir.toPath();
-
 		Directory fsDir = FSDirectory.open(indexPath);
 		IndexReader reader = DirectoryReader.open(fsDir); // .open(indexPath);
 		IndexSearcher searcher = new IndexSearcher(reader);
-		// Similarity sim = new CustomSimilarity();
-		// searcher.setSimilarity(sim);
+
+
+
 
 		// every literal is stored in its own label
 		// therefore a variable number of fields exists,
 		// naming: "labels1", "labels2", ... , "labels<maxLabels>"
 		String[] labels = getLabelsArray(maxLabels);
-		QueryParser queryParser = new MultiFieldQueryParser(labels, analyzer);
+		Similarity sim = new CustomSimilarity();
+		searcher.setSimilarity(sim);
 
-		// create the query
-		Query q = queryParser.parse(term);
+
+
+
+		// handle empty input parameters
+		if (input_term == null) {
+			analyzer.close();
+			return candidates;
+		} else if (input_term.equalsIgnoreCase("")) {
+			analyzer.close();
+			return candidates;
+		}
+
+		// clean term
+		String term = input_term;
+		term = term.replaceAll("\\-[0-9]+_", " ").replaceAll("\\-[0-9]+", "");
+		term = term.replace(" 's ", "'s ");
+		String original_term = term.toLowerCase();
+
+
+		//
+		// handle search Parameter
+		//
+		// lemmatize if needed
+		String query_term = term.toLowerCase();
+		if (inputManager.isActiveOption("LuceneStandardMapper:Lemmatize", "true") ) {
+			StanfordLemmatizer lemmatizer = inputManager.getLemmatizer();
+			query_term = lemmatizer.lemmatize(query_term);
+		}
+
+		// remove stopwords
+		if (inputManager.isActiveOption("LuceneStandardMapper:StopwordRemoval", "true") ) {
+			MyStemmer stemmer = new MyStemmer();
+			query_term = stemmer.removeStopwords(query_term);
+		}
+
+		// prepare term for the Lucene searcher by telling Lucene to apply AND for the words of 'term'
+		boolean searchPerfectOnly = false;
+		boolean searchPerfectAlso = false;
+		boolean searchPerfectNo = false;
+		if (inputManager.isActiveOption("LuceneStandardMapper:SearchPerfect", "only") ) {
+			searchPerfectOnly = true;
+			query_term = "\"" + query_term + "\"";
+		} else if (inputManager.isActiveOption("LuceneStandardMapper:SearchPerfect", "also") ) {
+			searchPerfectAlso = true;
+			String[] query_words = query_term.split(" ");
+			if (query_words.length > 1) {
+				query_term = "\"" + query_term + "\" ";
+				for (int i = 0; i < query_words.length; i++) {
+					query_term += "\"" + query_words[i] + "\" ";
+				}
+				query_term = query_term.trim();
+			} else {
+				query_term = "\"" + query_term + "\"";
+			}
+		} if (inputManager.isActiveOption("LuceneStandardMapper:SearchPerfect", "no") ) {
+			searchPerfectNo = true;
+		}
+
+
+		// prepare term for the Lucene searcher by telling Lucene to apply AND for the words of 'term'
+		boolean fuzzySearch = false;
+		String fuzzyParam = "0";
+		if (inputManager.isActiveOption("LuceneStandardMapper:FuzzySearch", "true") ) {
+			fuzzySearch = true;
+			try {
+				fuzzyParam = inputManager.getOption("LuceneStandardMapper:FuzzyParam");
+				String fuzzy_query = "";
+
+				if (searchPerfectOnly) {
+					fuzzy_query += query_term + "~" + fuzzyParam + " ";
+				} else if (searchPerfectAlso) {
+					String[] words = query_term.split("\" \"");
+					for (String word : words) {
+						fuzzy_query += "\"" + word.replace("\"", "") + "\"~" + fuzzyParam + " ";
+					}
+				} else {
+					for (String word : query_term.split(" ")) {
+						fuzzy_query += word + "~" + fuzzyParam + " ";
+					}
+				}
+				query_term = fuzzy_query.trim();
+			} catch (GenerateSparqlException e) {
+				logger.error("FuzzySearch activated but FuzzyParam not set. No Lucene FuzzySearch apllied.");
+			}
+		} 
+
+
+		logger.info("Lucene Search Query Text: " + query_term);
+
+		
+		
+		Query q;
+		// create the query the standard way
+//		QueryParser queryParser = new ComplexPhraseQueryParser("labels", analyzer);
+//		Query q = queryParser.parse(query_term);
+		
+		// use the MultiFieldQuery to search in fields "labels", "keywords" and "nodes"
+		String[] search_fields = {KeywordSearcher.LABELS, KeywordSearcher.KEYWORDS, KeywordSearcher.NODE};
+		MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(search_fields, analyzer); 
+		Query multiFieldQuery = multiFieldQueryParser.parse(query_term);
+		q = multiFieldQuery;
+
+		// customized boolean query
+		if (inputManager.isActiveOption("LuceneStandardMapper:QueryType", "boolean") ) {
+			q = new BooleanQuery();
+			for (String field : labels) {
+				PhraseQuery phraseQuery = new PhraseQuery();
+				for (String term_part : query_term.split(" ")) {
+					phraseQuery.add(new Term(field, term_part));
+				}
+				((BooleanQuery) q).add(phraseQuery, BooleanClause.Occur.SHOULD);
+			}
+		} else 
+
+			// customized DisjunctionMax query
+			if (inputManager.isActiveOption("LuceneStandardMapper:QueryType", "DisjunctionMax") ) {
+				q = new DisjunctionMaxQuery(0.001f);
+
+
+				if (searchPerfectOnly) {
+					BooleanQuery booleanQuery = new BooleanQuery();
+					for (String term_part : term.split(" ")) {
+						booleanQuery.add(new BooleanClause(new TermQuery(new Term("labels", term_part)), BooleanClause.Occur.MUST));
+					}
+					q = booleanQuery;
+				} else if (searchPerfectAlso) {
+					for (String term_part : term.split(" ")) {
+						((DisjunctionMaxQuery) q).add(new TermQuery(new Term("labels", term_part)));
+					}
+					((DisjunctionMaxQuery) q).add(new TermQuery(new Term("labels", term)));
+				} else if (searchPerfectNo) {
+					for (String term_part : term.split(" ")) {
+						((DisjunctionMaxQuery) q).add(new TermQuery(new Term("labels", term_part)));
+					}
+				}
+
+			}
+
+		logger.debug("Parsed Lucene Search Query" + q.toString());
+		
+		
+		// -------------------------------------------------
+		
+		boolean adjustFieldNorm = inputManager.isActiveOption("LuceneStandardMapper:AdjustFieldNorm", true);
+		boolean divideByOccurance = inputManager.isActiveOption("LuceneStandardMapper:DivideByOccurrence", true);
+		boolean boostPerfectMatch = inputManager.isActiveOption("LuceneStandardMapper:BoostPerfectMatch", true);
 
 		// get three times more hits than necessary in order to still have
 		// enough after deleting duplicates
@@ -184,7 +319,8 @@ public class LuceneSearcher {
 		for (int n = 0; n < scoreDocs.length; ++n) {
 			ScoreDoc sd = scoreDocs[n];
 
-			float score = sd.score;
+			float lucene_score = sd.score;
+			int numberOfOccurance = 0;
 			int docId = sd.doc;
 			Document d = searcher.doc(docId);
 			List<IndexableField> fields = d.getFields();
@@ -192,38 +328,40 @@ public class LuceneSearcher {
 			String uri = "";
 			String label = "";
 			String keywords = "";
-			int numberOfLabelsContainingTerm = 0;
-			int boost = 1;
+			
+			List<Float> nodeScores = new ArrayList<Float>();
+			List<Float> labelScores = new ArrayList<Float>();
+			List<Float> keywordScores = new ArrayList<Float>();
+			
+			Explanation explanation = searcher.explain(q, sd.doc);
+			
 			try {
+
 				for (IndexableField f : fields) {
-					if ("node".equalsIgnoreCase(f.name())) {
+					if (f.name().toLowerCase().contains(KeywordSearcher.NODE)) {
+						
+						// get the text
 						uri = f.stringValue();
-					} else if (f.name().toLowerCase()
-							.contains(KeywordSearcher.LABELS)) {
 
-						String[] words = original_term.split(" ");
-						for (int i = 0; i < words.length; i++) {
-							// normalize the quantity of found fields in the end
-							// score
-							if (f.stringValue().toLowerCase()
-									.contains(words[i])) {
-								numberOfLabelsContainingTerm++;
-							}
-							//							String test = f.stringValue();
-							// boost in case of a partial match
-							if (f.stringValue().equalsIgnoreCase(words[i])) {
-								boost += 1;
-							}
-						}
-
-						// boost in case of a perfect match
-						if (f.stringValue().equalsIgnoreCase(original_term)) {
-							boost += 2;
-						}
-
+						float new_node_score = getNewScore(original_term, f, 0.1f, adjustFieldNorm, boostPerfectMatch, searchPerfectOnly, fuzzyParam, explanation); 
+						if (new_node_score > 0) numberOfOccurance++;
+						nodeScores.add(new_node_score);
+						
+					} else if (f.name().toLowerCase().contains(KeywordSearcher.LABELS)) {
+						// get the text
 						label += f.stringValue() + " - ";
+
+						float new_label_score = getNewScore(original_term, f, 2.0f, adjustFieldNorm, boostPerfectMatch, searchPerfectOnly, fuzzyParam, explanation); 
+						if (new_label_score > 0) numberOfOccurance++;
+						labelScores.add(new_label_score);
+						
 					} else if ("keywords".equalsIgnoreCase(f.name())) {
-						keywords = f.stringValue();
+						keywords += f.stringValue() + " - ";
+
+						float new_keywords_score = getNewScore(original_term, f, 1.0f, adjustFieldNorm, boostPerfectMatch, searchPerfectOnly, fuzzyParam, explanation); 
+						if (new_keywords_score > 0) numberOfOccurance++;
+						keywordScores.add(new_keywords_score);
+						
 					}
 				}
 			} catch (Exception e) {
@@ -234,18 +372,42 @@ public class LuceneSearcher {
 			// score by Lucene regards all other matching fields of the
 			// document, too.
 			// This behaviour is not wanted here
-			if (!inputManager.isActiveOption(
-					"LuceneStandardMapper:DivideByOccurrence", true))
-				numberOfLabelsContainingTerm = 1;
-			if (numberOfLabelsContainingTerm == 0)
-				numberOfLabelsContainingTerm = 1;
-			if (!inputManager.isActiveOption(
-					"LuceneStandardMapper:BoostPerfectMatch", true))
-				boost = 1;
+//			if (!divideByOccurance) {
+//				numberOfLabelsContainingTerm = 1;
+//			}
+//			if (numberOfLabelsContainingTerm == 0) {
+//				numberOfLabelsContainingTerm = 1;
+//			}
+//			if (boostPerfectMatch) {
+//				boost = 1;
+//			}
 
-			float new_score = (float) (score * boost / Math.sqrt(numberOfLabelsContainingTerm));
+			
+			if (logger.isDebugEnabled()) {
+				Explanation explain = searcher.explain(q, sd.doc);	
+				logger.debug("Explain Lucene Score:");
+				logger.debug(uri);
+				logger.debug(label);
+				logger.debug(explain);	
+			}
 
-			candidates.add(createCandidate(uri, new_score, label, keywords, type));
+			logger.debug("Old Score by Lucene Search Engine: " + lucene_score);
+
+			float score = 0;
+			for (Float node_score : nodeScores) { score += node_score;}
+			for (Float label_score : labelScores) { score += label_score;}
+			for (Float keyword_score : keywordScores) { score += keyword_score;}
+			if (divideByOccurance){
+				if (numberOfOccurance > 0) {
+					score = (float) (score / Math.sqrt(numberOfOccurance));
+				}
+			}
+			float coord = getCoord(explanation);
+			score = score * coord;
+			//+ "*" + boost +" / SquareRoot(" + numberOfLabelsContainingTerm + ") / " + fieldNorm + " * " + ownNorm);
+
+			logger.debug("New Score " + score + " = " + score); 
+			candidates.add(createCandidate(uri, score, label, keywords, type));
 		}
 
 		// only regard the entity with the highest score
@@ -262,11 +424,126 @@ public class LuceneSearcher {
 		return candidates;
 	}
 
+	private float getNewScore(String original_term, IndexableField f,
+			float fieldFactor, boolean adjustFieldNorm, boolean boostPerfectMatch, boolean searchPerfectOnly,
+			String fuzzyParam, Explanation explanation) {
+
+		float ownNorm = Float.MAX_VALUE;
+		float maxNorm = 0;
+		int boost = 1;
+		
+		boolean fieldContainsTerm = false;
+		String[] query_words = original_term.split(" ");
+		String[] field_words = f.stringValue().toLowerCase().split(" ");
+		
+		if (searchPerfectOnly) {
+			// normalize the quantity of found fields 
+			// in the end score
+			if (f.stringValue().toLowerCase().contains(original_term) ) {
+				fieldContainsTerm = true;
+			}
+
+		} else {
+
+			for (int i = 0; i < query_words.length; i++) {
+				for (int j = 0; j < field_words.length; j++) {
+					// normalize the quantity of found fields 
+					// in the end score
+
+					int levenshtein = StringUtils.getLevenshteinDistance(field_words[j], query_words[i]);
+					double max_absolute_distance = Double.parseDouble(fuzzyParam);
+					if (levenshtein <=  max_absolute_distance ) {
+						fieldContainsTerm = true;
+					}
+
+					// boost in case of a partial match
+					if (f.stringValue().equalsIgnoreCase(query_words[i])) {
+						boost += 1;
+					}
+				}
+			}
+
+		}
+		//--------
+
+		// boost in case of a perfect match
+		if (f.stringValue().equalsIgnoreCase(original_term)) {
+			boost += 2;
+		}
+		if (!boostPerfectMatch) boost = 1;
+		if (!fieldContainsTerm) return 0.0f;
+		
+		// get the score
+		float field_score = getScore(f.name(), explanation);
+
+		// compute own norm
+		int length = f.stringValue().split(" ").length;
+		ownNorm = (float) (1.0d / Math.sqrt(length));
+		
+		// get the fieldNorm
+		float fieldNorm = 1;
+		if (adjustFieldNorm) {
+			fieldNorm = getFieldNorm(f.name(), explanation);
+			if (ownNorm == Float.MAX_VALUE) ownNorm = maxNorm;
+		} else {
+			fieldNorm = 1;
+			ownNorm = 1;
+		}
+
+		// //field_score * boost /  / fieldNorm * own_field_norm;
+		return field_score * boost / fieldNorm * ownNorm * fieldFactor;
+	}
+
+	private float getScore(String field, Explanation explain) {
+		float score = 0;
+		Explanation[] fieldExplanations = explain.getDetails();
+		for (Explanation explanation: fieldExplanations) {
+			String fieldExplain = explanation.toString();
+			if (fieldExplain.contains(field))
+			for (String line : fieldExplain.split("\n")) {
+				if (line.matches(".*MATCH.*")){
+					score += Float.parseFloat(line.split(" =")[0]);
+				}
+			}
+		
+		}
+		return score;
+	}
+	
+	private float getCoord(Explanation explain) {
+		Explanation[] fieldExplanations = explain.getDetails();
+		for (Explanation explanation: fieldExplanations) {
+			String fieldExplain = explanation.toString();
+			for (String line : fieldExplain.split("\n")) {
+				if (line.matches(".*coord.*")){
+					return Float.parseFloat(line.split(" =")[0]);
+				}
+			}
+		
+		}
+		return 1;
+	}
+
+	private float getFieldNorm(String field, Explanation explain) {
+		Explanation[] fieldExplanations = explain.getDetails();
+		for (Explanation explanation: fieldExplanations) {
+			String fieldExplain = explanation.toString();
+			if (fieldExplain.contains(field))
+			for (String line : fieldExplain.split("\n")) {
+				if (line.matches(".*fieldNorm.*")){
+					return Float.parseFloat(line.split(" =")[0]);
+				}
+			}
+		
+		}
+		return 0;
+	}
+
 	private String[] getLabelsArray(int maxLabels) {
 		String[] labels = new String[maxLabels];
 
 		for (int i = 1; i <= labels.length; i++) {
-			labels[i - 1] = KeywordSearcher.LABELS + i;
+			labels[i - 1] = KeywordSearcher.LABELS;// + i;
 		}
 		return labels;
 	}
@@ -310,9 +587,16 @@ public class LuceneSearcher {
 
 	private Candidate createCandidate(String uri, float score, String label,
 			String keywords, int type) {
+		if (!label.isEmpty() && !keywords.isEmpty()) {
+			label = label + keywords;
+		} else if (!label.isEmpty() ) {
+			//
+		} else if (!keywords.isEmpty()) {
+			label = keywords;
+		}
 		switch (type) {
 		case CANDIDATE:
-			return new GeneralCandidate(uri, score, keywords);
+			return new GeneralCandidate(uri, score, label);
 		case ENTITY:
 			return new EntityCandidate(uri, score, label);
 		case CLASS:

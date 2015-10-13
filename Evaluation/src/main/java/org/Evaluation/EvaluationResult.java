@@ -28,7 +28,12 @@ public class EvaluationResult {
 	public double getFMeasure() {
 		double precision = getPrecision();
 		double recall = getRecall();
-		return 2 * precision * recall / (precision + recall);
+		
+		if (precision + recall > 0.0) {
+			return 2 * precision * recall / (precision + recall);
+		} else {
+			return 0.0;
+		}
 	}
 
 }

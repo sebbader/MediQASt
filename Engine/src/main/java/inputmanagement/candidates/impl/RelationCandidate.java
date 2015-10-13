@@ -84,7 +84,7 @@ public class RelationCandidate implements RdfCandidate {
 
 	@Override
 	public String toString() {
-		return "[ " + uri + " | " + label + " | " + score + " ]";
+		return "[ " + uri + " | " + score + " | " + label + " ]";
 	}
 
 	@Override
