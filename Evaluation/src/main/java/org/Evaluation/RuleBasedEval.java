@@ -42,7 +42,7 @@ import configuration.impl.ConfigManagerImpl;
  * @author Sebastian Bader (sebastian.bader@student.kit.edu)
  *
  */
-public class App 
+public class RuleBasedEval 
 {
 	private static Writer writer;
 
@@ -51,7 +51,7 @@ public class App
 	private HashMap<String, EvaluationResult> evaluationResults;
 	private List<TestQuestion> testQuestions;
 
-	private static String[] approaches = {"rulebased", "reverb", "rdfgroundedstring", "naive"};
+	private static String[] approaches = {"rulebased"};
 	static String[] bol = {"true", "false"};
 
 	String endpoint = "http://aifb-ls3-vm8.aifb.kit.edu:8890/sparql";
@@ -62,7 +62,7 @@ public class App
 
 	public static void main( String[] args ) throws NumberFormatException, IOException
 	{
-		App app = new App(Level.INFO);
+		NaiveEval app = new NaiveEval(Level.INFO);
 		HashMap<String, String> param = new HashMap<String, String>();
 
 		for (String approach : approaches) {
@@ -88,95 +88,121 @@ public class App
 				param.put("resourceMapper", "rdfgroundedstring");
 			}
 
+			for (int i = 2; i <= 3; i++) {
+				if (i > 2 && !approach.equals("naive")) continue;
+				param.put("NaiveMapper:windows", Integer.toString(i));
+				//param.put("NaiveMapper:windows", "2");
+				//param.put("NaiveMapper:windows", "3");
+				//param.put("NaiveMapper:windows", "4");
+
+				String[] doub = {"0.0", "0.5"};
+//				for (String s1 : doub) {
+//					if (!s1.equals("0.0") && !approach.equals("naive")) continue;
+//					param.put("NaiveMapper:threshold", s1);
+					param.put("NaiveMapper:threshold", "0.2");
+					//param.put("NaiveMapper:threshold", "0.5");
 
 
-			//param.put("NaiveMapper:windows", "2");
-			param.put("NaiveMapper:windows", "3");
-			//param.put("NaiveMapper:windows", "4");
+					for (String s2 : bol) {
+						param.put("LuceneStandardMapper:AdjustFieldNorm", s2);
+						//param.put("LuceneStandardMapper:AdjustFieldNorm", "true");
+						//param.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+
+						for (String s3 : bol) {
+							param.put("LuceneStandardMapper:BoostPerfectMatch", s3);
+							//param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+							//param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+
+//							for (String s4 : bol) {
+//								param.put("LuceneStandardMapper:Lemmatize", s4);
+								//param.put("LuceneStandardMapper:Lemmatize", "true");
+								//param.put("LuceneStandardMapper:Lemmatize", "false");
+
+								for (String s5 : bol) {
+									param.put("LuceneStandardMapper:StopwordRemoval", s5);
+									//param.put("LuceneStandardMapper:StopwordRemoval", "true");
+									//param.put("LuceneStandardMapper:StopwordRemoval", "false");
+
+									String[] perfect = {"only", "no"};
+									for (String s6 : perfect) {
+										param.put("LuceneStandardMapper:SearchPerfect", s6);
+										//param.put("LuceneStandardMapper:SearchPerfect", "only");
+										//param.put("LuceneStandardMapper:SearchPerfect", "no");
+
+//										for (String s7 : bol) {
+//											param.put("LuceneStandardMapper:DivideByOccurrence", s7);
+											param.put("LuceneStandardMapper:DivideByOccurrence", "true");
+											//param.put("LuceneStandardMapper:DivideByOccurrence", "false");
+
+											for (String s8 : bol) {
+												param.put("LuceneStandardMapper:FuzzySearch", s8);
+												//param.put("LuceneStandardMapper:FuzzySearch", "true");
+												//param.put("LuceneStandardMapper:FuzzySearch", "false");
+
+//												for (int j = 1; j <= 2; j++) {
+//													if (s8.equalsIgnoreCase("false")) continue;	
+//													param.put("LuceneStandardMapper:FuzzyParam", Integer.toString(j));
+													param.put("LuceneStandardMapper:FuzzyParam", "1");
+//													param.put("LuceneStandardMapper:FuzzyParam", "2");
 
 
-//			param.put("NaiveMapper:threshold", "0.2");
-			//param.put("NaiveMapper:threshold", "0.5");
-			
-			param.put("LuceneStandardMapper:Formula", "own");
-//			param.put("LuceneStandardMapper:Formula", "lucene");
-			
 
-			param.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-			//param.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+													// SPARQL Generator
+													param.put("sparqlGenerator", "standard");
+													String[] can = {"10", "1000"};
+//													for (String s9 : can) {
+//														param.put("NumberOfSparqlCandidates", s9);
+														param.put("NumberOfSparqlCandidates", "20");
 
+														for (String s10 : can) {
+															param.put("SparqlLimit", s10);
+															param.put("numberOfTriplesPerSparql", "2");
+															param.put("sparqlOption", "greedy");
 
-			param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-			//param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-
-
-			//param.put("LuceneStandardMapper:Lemmatize", "true");
-			param.put("LuceneStandardMapper:Lemmatize", "false");
+															param.put("KeyWordQuestionThreshold", "0.4");
 
 
-			param.put("LuceneStandardMapper:StopwordRemoval", "true");
-			//param.put("LuceneStandardMapper:StopwordRemoval", "false");
-
-
-			param.put("LuceneStandardMapper:SearchPerfect", "only");
-//			param.put("LuceneStandardMapper:SearchPerfect", "no");
-
-
-			param.put("LuceneStandardMapper:DivideByOccurrence", "true");
-			//param.put("LuceneStandardMapper:DivideByOccurrence", "false");
-
-
-			param.put("LuceneStandardMapper:FuzzySearch", "true");
-			//param.put("LuceneStandardMapper:FuzzySearch", "false");
-
-
-			param.put("LuceneStandardMapper:FuzzyParam", "1");
-			//param.put("LuceneStandardMapper:FuzzyParam", "2");
-
-
-
-			// SPARQL Generator
-			param.put("NumberOfSparqlCandidates", "10");
-
-
-			param.put("SparqlLimit", "100");
-			param.put("numberOfTriplesPerSparql", "2");
-			param.put("sparqlOption", "greedy");
-
-			param.put("KeyWordQuestionThreshold", "0.4");
-
-
-			// start evaluation
-			if (args.length == 1) {
-				int testquestionnumber = Integer.parseInt( args[0] );
-				app.startEvaluationOfQuestion(testquestionnumber, param);
-			} else if (args.length == 4) {
-				int testquestionnumber = Integer.parseInt( args[0] );
-				String analyzer = args[1];
-				param.put("questionAnalyzer", analyzer);
-				String mapper = args[2];
-				param.put("resourceMapper", mapper);
-				String sparqlGenerator = args[3];
-				param.put("sparqlGenerator", sparqlGenerator);
-				app.startEvaluationOfQuestion(testquestionnumber, param);
-				return;
-			} else {
-				app.startEvaluationOfAllQuestions(param);
+															// start evaluation
+															if (args.length == 1) {
+																int testquestionnumber = Integer.parseInt( args[0] );
+																app.startEvaluationOfQuestion(testquestionnumber, param);
+															} else if (args.length == 4) {
+																int testquestionnumber = Integer.parseInt( args[0] );
+																String analyzer = args[1];
+																param.put("questionAnalyzer", analyzer);
+																String mapper = args[2];
+																param.put("resourceMapper", mapper);
+																String sparqlGenerator = args[3];
+																param.put("sparqlGenerator", sparqlGenerator);
+																app.startEvaluationOfQuestion(testquestionnumber, param);
+																return;
+															} else {
+																app.startEvaluationOfAllQuestions(param);
+															}
+//														}
+//													}
+//												}
+//											}
+//										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
-
 
 		writer.close();
 	}
 
-
-	public App(Level logLevel) throws IOException {
+	public RuleBasedEval(Level logLevel) throws IOException {
 		ConfigManager configManager = new ConfigManagerImpl();
 		ConfigManagerImpl.setLogLevel(logLevel);
 		configManager.loadProperties();
 		logger = configManager.getLogger();
 
-		FileOutputStream fos = new FileOutputStream("eval_results.csv");
+		FileOutputStream fos = new FileOutputStream("eval_results_rule.csv");
 		OutputStreamWriter w = new OutputStreamWriter(fos, "UTF-8");
 		writer = new BufferedWriter(w);
 
@@ -229,7 +255,7 @@ public class App
 
 	public void evaluateTestQuestion(TestQuestion testQuestion, int number, HashMap<String, String> param) throws IOException {
 		long startTime = System.nanoTime(); 
-
+		
 		manager = new InputManagerImpl(endpoint, testQuestion.getNaturalQuestion(), param);
 		logger.info("");
 		logger.info("");
@@ -261,9 +287,11 @@ public class App
 
 			//print to eval csv file
 			write(number);
-			write(evaluationResult.getFMeasure());
 			write(evaluationResult.getPrecision());
 			write(evaluationResult.getRecall());
+			write(evaluationResult.getFMeasure());
+			write(elapsedTime / ((double) 1000000000.0) );
+			write("|");
 		} catch (GenerateSparqlException e) {
 			logger.error("ERROR: ", e);
 		}
@@ -372,7 +400,7 @@ public class App
 			fMeasures.add(fMeasure);
 			logger.warn(entry.getKey() + " has result:");
 			logger.warn("Precision " + precision + " | Recall " + recall + " | F-Measure " + fMeasure);
-
+			
 			long duration = entry.getValue().getElapsedTime();
 			durations.add(duration);
 			logger.warn("Elapsed Time " + duration);
@@ -390,7 +418,7 @@ public class App
 		logger.warn("Precision " + avg_precision + " | Recall " + avg_recall + " | F-Measure " + avg_fMeasure + " | Elapsed Time " + avg_duration_in_seconds);
 		logger.warn("-------------------------------------------------");
 		logger.warn("");
-
+		
 		write("total results:");
 		write(avg_fMeasure);
 		write(avg_precision);
@@ -454,7 +482,7 @@ public class App
 			e.printStackTrace();
 		}
 	}
-
+	
 	private void writeln(double line) {
 		try {
 			writer.append(Double.toString(line));

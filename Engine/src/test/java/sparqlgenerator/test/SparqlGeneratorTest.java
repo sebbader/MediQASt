@@ -1,4 +1,4 @@
-package inputmanagement.test;
+package sparqlgenerator.test;
 
 import static org.junit.Assert.*;
 
@@ -6,14 +6,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import inputmanagement.SparqlGenerator;
 import inputmanagement.candidates.impl.EntityCandidate;
 import inputmanagement.candidates.impl.RelationCandidate;
 import inputmanagement.candidates.impl.SparqlCandidate;
 import inputmanagement.impl.InputManagerImpl;
-import inputmanagement.impl.SparqlGeneratorImpl;
 
 import org.junit.Test;
+
+import sparqlgenerator.SparqlGenerator;
+import sparqlgenerator.impl.SparqlGeneratorImpl;
 
 public class SparqlGeneratorTest {
 

@@ -18,6 +18,7 @@ public class EntityCandidate implements RdfCandidate {
 	private RdfCandidateTypes type;
 	private List<RDFPath> environment; // TODO
 	private List<Integer> position;
+	private RdfCandidate blockingCandidate;
 
 	public EntityCandidate(String uri, double score, String label) {
 		this.setUri(uri);
@@ -61,7 +62,7 @@ public class EntityCandidate implements RdfCandidate {
 	}
 
 	public void setUri(String uri) {
-		if (!uri.contains("?")) {
+		if (!uri.contains("?") && !uri.contains("_:")) {
 			if (!uri.startsWith("<"))
 				uri = "<" + uri;
 			if (!uri.endsWith(">"))
@@ -117,5 +118,16 @@ public class EntityCandidate implements RdfCandidate {
 	@Override
 	public void setPosition(List<Integer> position) {
 		this.position = position;
+	}
+	
+
+	@Override
+	public void setBlockingCandidate(RdfCandidate blockingCandidate) {
+		this.blockingCandidate = blockingCandidate;
+	}
+	
+	@Override
+	public RdfCandidate getBlockingCandidate() {
+		return this.blockingCandidate;
 	}
 }

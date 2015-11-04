@@ -17,18 +17,23 @@ import configuration.impl.ConfigManagerImpl;
 import rdfgroundedstrings.RdfGroundedStringMapper;
 import uk.ac.shef.wit.simmetrics.similaritymetrics.Levenshtein;
 
+/**
+ * Based on the SimMetrics Library by Sam Chapman (2005)
+ * @author Sebastian Bader (sebastian.bader@student.kit.edu)
+ *
+ */
 public class RdfGroundedStringMapperImpl implements RdfGroundedStringMapper {
 
 	private Logger logger;
 
-	private Collection<RdfGroundedString> rdfGroundedStrings;
+	private static Collection<RdfGroundedString> rdfGroundedStrings;
 	private List<RelationCandidate> relationCandidates;
 
 	private double threshold = 0.5;
 
 	public RdfGroundedStringMapperImpl() {
 		RdfGroundedStringImporter importer = new RdfGroundedStringImporter();
-		rdfGroundedStrings = importer.importRdfGroundedStrings();
+		if (rdfGroundedStrings == null) rdfGroundedStrings = importer.importRdfGroundedStrings();
 
 		ConfigManager configManager = new ConfigManagerImpl();
 		this.logger = configManager.getLogger();
@@ -63,6 +68,9 @@ public class RdfGroundedStringMapperImpl implements RdfGroundedStringMapper {
 		if (relationCandidates.isEmpty()) {
 			return null;
 		} else {
+			for (RelationCandidate rc : relationCandidates) {
+				logger.info("Found RelationCandidate: " + rc.toString());
+			}
 			return relationCandidates;
 		}
 	}
@@ -81,12 +89,12 @@ public class RdfGroundedStringMapperImpl implements RdfGroundedStringMapper {
 		logger.trace("Calculated similarity is " + similarity);
 
 		if (similarity >= threshold) {
-			logger.debug("Calculated Similarity (" + similarity + ") of '"
+			logger.info("Calculated Similarity (" + similarity + ") of '"
 					+ rdfGroundedString.getName() + "' [Pattern '" + pattern
 					+ "'] and predicate '" + text + "' is above threshold of "
 					+ threshold
 					+ " therefore adding relations of RdfGroundedString.");
-			rdfGroundedString.setScores(similarity * 10);
+			rdfGroundedString.setScores(similarity * 100);
 			return rdfGroundedString.getRelations();
 		} else {
 			logger.trace("Calculated Similarity (" + similarity + ") of '"

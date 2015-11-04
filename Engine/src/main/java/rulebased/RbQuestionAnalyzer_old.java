@@ -37,7 +37,7 @@ import edu.stanford.nlp.trees.TypedDependency;
  * @author Sebastian Bader (sebastian.bader@student.kit.edu)
  *
  */
-public class RbQuestionAnalyser_old {
+public class RbQuestionAnalyzer_old {
 
 	private Logger logger;
 
@@ -63,7 +63,7 @@ public class RbQuestionAnalyser_old {
 	private final String[] subject_BlackList = {}; // these tags should NOT be
 													// regarded
 
-	public RbQuestionAnalyser_old() {
+	public RbQuestionAnalyzer_old() {
 		ConfigManager configManager = new ConfigManagerImpl();
 		this.logger = configManager.getLogger();
 	}

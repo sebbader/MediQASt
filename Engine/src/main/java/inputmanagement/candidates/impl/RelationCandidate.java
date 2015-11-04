@@ -13,6 +13,7 @@ public class RelationCandidate implements RdfCandidate {
 	private String label;
 	private List<Integer> position;
 	private RdfCandidateTypes type;
+	private RdfCandidate blockingCandidate;
 
 	public RelationCandidate(String uri, double score) {
 		/*
@@ -99,5 +100,15 @@ public class RelationCandidate implements RdfCandidate {
 	@Override
 	public void setPosition(List<Integer> position) {
 		this.position = position;
+	}
+	
+	@Override
+	public void setBlockingCandidate(RdfCandidate blockingCandidate) {
+		this.blockingCandidate = blockingCandidate;
+	}
+	
+	@Override
+	public RdfCandidate getBlockingCandidate() {
+		return this.blockingCandidate;
 	}
 }

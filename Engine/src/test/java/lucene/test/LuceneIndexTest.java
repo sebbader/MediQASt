@@ -23,7 +23,7 @@ public class LuceneIndexTest {
 
 		LuceneIndexer indexer = new LuceneIndexer();
 //		 indexer.indexEntities();
-//		 indexer.indexClasses();
+		 indexer.indexClasses();
 //		 indexer.indexRelations();
 		// indexer.indexLemonDict();
 	}

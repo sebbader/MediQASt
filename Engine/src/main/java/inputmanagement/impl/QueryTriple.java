@@ -29,6 +29,9 @@ public class QueryTriple {
 	private EntityCandidate entity2Candidate;
 
 	private double score;
+	private double entity1_score;
+	private double relation_score;
+	private double entity2_score;
 
 	private List<EntityCandidate> entity1Candidates;
 	private List<RelationCandidate> relationCandidates;
@@ -178,6 +181,11 @@ public class QueryTriple {
 	public void setEntity1Candidates(List<EntityCandidate> entity1Candidates) {
 		this.entity1Candidates = entity1Candidates;
 		this.entity1Candidates.sort(new CustomComparator());
+
+		if (!this.entity1Candidates.isEmpty()) {
+			this.entity1_score = this.entity1Candidates.get(0).getScore();
+			this.score = this.entity1_score + this.relation_score + this.entity2_score;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -190,6 +198,11 @@ public class QueryTriple {
 		this.entity1Candidates = (List<EntityCandidate>) CommonMethods
 				.removeDuplicates(this.entity1Candidates);
 		this.entity1Candidates.sort(new CustomComparator());
+
+		if (!this.entity1Candidates.isEmpty()) {
+			this.entity1_score = this.entity1Candidates.get(0).getScore();
+			this.score = this.entity1_score + this.relation_score + this.entity2_score;
+		}
 	}
 
 	public List<RelationCandidate> getRelationCandidates() {
@@ -198,6 +211,11 @@ public class QueryTriple {
 
 	public void setRelationCandidates(List<RelationCandidate> relationCandidates) {
 		this.relationCandidates = relationCandidates;
+		
+		if (!this.relationCandidates.isEmpty()) {
+			this.relation_score = this.entity1Candidates.get(0).getScore();
+			this.score = this.entity1_score + this.relation_score + this.entity2_score;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -210,6 +228,11 @@ public class QueryTriple {
 		this.relationCandidates = (List<RelationCandidate>) CommonMethods
 				.removeDuplicates(this.relationCandidates);
 		this.relationCandidates.sort(new CustomComparator());
+
+		if (!this.relationCandidates.isEmpty()) {
+			this.relation_score = this.relationCandidates.get(0).getScore();
+			this.score = this.entity1_score + this.relation_score + this.entity2_score;
+		}
 	}
 
 	public List<EntityCandidate> getEntity2Candidates() {
@@ -226,11 +249,21 @@ public class QueryTriple {
 		this.entity2Candidates = (List<EntityCandidate>) CommonMethods
 				.removeDuplicates(this.entity2Candidates);
 		this.entity2Candidates.sort(new CustomComparator());
+
+		if (!this.entity2Candidates.isEmpty()) {
+			this.entity2_score = this.entity2Candidates.get(0).getScore();
+			this.score = this.entity1_score + this.relation_score + this.entity2_score;
+		}
 	}
 
 	public void setEntity2Candidates(List<EntityCandidate> entity2Candidates) {
 		this.entity2Candidates = entity2Candidates;
 		this.entity2Candidates.sort(new CustomComparator());
+
+		if (!this.entity2Candidates.isEmpty()) {
+			this.entity2_score = this.entity2Candidates.get(0).getScore();
+			this.score = this.entity1_score + this.relation_score + this.entity2_score;
+		}
 	}
 
 	public void clean() {
@@ -239,15 +272,15 @@ public class QueryTriple {
 		// entity2 = entity2.replace("VARIABLE[\\-[0-9]]?", "?X");
 
 		if (entity1.contains("VARIABLE")) {
-			entity1 = "?uri";
+			entity1 = "?variable";
 		}
 
 		if (predicate.contains("VARIABLE")) {
-			predicate = "?uri";
+			predicate = "?variable";
 		}
 
 		if (entity2.contains("VARIABLE")) {
-			entity2 = "?uri";
+			entity2 = "?variable";
 		}
 	}
 

@@ -4,12 +4,8 @@ import inputmanagement.candidates.impl.SparqlCandidate;
 import inputmanagement.impl.GenerateSparqlException;
 import inputmanagement.impl.InputManagerImpl;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,178 +22,32 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.netlib.util.doubleW;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import configuration.ConfigManager;
-import configuration.impl.ConfigManagerImpl;
+public abstract class Evaluation {
+	
+	protected static Writer writer;
 
-/**
- * 
- * @author Sebastian Bader (sebastian.bader@student.kit.edu)
- *
- */
-public class App 
-{
-	private static Writer writer;
-
-	private Logger logger;
+	protected Logger logger;
 	private InputManagerImpl manager;
-	private HashMap<String, EvaluationResult> evaluationResults;
-	private List<TestQuestion> testQuestions;
+	protected List<EvaluationResult> evaluationResults;
+	protected List<TestQuestion> testQuestions;
 
-	private static String[] approaches = {"rulebased", "reverb", "rdfgroundedstring", "naive"};
-	static String[] bol = {"true", "false"};
-
-	String endpoint = "http://aifb-ls3-vm8.aifb.kit.edu:8890/sparql";
-	//	String endpoint = "http://localhost:8890/sparql";
-
-	//	private String path_to_testset = "TestQuestions/testquestions.xml";
-	private String path_to_testset = "TestQuestions/testquestions3.xml";
-
-	public static void main( String[] args ) throws NumberFormatException, IOException
-	{
-		App app = new App(Level.INFO);
-		HashMap<String, String> param = new HashMap<String, String>();
-
-		for (String approach : approaches) {
-
-			// standard parameter
-			param = new HashMap<String, String>();
-			param.put("directSparqlPossible", "true");
-
-			// Analyzer
-			param.put("questionAnalyzer", approach);
-			param.put("findEntityAndClass", "true");
-
-			param.put("RelationManagerSimilarity", "Levenshtein");
-			//param.put("RelationManagerSimilarity", "WordNet");
-
-
-			// Mapper
-			if (approach.equals("rulebased") || approach.equals("reverb")) {
-				param.put("resourceMapper", "luceneStandard");
-			} else if ( approach.equals("naive")) {
-				param.put("resourceMapper", "naive");
-			} else if (approach.equals("rdfgroundedstring")) {
-				param.put("resourceMapper", "rdfgroundedstring");
-			}
-
-
-
-			//param.put("NaiveMapper:windows", "2");
-			param.put("NaiveMapper:windows", "3");
-			//param.put("NaiveMapper:windows", "4");
-
-
-//			param.put("NaiveMapper:threshold", "0.2");
-			//param.put("NaiveMapper:threshold", "0.5");
-			
-			param.put("LuceneStandardMapper:Formula", "own");
-//			param.put("LuceneStandardMapper:Formula", "lucene");
-			
-
-			param.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-			//param.put("LuceneStandardMapper:AdjustFieldNorm", "false");
-
-
-			param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-			//param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-
-
-			//param.put("LuceneStandardMapper:Lemmatize", "true");
-			param.put("LuceneStandardMapper:Lemmatize", "false");
-
-
-			param.put("LuceneStandardMapper:StopwordRemoval", "true");
-			//param.put("LuceneStandardMapper:StopwordRemoval", "false");
-
-
-			param.put("LuceneStandardMapper:SearchPerfect", "only");
-//			param.put("LuceneStandardMapper:SearchPerfect", "no");
-
-
-			param.put("LuceneStandardMapper:DivideByOccurrence", "true");
-			//param.put("LuceneStandardMapper:DivideByOccurrence", "false");
-
-
-			param.put("LuceneStandardMapper:FuzzySearch", "true");
-			//param.put("LuceneStandardMapper:FuzzySearch", "false");
-
-
-			param.put("LuceneStandardMapper:FuzzyParam", "1");
-			//param.put("LuceneStandardMapper:FuzzyParam", "2");
-
-
-
-			// SPARQL Generator
-			param.put("NumberOfSparqlCandidates", "10");
-
-
-			param.put("SparqlLimit", "100");
-			param.put("numberOfTriplesPerSparql", "2");
-			param.put("sparqlOption", "greedy");
-
-			param.put("KeyWordQuestionThreshold", "0.4");
-
-
-			// start evaluation
-			if (args.length == 1) {
-				int testquestionnumber = Integer.parseInt( args[0] );
-				app.startEvaluationOfQuestion(testquestionnumber, param);
-			} else if (args.length == 4) {
-				int testquestionnumber = Integer.parseInt( args[0] );
-				String analyzer = args[1];
-				param.put("questionAnalyzer", analyzer);
-				String mapper = args[2];
-				param.put("resourceMapper", mapper);
-				String sparqlGenerator = args[3];
-				param.put("sparqlGenerator", sparqlGenerator);
-				app.startEvaluationOfQuestion(testquestionnumber, param);
-				return;
-			} else {
-				app.startEvaluationOfAllQuestions(param);
-			}
-		}
-
-
-		writer.close();
-	}
-
-
-	public App(Level logLevel) throws IOException {
-		ConfigManager configManager = new ConfigManagerImpl();
-		ConfigManagerImpl.setLogLevel(logLevel);
-		configManager.loadProperties();
-		logger = configManager.getLogger();
-
-		FileOutputStream fos = new FileOutputStream("eval_results.csv");
-		OutputStreamWriter w = new OutputStreamWriter(fos, "UTF-8");
-		writer = new BufferedWriter(w);
-
-		evaluationResults = new HashMap<String, EvaluationResult>();
-		try {
-			testQuestions = loadTestQuestions(path_to_testset);
-		} catch (Exception e) {
-			logger.error("ERROR: ",e);
-		}
-
-
-	}
-
+	protected String endpoint = "http://aifb-ls3-vm8.aifb.kit.edu:8890/sparql";
+	//	protected String endpoint = "http://localhost:8890/sparql";
+	
+	protected String path_to_testset = "TestQuestions/testquestions5.xml";
 
 	public void startEvaluationOfAllQuestions(HashMap<String, String> param) throws IOException {
 		printParameter(param);
 
-		int counter = 0;
+		int counter = 1;
 		for (TestQuestion testQuestion : testQuestions) {
-			evaluateTestQuestion(testQuestion, counter, param);
-			counter++;
+			evaluateTestQuestion(testQuestion, counter++, param);
 		}
 
 		printEvaluation(evaluationResults);
@@ -255,15 +105,20 @@ public class App
 			List<String> true_positives = getTruePositives(results, testQuestion.getCorrectAnswers());
 
 			EvaluationResult evaluationResult = new EvaluationResult(true_positives, results, elapsedTime, testQuestion.getCorrectAnswers());
-			evaluationResults.put(number + ": " + testQuestion.getNaturalQuestion(), evaluationResult);
+			evaluationResult.query = (number + ": " + testQuestion.getNaturalQuestion());
+			evaluationResults.add(evaluationResult);
 
-
+			logger.info("Precision: " + evaluationResult.getPrecision());
+			logger.info("Recall: " + evaluationResult.getRecall());
+			logger.info("F-Measure: " + evaluationResult.getFMeasure());
 
 			//print to eval csv file
 			write(number);
-			write(evaluationResult.getFMeasure());
 			write(evaluationResult.getPrecision());
 			write(evaluationResult.getRecall());
+			write(evaluationResult.getFMeasure());
+			write(elapsedTime / ((double) 1000000000.0) );
+			write("|");
 		} catch (GenerateSparqlException e) {
 			logger.error("ERROR: ", e);
 		}
@@ -281,7 +136,7 @@ public class App
 	 * @throws IOException
 	 * @throws ParserConfigurationException
 	 */
-	private static List<TestQuestion> loadTestQuestions(String path) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException {
+	protected static List<TestQuestion> loadTestQuestions(String path) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException {
 		List<TestQuestion> testQuestions = new ArrayList<TestQuestion>();
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -328,14 +183,11 @@ public class App
 	 */
 	private List<String> getTruePositives(List<String> results, List<String> correctAnswers) {
 		List<String> truePositives = new ArrayList<String>();
-		int counter = 0;
-
 
 		for (int j = 0; j < results.size(); j++) {
 			for (String corAnswer : correctAnswers ) {
-				counter++;
 				if (results.get(j).equals(corAnswer)) {
-					logger.info("found correct answer at position #" + counter);
+					logger.info("found correct answer at position #" + j);
 					logger.info("position " + (j + 1) + ":" + corAnswer);
 
 					truePositives.add(results.get(j));
@@ -347,33 +199,31 @@ public class App
 	}
 
 
-	private void printEvaluation(HashMap<String, EvaluationResult> evaluationResults) {
+	private void printEvaluation(List<EvaluationResult> evaluationResults) {
 
 		logger.warn("");
 		logger.warn("-------------------------------------------------");
 		logger.warn("Evaluation:");
 		logger.warn("-------------------------------------------------");
 
-		Iterator<Entry<String, EvaluationResult>> iterator = evaluationResults.entrySet().iterator();
 		List<Double> precisions = new ArrayList<Double>();
 		List<Double> recalls = new ArrayList<Double>();
 		List<Double> fMeasures = new ArrayList<Double>();
 		List<Long> durations = new ArrayList<Long>();
-		while (iterator.hasNext()) {
-			Entry<String, EvaluationResult> entry = iterator.next();
+		for (EvaluationResult er : evaluationResults) {
 
-			double precision = entry.getValue().getPrecision();
-			double recall = entry.getValue().getRecall();
-			double fMeasure = entry.getValue().getFMeasure();
+			double precision = er.getPrecision();
+			double recall = er.getRecall();
+			double fMeasure = er.getFMeasure();
 
 			// results for each test question
 			precisions.add( precision);
 			recalls.add(recall);
 			fMeasures.add(fMeasure);
-			logger.warn(entry.getKey() + " has result:");
+			logger.warn(er.query + " has result:");
 			logger.warn("Precision " + precision + " | Recall " + recall + " | F-Measure " + fMeasure);
 
-			long duration = entry.getValue().getElapsedTime();
+			long duration = er.getElapsedTime();
 			durations.add(duration);
 			logger.warn("Elapsed Time " + duration);
 		}
@@ -381,20 +231,21 @@ public class App
 		// return the average results
 		double avg_precision = getDoubleAverage(precisions);
 		double avg_recall = getDoubleAverage(recalls);
+		double macro_fMeasure = 2 * avg_precision * avg_recall / (avg_precision + avg_recall);
 		double avg_fMeasure = getDoubleAverage(fMeasures);
 		long avg_duration = getLongAverage(durations);
 		Double avg_duration_in_seconds = avg_duration /((double) 1000000000.0);
 
 		logger.warn("-------------------------------------------------");
 		logger.warn("Average results:");
-		logger.warn("Precision " + avg_precision + " | Recall " + avg_recall + " | F-Measure " + avg_fMeasure + " | Elapsed Time " + avg_duration_in_seconds);
+		logger.warn("Precision " + avg_precision + " | Recall " + avg_recall + " | F-Measure(average) " + avg_fMeasure + " | F-Measure(macro) " + macro_fMeasure + " | Elapsed Time " + avg_duration_in_seconds);
 		logger.warn("-------------------------------------------------");
 		logger.warn("");
 
 		write("total results:");
-		write(avg_fMeasure);
 		write(avg_precision);
 		write(avg_recall);
+		write(avg_fMeasure);
 		writeln(avg_duration_in_seconds);
 	}
 
@@ -445,7 +296,7 @@ public class App
 		}
 	}
 
-	private void writeln(String line) {
+	protected void writeln(String line) {
 		try {
 			writer.append(line);
 			writer.append("\n");
@@ -455,7 +306,7 @@ public class App
 		}
 	}
 
-	private void writeln(double line) {
+	protected void writeln(double line) {
 		try {
 			writer.append(Double.toString(line));
 			writer.append("\n");

@@ -1,4 +1,4 @@
-package inputmanagement;
+package sparqlgenerator;
 
 import inputmanagement.candidates.impl.EntityCandidate;
 import inputmanagement.candidates.impl.RelationCandidate;
@@ -28,5 +28,7 @@ public interface SparqlGenerator {
 	public List<SparqlCandidate> getSparqlCanidatesForQueryTripleSet(
 			List<ArrayList<QueryTriple>> queryTriplesSet)
 			throws GenerateSparqlException;
+
+	public void setSparqlLimit(int parseInt);
 
 }

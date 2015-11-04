@@ -19,9 +19,13 @@ public class RdfGroundedStringAnalyzerImpl implements RdfGroundedStringAnalyzer 
 
 	private Logger logger;
 
+	private String[] blankNodes = {"?a", "?b", "?c", "?d", "?e"};
+	private int blankNodeIndex;
+
 	public RdfGroundedStringAnalyzerImpl() {
 		ConfigManager configManager = new ConfigManagerImpl();
 		this.logger = configManager.getLogger();
+		blankNodeIndex = -1;
 	}
 
 	@Override
@@ -37,6 +41,7 @@ public class RdfGroundedStringAnalyzerImpl implements RdfGroundedStringAnalyzer 
 		List<ArrayList<String>> entitiesPowerSet = getPowerSet(entities);
 
 		for (List<String> entityList : entitiesPowerSet) {
+			blankNodeIndex = -1;
 			ArrayList<QueryTriple> queryTriples = new ArrayList<QueryTriple>();
 
 			int positionOfVariable = getPostionOfVariable(query, entityList);
@@ -115,10 +120,11 @@ public class RdfGroundedStringAnalyzerImpl implements RdfGroundedStringAnalyzer 
 					pattern = "?relation";
 
 				queryTriples.remove(oldQueryTriple);
+				String blankNode = getBlankNode();
 				oldQueryTriple = new QueryTriple(oldQueryTriple.getEntity1(),
-						oldQueryTriple.getPredicate(), "?node");
+						oldQueryTriple.getPredicate(), blankNode);
 				queryTriples.add(oldQueryTriple);
-				newQueryTriple = new QueryTriple("?node", entity + " "
+				newQueryTriple = new QueryTriple(blankNode, entity + " "
 						+ pattern, next_entity);
 
 			}
@@ -141,6 +147,10 @@ public class RdfGroundedStringAnalyzerImpl implements RdfGroundedStringAnalyzer 
 		}
 	}
 
+	private String getBlankNode() {
+		return blankNodes[++blankNodeIndex];
+	}
+
 	private List<ArrayList<String>> getPowerSet(ArrayList<String> entities) {
 		List<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 		list.add(entities);
@@ -161,7 +171,7 @@ public class RdfGroundedStringAnalyzerImpl implements RdfGroundedStringAnalyzer 
 		if (!CommonMethods.isVariable(query)) {
 			throw new GenerateSparqlException(
 					"Could not identify variable in query '" + query
-							+ "'. No Variable available.");
+					+ "'. No Variable available.");
 		}
 
 		// check if variable is before an entity
@@ -182,13 +192,27 @@ public class RdfGroundedStringAnalyzerImpl implements RdfGroundedStringAnalyzer 
 
 		throw new GenerateSparqlException(
 				"Could not identify variable in query '" + query
-						+ "'. No Variable found.");
+				+ "'. No Variable found.");
 	}
 
 	private String getPatternBetweenEntities(String text, String entity,
 			String next_entity) {
-		int pattern_start = text.indexOf(entity) + entity.length();
-		int pattern_end = text.indexOf(next_entity);
+
+		int pattern_start = 0;
+		if (text.indexOf(entity) >= 0) {
+			pattern_start = text.indexOf(entity) + entity.length();
+		}
+		int pattern_end = 0;
+		String text_rest = text;
+		int tokens = 0;
+		while(pattern_start > pattern_end) {
+			if (text.indexOf(next_entity) >= 0) {
+				pattern_end = text_rest.indexOf(next_entity);
+			}	
+			tokens += pattern_end + 1;
+			text_rest = text_rest.substring(pattern_end + 1);
+			pattern_end = tokens - 1;
+		}
 
 		String pattern = text.substring(pattern_start, pattern_end).trim();
 		return pattern;

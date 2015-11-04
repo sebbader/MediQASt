@@ -1,12 +1,14 @@
-package inputmanagement.impl;
+package sparqlgenerator.impl;
 
 import inputmanagement.InputManager;
-import inputmanagement.SparqlGenerator;
 import inputmanagement.candidates.Candidate;
 import inputmanagement.candidates.impl.EntityCandidate;
 import inputmanagement.candidates.impl.RelationCandidate;
 import inputmanagement.candidates.impl.SparqlCandidate;
 import inputmanagement.candidates.impl.SparqlLineCandidate;
+import inputmanagement.impl.CustomComparator;
+import inputmanagement.impl.GenerateSparqlException;
+import inputmanagement.impl.QueryTriple;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import sparqlgenerator.SparqlGenerator;
 import configuration.ConfigManager;
 import configuration.impl.ConfigManagerImpl;
 
@@ -23,13 +26,21 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 	private InputManager inputManager;
 	private int limit = 10;
 	private int topN = 10;
-	private List<SparqlCandidate> sparqlCandidates = new ArrayList<SparqlCandidate>();
+	private SparqlList sparqlCandidates = new SparqlList();
 
 	public SparqlGeneratorImpl(InputManager inputManager) {
 		ConfigManager configManager = new ConfigManagerImpl();
 		this.logger = configManager.getLogger();
 
 		this.inputManager = inputManager;
+	}
+	
+	public void setSparqlLimit(int limit) {
+		this.limit = limit;
+	}
+	
+	public int getSparqlLimit() {
+		return this.limit;
 	}
 
 	public int getNumberOfCandidates() {
@@ -51,7 +62,7 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 			for (EntityCandidate entity2 : entity2Candidates) {
 				for (RelationCandidate rel : relationCandidates) {
 
-					String sparql = "SELECT * WHERE {" + " GRAPH ?g { " + " "
+					String sparql = "SELECT distinct ?variable WHERE {" + " GRAPH ?g { " + " "
 							+ entity1.getUri() + " " + " " + rel.getUri() + " "
 							+ " " + entity2.getUri() + " . " + "}} LIMIT "
 							+ limit;
@@ -82,7 +93,7 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 
 	@Override
 	public List<SparqlCandidate> getSparqlCanidates(List<QueryTriple> queryTriples) throws GenerateSparqlException {
-		sparqlCandidates = new ArrayList<SparqlCandidate>();
+		sparqlCandidates = new SparqlList();
 
 		// convert queryTriples to SparqlLineCandidates
 		ArrayList<ArrayList<SparqlLineCandidate>> sparqlLines = new ArrayList<ArrayList<SparqlLineCandidate>>();
@@ -91,7 +102,7 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 		}
 
 		// find start solution for TopN - Sparql Algorithm
-		for (int i = 0; i < topN; i++) {
+		for (int i = 0; sparqlCandidates.size() < topN; i++) {
 
 			// create the SparqlCandidate for THIS iteration
 			List<SparqlLineCandidate> lines = new ArrayList<SparqlLineCandidate>();
@@ -123,9 +134,11 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 					counter++;
 				}
 
-				// delete the old top uri from the list
-				if (sparqlLines.get(line_to_change).size() > 0) {
+				// delete the old top line from the list
+				if (sparqlLines.get(line_to_change).size() > 1) {
 					sparqlLines.get(line_to_change).remove(0);
+				} else {
+					break;
 				}
 
 			} else if (inputManager.isActiveOption("sparqlOption",
@@ -170,11 +183,11 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 			where_clause += sparqlLineCandidate.getText();
 			score += sparqlLineCandidate.getScore();
 		}
-		String sparql = "SELECT * WHERE {" + where_clause + "} LIMIT " + limit;
+		String sparql = "SELECT distinct ?variable WHERE {" + where_clause + "} LIMIT " + limit;
 		return new SparqlCandidate(sparql, score);
 	}
 
-	private List<SparqlCandidate> getKeyWordQuery(List<QueryTriple> queryTriples) {
+	private SparqlList getKeyWordQuery(List<QueryTriple> queryTriples) {
 		List<Candidate> candidates = new ArrayList<Candidate>();
 		for (QueryTriple triple : queryTriples) {
 			for (EntityCandidate entity1Candidate : triple
@@ -193,7 +206,7 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 		candidates.sort(new CustomComparator());
 
 		// find start solution for TopN - Sparql Algorithm
-		List<SparqlCandidate> sparqlCandidates = new ArrayList<SparqlCandidate>();
+		SparqlList sparqlCandidates = new SparqlList();
 		List<String> oldCandidates = new ArrayList<String>();
 		for (int i = 0; i < topN; i++) {
 			if (candidates.size() - 1 < i)
@@ -201,7 +214,7 @@ public class SparqlGeneratorImpl implements SparqlGenerator {
 
 			if (!oldCandidates.contains(candidates.get(i).getText())
 					&& !candidates.get(i).getText().startsWith("?")) {
-				String sparql = "SELECT ?uri where { VALUES ?uri {"
+				String sparql = "SELECT ?variable where { VALUES ?variable {"
 						+ candidates.get(i).getText() + "} }";
 				double score = candidates.get(i).getScore();
 				sparqlCandidates.add(new SparqlCandidate(sparql, score));

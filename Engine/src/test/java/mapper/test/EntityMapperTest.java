@@ -1,4 +1,4 @@
-package inputmanagement.test;
+package mapper.test;
 
 import java.io.IOException;
 import java.util.List;

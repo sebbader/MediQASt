@@ -69,45 +69,45 @@ public class MediQASt extends HttpServlet {
 
 			parameter.put("questionAnalyser", "rulebased");
 
-			
+
 			//--------------------------------------------------------
-			
+
 			parameter.put("resourceMapper", "luceneStandard");
 			parameter.put("considerRelationEnvironment", "false");
 			parameter.put("findEntityAndClass", "true");
 			parameter.put("RelationManagerSimilarity", "Levenshtein");
-			
-//			parameter.put("LuceneStandardMapper:QueryType", "standard");
-//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
-//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
-			
+
+			//			parameter.put("LuceneStandardMapper:QueryType", "standard");
+			//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
+			//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
+
 			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
-			
-//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+			//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+
+			//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
 			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-			
-//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
+
+			//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
 			parameter.put("LuceneStandardMapper:Lemmatize", "false");
-			
-//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
+
+			//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
 			parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
-			
-//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
-//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
+
+			//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
+			//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
 			parameter.put("LuceneStandardMapper:SearchPerfect", "no");
-			
-//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
+
+			//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
 			parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
-			
-//			parameter.put("considerRelationEnvironment", false);
-			
+
+			//			parameter.put("considerRelationEnvironment", false);
+
 			parameter.put("LuceneStandardMapper:FuzzySearch", "true");
-//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
-			
+			//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
+
 			parameter.put("LuceneStandardMapper:FuzzyParam", "1");
-			
-			
+
+
 			//-------------------------------------------------
 
 			parameter.put("sparqlGenerator", "standard");
@@ -143,46 +143,46 @@ public class MediQASt extends HttpServlet {
 		} else if (apporach.equalsIgnoreCase("binary relation")) {
 
 			parameter.put("questionAnalyser", "ReVerb");
-			
-			
+
+
 			//---------------------------------------------------------
 
 			parameter.put("resourceMapper", "luceneStandard");
 			parameter.put("considerRelationEnvironment", "false");
 			parameter.put("findEntityAndClass", "true");
 			parameter.put("RelationManagerSimilarity", "Levenshtein");
-			
-//			parameter.put("LuceneStandardMapper:QueryType", "standard");
-//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
-//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
-			
+
+			//			parameter.put("LuceneStandardMapper:QueryType", "standard");
+			//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
+			//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
+
 			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
-			
-//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+			//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+
+			//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
 			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-			
-//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
+
+			//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
 			parameter.put("LuceneStandardMapper:Lemmatize", "false");
-			
-//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
+
+			//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
 			parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
-			
-//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
-//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
+
+			//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
+			//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
 			parameter.put("LuceneStandardMapper:SearchPerfect", "no");
-			
-//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
+
+			//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
 			parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
-			
-//			parameter.put("considerRelationEnvironment", false);
-			
+
+			//			parameter.put("considerRelationEnvironment", false);
+
 			parameter.put("LuceneStandardMapper:FuzzySearch", "true");
-//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
-			
+			//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
+
 			parameter.put("LuceneStandardMapper:FuzzyParam", "1");
-			
-			
+
+
 			//---------------------------------------------------
 
 			parameter.put("sparqlGenerator", "standard");
@@ -196,43 +196,43 @@ public class MediQASt extends HttpServlet {
 		} else if (apporach.equalsIgnoreCase("pattern based")) {
 
 			parameter.put("questionAnalyser", "RdfGroundedString");
-			
+
 			// ---------------------------------------------
-			
+
 			parameter.put("resourceMapper", "RdfGroundedString");
 			parameter.put("findEntityAndClass", "true");
-			
-//			parameter.put("LuceneStandardMapper:QueryType", "standard");
-//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
-//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
-			
+
+			//			parameter.put("LuceneStandardMapper:QueryType", "standard");
+			//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
+			//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
+
 			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
-			
-//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+			//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+
+			//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
 			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
-			
-//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
+
+			//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
 			parameter.put("LuceneStandardMapper:Lemmatize", "false");
-			
-//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
+
+			//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
 			parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
-			
-//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
-//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
+
+			//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
+			//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
 			parameter.put("LuceneStandardMapper:SearchPerfect", "no");
-			
-//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
+
+			//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
 			parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
-			
-//			parameter.put("considerRelationEnvironment", false);
-			
+
+			//			parameter.put("considerRelationEnvironment", false);
+
 			parameter.put("LuceneStandardMapper:FuzzySearch", "true");
-//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
-			
+			//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
+
 			parameter.put("LuceneStandardMapper:FuzzyParam", "1");
-			
-			
+
+
 			//--------------------------------------------
 
 			parameter.put("sparqlGenerator", "standard");
@@ -246,8 +246,8 @@ public class MediQASt extends HttpServlet {
 
 
 		try {
-			
-			
+
+
 			//Start the Engine
 			InputManager inputManager = new InputManagerImpl(endpoint, query, parameter);
 			List<SparqlCandidate> sparqlList = inputManager.generateSparql();
@@ -255,18 +255,14 @@ public class MediQASt extends HttpServlet {
 
 			//Get the results
 			List<String> uris = new ArrayList<String>();
-			for (int i = 0; i < 10 && i < sparqlList.size(); i++) {
-				SparqlCandidate sparql = sparqlList.get(i);
-				String sparqlQuery = sparql.getSparqlQuery();
-				List<String> result = inputManager.executeSparql(sparqlQuery);
+			List<String> result = inputManager.executeSparqlSet(sparqlList);
 
-				if (result != null) {
-					uris.addAll( result );
-				}
+			if (result != null) {
+				uris.addAll( result );
 			}
-			
-			
-			
+
+
+
 			//send the results
 			PrintWriter out = response.getWriter();
 			out.println("<!DOCTYPE html>");
@@ -282,7 +278,7 @@ public class MediQASt extends HttpServlet {
 			}
 			out.println("</body>");
 			out.println("</html>");
-			
+
 
 		} catch (Exception e) { 
 			response.sendError(500, "internal error. Exception was thrown: " + e);

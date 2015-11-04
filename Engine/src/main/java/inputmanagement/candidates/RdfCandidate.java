@@ -18,4 +18,8 @@ public interface RdfCandidate extends Candidate {
 	 * @return the type of the rdf candidate object
 	 */
 	public RdfCandidateTypes getType();
+
+	public void setBlockingCandidate(RdfCandidate blockingCandidate);
+
+	public RdfCandidate getBlockingCandidate();
 }

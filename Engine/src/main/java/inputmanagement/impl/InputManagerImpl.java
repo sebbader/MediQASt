@@ -4,7 +4,6 @@ import inputmanagement.candidates.impl.RelationCandidate;
 import inputmanagement.candidates.impl.SparqlCandidate;
 import inputmanagement.InputManager;
 import inputmanagement.QuestionTypes;
-import inputmanagement.SparqlGenerator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +21,8 @@ import rdfgroundedstrings.RdfGroundedStringMapper;
 import rdfgroundedstrings.impl.RdfGroundedStringAnalyzerImpl;
 import rdfgroundedstrings.impl.RdfGroundedStringMapperImpl;
 import rulebased.RbQuestionAnalyzer;
+import sparqlgenerator.SparqlGenerator;
+import sparqlgenerator.impl.SparqlGeneratorImpl;
 import analyzer.ReVerb;
 import analyzer.impl.ReVerbImpl;
 
@@ -31,6 +32,7 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 
 import configuration.ConfigManager;
+import configuration.impl.CommonMethods;
 import configuration.impl.ConfigManagerImpl;
 import connector.SPARQLEndpointConnector;
 import connector.impl.SPARQLEndpointConnectorImpl;
@@ -42,8 +44,6 @@ public class InputManagerImpl implements InputManager {
 
 	private String inputQuestion;
 	private String taggedInputQuestion;
-	private String question_with_variable;
-	private String tagged_question_with_variable;
 	private Logger logger;
 	private ConfigManager configManager;
 	public MaxentTagger posTagger;
@@ -113,23 +113,17 @@ public class InputManagerImpl implements InputManager {
 			}
 		}
 
-		// Preparation A.2: POS tagging
-		if (posTagger == null)
-			posTagger = new MaxentTagger(configManager.getHome()
-					+ "models/english-left3words-distsim.tagger");
-		taggedInputQuestion = posTagger.tagString(inputQuestion);
-		logger.info("Stanford POS Tagger returns: " + taggedInputQuestion);
 
 		// ------------ Step B --------------------//
 		// Rule-based Question Analysis (like in CASIA)
-		questionType = getQuestionType(taggedInputQuestion);
-		logger.info("Query Type: " + questionType);
-		if ((questionType != QuestionTypes.select_person)
-				&& (questionType != QuestionTypes.select_thing)) {
-			// throw new GenerateSparqlException("Categorized question as " +
-			// questionType + ". Untill now only qeustions "
-			// + "asking for people and things are possible.");
-		}
+//		questionType = getQuestionType(taggedInputQuestion);
+//		logger.info("Query Type: " + questionType);
+//		if ((questionType != QuestionTypes.select_person)
+//				&& (questionType != QuestionTypes.select_thing)) {
+//			// throw new GenerateSparqlException("Categorized question as " +
+//			// questionType + ". Untill now only qeustions "
+//			// + "asking for people and things are possible.");
+//		}
 
 		// ------------ Step C --------------------//
 		// Question Analyzing
@@ -137,33 +131,31 @@ public class InputManagerImpl implements InputManager {
 
 		try {
 
-			if (isActiveOption("questionAnalyser", "ReVerb")) {
+			if (isActiveOption("questionAnalyzer", "ReVerb")) {
+				// Preparation: POS tagging
+				if (posTagger == null)
+					posTagger = new MaxentTagger(configManager.getHome()
+							+ "models/english-left3words-distsim.tagger");
+				taggedInputQuestion = posTagger.tagString(inputQuestion);
+				logger.info("Stanford POS Tagger returns: " + taggedInputQuestion);
+				
+				
 				// -- using ReVerb to split query into "arg1 rel arg2" format
 
 				// replace question word with variable TODO: delete line?
-				tagged_question_with_variable = replaceWHxxWithVariable(taggedInputQuestion);
+				String tagged_question_with_variable = replaceWHxxWithVariable(taggedInputQuestion);
 
-				question_with_variable = replacePOSTags(tagged_question_with_variable);
+				String question_with_variable = replacePOSTags(tagged_question_with_variable);
 				logger.info("Query before question analysis by ReVerb: '"
-						+ inputQuestion + "'");
+						+ question_with_variable + "'");
 
 				// Looks on the classpath for the default model files.
-				ReVerb r = new ReVerbImpl(logger);
-				r.run(question_with_variable);
-				String arg1 = r.getArg1();
-				String relation = r.getRelation();
-				String arg2 = r.getArg2();
-				if (arg1 != null || relation != null || arg2 != null) {
-					queryTriples.add(new QueryTriple(arg1, relation, arg2));
-					logger.info("Found triple by ReVerb Question Analyser: "
-							+ queryTriples);
-				} else {
-					logger.info("ReVerb Question Analyzer found no triples.");
-				}
+				ReVerb reverb = new ReVerbImpl(logger);
+				queryTriples = reverb.run(question_with_variable);
 			}
 
 			// --- C.2 Rule-based approach inspired by CASIA
-			if (isActiveOption("questionAnalyser", "rulebased")) {
+			if (isActiveOption("questionAnalyzer", "rulebased")) {
 				RbQuestionAnalyzer analyzer = new RbQuestionAnalyzer();
 				queryTriples.addAll(analyzer.getQueryTriples(inputQuestion));
 				logger.info("Found triples by Rule-based Question Analyzer: "
@@ -175,7 +167,7 @@ public class InputManagerImpl implements InputManager {
 			// Everything between entities
 			// which is not a variable (question term) is regarded as a
 			// predicate
-			if (isActiveOption("questionAnalyser", "RdfGroundedString")) {
+			if (isActiveOption("questionAnalyzer", "RdfGroundedString")) {
 				RdfGroundedStringAnalyzer analyzer = new RdfGroundedStringAnalyzerImpl();
 				queryTripleSet.addAll(analyzer.getQueryTriples(inputQuestion));
 				for (ArrayList<QueryTriple> triples : queryTripleSet) {
@@ -187,7 +179,7 @@ public class InputManagerImpl implements InputManager {
 			// //--- C.3: find known entities/relations directly by trying to
 			// compare Strings to the
 			// // stored labels using Lucene Searcher
-			// if (isActiveOption("questionAnalyser", "StatistcMapper")) {
+			// if (isActiveOption("questionAnalyzer", "StatistcMapper")) {
 			// StatisticMapperImpl statistcMapper = new
 			// StatisticMapperImpl(parameter);
 			// queryTriples.addAll(statistcMapper.findCandidates(inputQuestion));
@@ -195,7 +187,7 @@ public class InputManagerImpl implements InputManager {
 			// queryTriples);
 			// }
 
-			// replace "VARIABLE" with "?uri"
+			// replace "VARIABLE" with "?variable"
 			queryTriples.forEach((queryTriple) -> queryTriple.clean());
 			queryTripleSet.forEach(triples -> triples.forEach(triple -> triple
 					.clean()));
@@ -244,21 +236,26 @@ public class InputManagerImpl implements InputManager {
 				}
 			}
 
-			// --- D.3: Using RdfGroundedString Mapper for relatiosn and
+			// --- D.3: Using RdfGroundedString Mapper for relations and
 			// EntityMaper for entities
 			if (isActiveOption("resourceMapper", "RdfGroundedString")) {
 
 				if (queryTripleSet.isEmpty()) {
 					logger.error("No available QueryTriples for RdfGroundedString Mapper.");
 				} else {
-
+					
+					// start finding the relations
+					logger.info("");
 					logger.info("Mapping predicates using RdfGroundedString Mapper:");
+					logger.info("");
 
 					RdfGroundedStringMapper mapper = new RdfGroundedStringMapperImpl();
 					for (int i = 0; i < queryTripleSet.size(); i++) {
 						ArrayList<QueryTriple> triples = queryTripleSet.get(i);
+						
 						logger.info("");
 						logger.info("Search relations for QueryTriple Set:");
+						logger.info("");
 						for (QueryTriple triple : triples) {
 							List<RelationCandidate> relationCandidates = mapper
 									.findRelationCandidates(triple
@@ -282,26 +279,32 @@ public class InputManagerImpl implements InputManager {
 						}
 					}
 
+					
+					// start mapping the entities
+					logger.info("");
 					logger.info("Mapping entities using Lucene Mapper:");
+					logger.info("");
 
 					LuceneMapper luceneMapper = new LuceneMapper(this);
 					for (ArrayList<QueryTriple> triples : queryTripleSet) {
 						logger.info("");
 						logger.info("Search entities for QueryTriple Set:");
 						for (QueryTriple triple : triples) {
-							luceneMapper.mapOnlyEntitiesClasses(triple);
+							luceneMapper.mapEntitiesAndClasses(triple);
 						}
 					}
 
 					logger.info("Found URIs by RdfGroundedStrings Mapper for '"
 							+ inputQuestion + "':");
 					for (List<QueryTriple> triples : queryTripleSet) {
-						logger.info("Triple Set:");
+						double score = CommonMethods.getTriplesScore(triples);
+						logger.info("Triple Set (" + score + "):");
 						for (QueryTriple triple : triples) {
 							logger.info(triple.getTripleWithCandidates());
 						}
 					}
-
+					
+					queryTripleSet.sort(new TripleSetComparator());
 				}
 
 			}
@@ -312,7 +315,9 @@ public class InputManagerImpl implements InputManager {
 				SparqlGenerator sparlqGenerator = new SparqlGeneratorImpl(this);
 				sparlqGenerator.setNumberOfCandidates(Integer
 						.parseInt(getOption("NumberOfSparqlCandidates")));
-
+				sparlqGenerator.setSparqlLimit(Integer
+						.parseInt(getOption("SparqlLimit")));
+						
 				if (!queryTriples.isEmpty() && queryTripleSet.isEmpty()) {
 					// create SPARQL using queryTriples
 					sparqlQueries = sparlqGenerator
@@ -361,7 +366,7 @@ public class InputManagerImpl implements InputManager {
 				}
 			}
 
-			// Step E.3 the BruteForeMapper needs a special kind of treatment
+			// Step E.3 the NaiveMapper needs a special kind of treatment
 			if (isActiveOption("resourceMapper", "naive")) {
 				SparqlGenerator sparlqGenerator = new SparqlGeneratorImpl(this);
 				sparlqGenerator.setNumberOfCandidates(Integer
@@ -398,8 +403,8 @@ public class InputManagerImpl implements InputManager {
 		String[] words = taggedQuestion.split(" ");
 		String output = taggedQuestion;
 		for (String word : words) {
-			if (word.contains("_WP") || word.contains("_WDT")) {
-				output = taggedQuestion.replace(word.replace("_WP", ""),
+			if (word.contains("_WP") || word.contains("_WDT") || word.contains("_WRB")) {
+				output = taggedQuestion.replace(word.replace("_WP", "").replace("_WDT", "").replace("_WRB", ""),
 						"VARIABLE");
 				word = "x";
 			}
@@ -437,8 +442,8 @@ public class InputManagerImpl implements InputManager {
 
 		while (rs.hasNext()) {
 			QuerySolution qs = rs.next();
-			if (qs.get("uri") != null)
-				results.add(qs.get("uri").toString());
+			if (qs.get("variable") != null)
+				results.add(qs.get("variable").toString());
 		}
 
 		return results;
@@ -451,16 +456,19 @@ public class InputManagerImpl implements InputManager {
 		List<String> results = new ArrayList<String>();
 		
 		for (SparqlCandidate candidate : sparqlCandidates) {
+			
+			logger.info("Start: " + candidate.getSparqlQuery());
+			
 			ResultSet rs = endpointConnector.executeQuery(candidate.getSparqlQuery());
 
 			logger.debug(candidate + " returns results:");
 			
 			while (rs.hasNext()) {
 				QuerySolution qs = rs.next();
-				if (qs.get("uri") != null) {
-					String new_uri = qs.get("uri").toString();
-					logger.debug(new_uri);
-					if (!results.contains(new_uri)) results.add(new_uri);
+				if (qs.get("variable") != null) {
+					String new_variable = qs.get("variable").toString();
+					logger.debug(new_variable);
+					if (!results.contains(new_variable)) results.add(new_variable);
 				}
 			}
 		}

@@ -8,6 +8,7 @@ import inputmanagement.candidates.impl.EntityCandidate;
 import inputmanagement.candidates.impl.RelationCandidate;
 import inputmanagement.impl.CustomComparator;
 import inputmanagement.impl.GenerateSparqlException;
+import inputmanagement.impl.InputManagerImpl;
 import inputmanagement.impl.QueryTriple;
 import inputmanagement.impl.QueryTripleComparator;
 
@@ -22,6 +23,8 @@ import mapper.RelationMapper;
 import mapper.impl.ClassMapperImpl;
 import mapper.impl.EntityMapperImpl;
 import mapper.impl.RelationMapperImpl;
+import naiveanalyzer.impl.GraphAnalyzerImpl;
+import naiveanalyzer.impl.GreedyAnalyzerImpl;
 import naivemapper.NaiveMapper;
 
 import org.apache.log4j.Logger;
@@ -43,10 +46,10 @@ public class NaiveMapperImpl implements NaiveMapper {
 		this.logger = configManager.getLogger();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ArrayList<QueryTriple>> getQueryTriples(String question)
 			throws GenerateSparqlException {
-		List<ArrayList<QueryTriple>> queryTripleSet = new ArrayList<ArrayList<QueryTriple>>();
 
 		String[] words = getWords(question);
 
@@ -57,7 +60,7 @@ public class NaiveMapperImpl implements NaiveMapper {
 		} catch (GenerateSparqlException e) {
 			window = 2;
 			logger.error(
-					"Could not find 'BruteForceSearch:windows' parameter. Use default value 2.",
+					"Could not find 'NaiveMapper:windows' parameter. Use default value 2.",
 					e);
 		}
 
@@ -68,7 +71,7 @@ public class NaiveMapperImpl implements NaiveMapper {
 		} catch (GenerateSparqlException e) {
 			threshold = 2.;
 			logger.error(
-					"Could not find 'BruteForceMapper:threshold' parameter. Use default value 2.0 .",
+					"Could not find 'NaiveMapper:threshold' parameter. Use default value 2.0 .",
 					e);
 		}
 
@@ -109,330 +112,90 @@ public class NaiveMapperImpl implements NaiveMapper {
 			candidates = CommonMethods.filterCandidates(candidates);
 		}
 
-		// find all possible candidate combinations
-		List<MappedQuery> mappedQueries = greedyCandidateInserting(
-				new MappedQuery(question), candidates);
-		for (MappedQuery query : mappedQueries) {
-			logger.info("BruteForceMapper found Candidates in text: "
-					+ query.toString());
-		}
-
-		// Convert mapped queries to querytriples
-		for (MappedQuery query : mappedQueries) {
-			ArrayList<QueryTriple> queryTriples = findQueryTriples(query);
-			queryTripleSet.add(queryTriples);
-		}
-
-		// queryTripleSet.sort(new QueryTripleSetComparator() );
-
-		for (ArrayList<QueryTriple> queryTriples : queryTripleSet) {
-			logger.info("BruteForceMapper found Query Triples Set:");
-			for (QueryTriple triple : queryTriples) {
-				logger.info("BruteForceMapper found Query Triples: "
-						+ triple.toString() + " Score: " + triple.getScore());
-			}
-		}
-
+		
+		
+		// Analyzer Part:
+		candidates = (List<RdfCandidate>) CommonMethods.removeDuplicates(candidates);
+		candidates.sort(new CustomComparator());
+		
+//		GreedyAnalyzerImpl analyzer = new GreedyAnalyzerImpl(manager);
+//		List<ArrayList<QueryTriple>> queryTripleSet = analyzer.getQueryTriples(candidates, question);
+		
+		GraphAnalyzerImpl analyzer = new GraphAnalyzerImpl((InputManagerImpl) manager);
+		List<ArrayList<QueryTriple>> queryTripleSet = analyzer.getQueryTriples(candidates, question);
+		
 		return queryTripleSet;
 	}
 
-	private ArrayList<QueryTriple> findQueryTriples(MappedQuery query) {
-		ArrayList<QueryTriple> queryTriples = new ArrayList<QueryTriple>();
-		int status = 0;
-		int relationCounter = 0;
-
-		EntityCandidate entity = null;
-		RelationCandidate relation = null;
-		EntityCandidate variable = null;
-
-		for (RdfCandidate candidate : query.getQuery()) {
-
-			if (candidate.getType().equals(RdfCandidateTypes.UNKNOWN))
-				continue;
-
-			switch (status) {
-			case 0:
-				if (candidate.getType().equals(RdfCandidateTypes.ENTITY)
-						|| candidate.getType().equals(RdfCandidateTypes.CLASS)) {
-
-					// accept entities, classes and variables
-					entity = (EntityCandidate) candidate;
-					status = 1;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.VARIABLE)) {
-
-					variable = (EntityCandidate) candidate;
-					status = 2;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.RELATION)) {
-
-					relation = (RelationCandidate) candidate;
-					status = 3;
-				}
-				break;
-
-			case 1:
-				if (candidate.getType().equals(RdfCandidateTypes.ENTITY)
-						|| candidate.getType().equals(RdfCandidateTypes.CLASS)) {
-
-					entity = (EntityCandidate) candidate;
-					status = 1;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.VARIABLE)) {
-
-					relation = new RelationCandidate("?relation" + relationCounter++, 1);
-					variable = (EntityCandidate) candidate;
-
-					QueryTriple triple = new QueryTriple(entity, relation,
-							variable);
-					triple.setScore(entity.getScore() + relation.getScore()
-							+ variable.getScore());
-					queryTriples.add(triple);
-
-					entity = null;
-					relation = null;
-					status = 2;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.RELATION)) {
-
-					relation = (RelationCandidate) candidate;
-					status = 4;
-
-				}
-				break;
-
-			case 2:
-				if (candidate.getType().equals(RdfCandidateTypes.ENTITY)
-						|| candidate.getType().equals(RdfCandidateTypes.CLASS)) {
-
-					entity = (EntityCandidate) candidate;
-					relation = new RelationCandidate("?relation" + relationCounter++, 1);
-
-					QueryTriple triple = new QueryTriple(variable, relation,
-							entity);
-					triple.setScore(variable.getScore() + relation.getScore()
-							+ entity.getScore());
-					queryTriples.add(triple);
-
-					entity = null;
-					relation = null;
-					status = 2;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.RELATION)) {
-
-					relation = (RelationCandidate) candidate;
-					status = 5;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.VARIABLE)) {
-					// do nothing
-				}
-				break;
-
-			case 3:
-				if (candidate.getType().equals(RdfCandidateTypes.ENTITY)
-						|| candidate.getType().equals(RdfCandidateTypes.CLASS)) {
-
-					entity = (EntityCandidate) candidate;
-					variable = new EntityCandidate("?uri", 1);
-					variable.setType(RdfCandidateTypes.VARIABLE);
-
-					QueryTriple triple = new QueryTriple(variable, relation,
-							entity);
-					triple.setScore(variable.getScore() + relation.getScore()
-							+ entity.getScore());
-					queryTriples.add(triple);
-
-					entity = null;
-					relation = null;
-					status = 2;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.RELATION)) {
-
-					relation = (RelationCandidate) candidate;
-					status = 3;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.VARIABLE)) {
-					variable = (EntityCandidate) candidate;
-					entity = new EntityCandidate("?entity", 1);
-
-					QueryTriple triple = new QueryTriple(variable, relation,
-							entity);
-					triple.setScore(variable.getScore() + relation.getScore()
-							+ entity.getScore());
-					queryTriples.add(triple);
-
-					entity = null;
-					relation = null;
-					status = 2;
-				}
-				break;
-
-			case 4:
-				if (candidate.getType().equals(RdfCandidateTypes.ENTITY)
-						|| candidate.getType().equals(RdfCandidateTypes.CLASS)) {
-
-					entity = (EntityCandidate) candidate;
-					relation = null;
-					variable = null;
-					status = 1;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.RELATION)) {
-
-					relation = (RelationCandidate) candidate;
-					status = 1;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.VARIABLE)) {
-
-					variable = (EntityCandidate) candidate;
-
-					QueryTriple triple = new QueryTriple(variable, relation,
-							entity);
-					triple.setScore(variable.getScore() + relation.getScore()
-							+ entity.getScore());
-					queryTriples.add(triple);
-
-					entity = null;
-					relation = null;
-					status = 2;
-				}
-				break;
-
-			case 5:
-				if (candidate.getType().equals(RdfCandidateTypes.ENTITY)
-						|| candidate.getType().equals(RdfCandidateTypes.CLASS)) {
-
-					entity = (EntityCandidate) candidate;
-
-					QueryTriple triple = new QueryTriple(variable, relation,
-							entity);
-					triple.setScore(variable.getScore() + relation.getScore()
-							+ entity.getScore());
-					queryTriples.add(triple);
-
-					entity = null;
-					relation = null;
-					status = 2;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.RELATION)) {
-
-					relation = (RelationCandidate) candidate;
-					status = 2;
-
-				} else if (candidate.getType().equals(
-						RdfCandidateTypes.VARIABLE)) {
-
-					entity = null;
-					relation = null;
-					status = 2;
-				}
-				break;
-
-			default:
-				// should not happen...
-				break;
-			}
-		}
-		return queryTriples;
-	}
-
-	private List<MappedQuery> greedyCandidateInserting(MappedQuery query,
-			List<RdfCandidate> candidates) {
-		List<MappedQuery> mappedQueries = new ArrayList<MappedQuery>();
-		candidates.sort(new CustomComparator());
-		List<RdfCandidate> candidates_copy = new ArrayList<RdfCandidate>(
-				candidates);
-
-		for (int i = 0; i < candidates.size(); i++) {
-			MappedQuery mappedQuery = query.clone();
-			RdfCandidate leastImportantCandidate = null;
-			double contributionOfleastImportantCandidate = Double.MAX_VALUE;
-
-			List<RdfCandidate> tmp_candidates = new ArrayList<RdfCandidate>(
-					candidates_copy);
-			while (!tmp_candidates.isEmpty()) {
-				RdfCandidate candidate = tmp_candidates.remove(0);
-
-				InsertResult result = mappedQuery.insertCandidate(candidate);
-				if (!result.didInsert_worked()) {
-					double score_difference = result.getBlockingCandidate()
-							.getScore() - candidate.getScore();
-					if (score_difference < contributionOfleastImportantCandidate) {
-						leastImportantCandidate = result.getBlockingCandidate();
-						contributionOfleastImportantCandidate = score_difference;
-					}
-				} else {
-					double score_difference = candidate.getScore() - 0;
-					if (score_difference < contributionOfleastImportantCandidate) {
-						leastImportantCandidate = candidate;
-						contributionOfleastImportantCandidate = score_difference;
-					}
-				}
-			}
-			mappedQueries.add(mappedQuery.clone());
-			candidates_copy.remove(leastImportantCandidate);
-		}
-
-		return mappedQueries;
-	}
 
 	private List<RdfCandidate> findCandidate(String term,
 			List<Integer> position, double threshold) {
 		List<RdfCandidate> candidates = new ArrayList<RdfCandidate>();
 
 		if (CommonMethods.isVariable(term)) {
-			EntityCandidate candidate = new EntityCandidate("?uri", 10);
+			EntityCandidate candidate = new EntityCandidate("?variable", 100);
 			candidate.setType(RdfCandidateTypes.VARIABLE);
 			candidate.setPosition(position);
 			candidates.add(candidate);
 			return candidates;
 		}
 
+		
 		List<EntityCandidate> classes = null;
-		if (!manager.isActiveOption("BruteForceMapper:noClass", true)) {
+		if (!manager.isActiveOption("NaiveMapper:noClass", true)) {
+			
 			ClassMapper classMapper = new ClassMapperImpl(manager);
 			classes = classMapper.getClassCandidates(term);
+			
+			if (classes == null) classes = new ArrayList<EntityCandidate>();
 			for (RdfCandidate candidate : classes) {
 				if (candidate.getScore() >= threshold)
 					candidates.add(candidate);
 			}
+			
 		}
 
+		
 		List<EntityCandidate> entities = null;
-		if (!manager.isActiveOption("BruteForceMapper:noEntity", true)) {
+		if (!manager.isActiveOption("NaiveMapper:noEntity", true)) {
+			
 			EntityMapper entityMapper = new EntityMapperImpl(manager);
 			entities = entityMapper.getEntityCandidates(term);
+			
+			if (entities == null) entities = new ArrayList<EntityCandidate>();
 			for (RdfCandidate candidate : entities) {
 				if (candidate.getScore() >= threshold)
 					candidates.add(candidate);
 			}
+			
 		}
 
+		
 		List<RelationCandidate> relations = null;
-		if (!manager.isActiveOption("BruteForceMapper:noRelation", true)) {
+		if (!manager.isActiveOption("NaiveMapper:noRelation", true)) {
+			
 			RelationMapper relationMapper = new RelationMapperImpl(manager);
 			relations = relationMapper.getRelationCandidates(term);
+			
+			if (relations == null) relations = new ArrayList<RelationCandidate>();
 			for (RdfCandidate candidate : relations) {
 				if (candidate.getScore() >= threshold)
 					candidates.add(candidate);
 			}
+			
 		}
 
 		candidates.forEach((candidate) -> candidate.setPosition(position));
 		candidates.sort(new CustomComparator());
 
+		
+		
 		if (candidates.size() > 0) {
-			return candidates;
+			if (candidates.size() > 10) {
+				return candidates.subList(0, 10);
+			} else {
+				return candidates;
+			}
 		} else {
 			return null;
 		}

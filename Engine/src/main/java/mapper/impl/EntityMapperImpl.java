@@ -19,6 +19,7 @@ import connector.SPARQLEndpointConnector;
 import lucene.LuceneSearcher;
 import mapper.EntityMapper;
 import inputmanagement.InputManager;
+import inputmanagement.candidates.RdfCandidateTypes;
 import inputmanagement.candidates.impl.EntityCandidate;
 import inputmanagement.impl.InputManagerImpl;
 
@@ -58,11 +59,23 @@ public class EntityMapperImpl implements EntityMapper {
 	private List<EntityCandidate> getEntityCandidatesWithLucene(String entity) {
 		List<EntityCandidate> entities = new ArrayList<EntityCandidate>();
 
-		// 1) entities with two or less characters are treated like variables
-		Pattern p = Pattern.compile("\\?[a-zA-Z]+");
+		// 1) entities starting with "?" or "_:" are treated like variables/empty nodes
+		Pattern p = Pattern.compile("((\\?[a-zA-Z]+)|(_:[a-zA-Z]+))");
 		Matcher m = p.matcher(entity);
 		if (m.matches()) {
-			entities.add(new EntityCandidate(entity, 1, ""));
+			p = Pattern.compile("\\?variable");
+			m = p.matcher(entity);
+			
+			EntityCandidate entityCandidate;
+			if (m.matches()) {
+				entityCandidate = new EntityCandidate(entity, 100,
+					"");
+			} else {
+				entityCandidate = new EntityCandidate(entity, 1,
+						"");
+			}
+			entityCandidate.setType(RdfCandidateTypes.ENTITY);
+			entities.add(entityCandidate);
 			logger.info("Identified entity " + entity
 					+ " as variable. No further processing.");
 			return entities;
@@ -73,7 +86,7 @@ public class EntityMapperImpl implements EntityMapper {
 		m = p.matcher(entity);
 		if (m.matches()) {
 
-			EntityCandidate entityCandidate = new EntityCandidate(entity, 1, "");
+			EntityCandidate entityCandidate = new EntityCandidate(entity, 100, "");
 
 			logger.info("Identified entity " + entity
 					+ " as valid uri. No further processing.");

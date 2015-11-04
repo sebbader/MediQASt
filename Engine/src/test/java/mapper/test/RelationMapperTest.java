@@ -1,4 +1,4 @@
-package inputmanagement.test;
+package mapper.test;
 
 import inputmanagement.candidates.impl.EntityCandidate;
 import inputmanagement.candidates.impl.RelationCandidate;

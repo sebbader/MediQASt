@@ -85,7 +85,7 @@ public class LuceneMapper {
 					+ entityCandidate);
 	}
 
-	public void mapOnlyEntitiesClasses(QueryTriple queryTriple) {
+	public void mapEntitiesAndClasses(QueryTriple queryTriple) {
 
 		ClassMapper classMapper = new ClassMapperImpl(inputManager);
 		if (inputManager.isActiveOption("findEntityAndClass", "true")) {

@@ -1,6 +1,9 @@
 package analyzer;
 
+import inputmanagement.impl.QueryTriple;
+
 import java.io.IOException;
+import java.util.List;
 
 public interface ReVerb {
 
@@ -10,20 +13,6 @@ public interface ReVerb {
 	 * @param inputQuestion
 	 * @throws IOException
 	 */
-	public void run(String inputQuestion) throws IOException;
+	public List<QueryTriple> run(String inputQuestion) throws IOException;
 
-	/**
-	 * @return get the subject/object before the verb
-	 */
-	public String getArg1();
-
-	/**
-	 * @return get the subject/object after the verb
-	 */
-	public String getArg2();
-
-	/**
-	 * @return get the verb
-	 */
-	public String getRelation();
 }

@@ -52,12 +52,21 @@ public class ClassMapperImpl implements ClassMapper {
 	public List<EntityCandidate> getClassCandidatesWithLucene(String class_term) {
 		List<EntityCandidate> classes = new ArrayList<EntityCandidate>();
 
-		// 1) entities with two or less characters are treated like variables
-		Pattern p = Pattern.compile("\\?[a-zA-Z]+");
+		// 1) entities starting with "?" or "_:" are treated like variables/empty nodes
+		Pattern p = Pattern.compile("((\\?[a-zA-Z]+)|(_:[a-zA-Z]+))");
 		Matcher m = p.matcher(class_term);
 		if (m.matches()) {
-			EntityCandidate classCandidate = new EntityCandidate(class_term, 1,
+			p = Pattern.compile("\\?variable");
+			m = p.matcher(class_term);
+			
+			EntityCandidate classCandidate;
+			if (m.matches()) {
+				classCandidate = new EntityCandidate(class_term, 100,
 					"");
+			} else {
+				classCandidate = new EntityCandidate(class_term, 1,
+						"");
+			}
 			classCandidate.setType(RdfCandidateTypes.CLASS);
 			classes.add(classCandidate);
 			logger.info("Identified class " + class_term
@@ -70,7 +79,7 @@ public class ClassMapperImpl implements ClassMapper {
 		m = p.matcher(class_term);
 		if (m.matches()) {
 
-			EntityCandidate classCandidate = new EntityCandidate(class_term, 1,
+			EntityCandidate classCandidate = new EntityCandidate(class_term, 100,
 					"");
 			classCandidate.setType(RdfCandidateTypes.CLASS);
 

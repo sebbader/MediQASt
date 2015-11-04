@@ -15,28 +15,29 @@
 		<answer>http://dbpedia.org/resource/Liver</answer>
 	</question>
 	
-	<question id="3" source="dbpedia">
-		<query><![CDATA[Who was Magnus Hirschfeld?]]></query>
-		<sparql><![CDATA[SELECT DISTINCT ?uri WHERE { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Magnus_Hirschfeld> .}]]></sparql>
-		<answer>http://dbpedia.org/resource/Magnus_Hirschfeld</answer>
-	</question>
+
 	
-	<question id="4" source="drugbank">
+	<question id="3" source="drugbank">
 		<query><![CDATA[What is Nexium?]]></query>
 		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736> . }]]></sparql>
 		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00338</answer>
 		<answer>http://dbpedia.org/resource/Omeprazole</answer>
 		<answer>http://dbpedia.org/resource/Esomeprazole</answer>
 		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/page/drugs/4594</answer>
 	</question>
 	
-	<question id="5" source="icd">
+	<question id="4" source="icd">
 		<query><![CDATA[What is alcohol dependence?]]></query>
 		<sparql><![CDATA[select distinct ?uri where { ?uri  <http://www.w3.org/2002/07/owl#sameAs> <http://id.who.int/icd/entity/1580466198> .}]]></sparql>
 		<answer>http://id.who.int/icd/entity/1580466198</answer>
+		<answer>http://dbpedia.org/resource/Alcohol_dependence</answer>
+		<answer>http://dbpedia.org/resource/Alcoholism</answer>
+		<answer>http://dbpedia.org/resource/Disease_theory_of_alcoholism</answer>
+		<answer>http://dbpedia.org/resource/Substance_dependence</answer>
 	</question>
 	
-	<question id="6" source="sider">
+	<question id="5" source="sider">
 		<query><![CDATA[What is bigeminy?]]></query>
 		<sparql><![CDATA[select distinct ?uri where { ?uri ?rel <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662> . }]]></sparql>
 		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662</answer>
@@ -83,7 +84,7 @@
 	<question id="11" source="icd">
 		<query><![CDATA[What is the definition of malignant neoplasms of skin?]]></query>
 		<sparql><![CDATA[select distinct ?uri where {<http://id.who.int/icd/entity/1706880799> <http://www.w3.org/2004/02/skos/core#definition> ?uri . }]]></sparql>
-		<answer>"A primary or metastatic tumor involving the skin. Primary malignant skin tumors most often are carcinomas (either basal cell or squamous cell carcinomas that arise from cells in the epidermis) or melanomas that arise from pigment-containing skin melanocytes. Metastatic tumors to the skin include carcinomas and lymphomas."@en</answer>
+		<answer>A primary or metastatic tumor involving the skin. Primary malignant skin tumors most often are carcinomas (either basal cell or squamous cell carcinomas that arise from cells in the epidermis) or melanomas that arise from pigment-containing skin melanocytes. Metastatic tumors to the skin include carcinomas and lymphomas.@en</answer>
 	</question>
 
 	<question id="12" source="drugbank">
@@ -173,7 +174,7 @@
 	<question id="18" source="dbpedia and icd">
 		<query><![CDATA[What is the ICD10 code of cerebral ischaemic stroke?]]></query>
 		<sparql><![CDATA[select distinct ?uri where { ?uri <http://id.who.int/icd/relation#hasICD10code> <http://id.who.int/icd/entity/636274910> . }]]></sparql>
-		<answer>"I63"</answer>
+		<answer>I63</answer>
 	</question>
 	
 	<question id="19" source="dbpedia and drugbank">

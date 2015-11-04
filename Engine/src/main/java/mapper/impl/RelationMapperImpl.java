@@ -62,7 +62,7 @@ public class RelationMapperImpl implements RelationMapper {
 	public List<RelationCandidate> findRelationCandidates(String relation,
 			List<EntityCandidate> entity1Candidates,
 			List<EntityCandidate> entity2Candidates)
-			throws GenerateSparqlException {
+					throws GenerateSparqlException {
 
 		// compute relations as in other method
 		findRelationCandidatesWithLucene(relation);
@@ -80,18 +80,32 @@ public class RelationMapperImpl implements RelationMapper {
 	public List<RelationCandidate> findRelationCandidatesWithLucene(
 			String relation) {
 
-		// 1) relation already is a valid uri
-		Pattern p = Pattern.compile("<http://.*>");
+		// 1) relations starting with "?" or "_:" are treated like variables/empty nodes
+		Pattern p = Pattern.compile("((\\?[a-zA-Z]+)|(_:[a-zA-Z]+))");
 		Matcher m = p.matcher(relation);
 		if (m.matches()) {
-			relations.add(new RelationCandidate(relation, 10));
+			relations.add(new RelationCandidate(relation, 1, ""));
+			logger.info("Identified relation " + relation
+					+ " as variable. No further processing.");
+			return relations;
+		}
+
+		// 2) relation already is a valid uri
+		p = Pattern.compile("<http://.*>");
+		m = p.matcher(relation);
+		if (m.matches()) {
+
+			RelationCandidate relationCandidate = new RelationCandidate(relation, 1, "");
+
 			logger.info("Identified relation " + relation
 					+ " as valid uri. No further processing.");
+
+			relations.add(relationCandidate);
 			return relations;
 		}
 
 
-		// 2) assume that the entity exists as a resource in the Lucene index
+		// 3) assume that the entity exists as a resource in the Lucene index
 		try {
 			LuceneSearcher searcher = new LuceneSearcher();
 			logger.info("Search for \"" + relation
@@ -136,7 +150,7 @@ public class RelationMapperImpl implements RelationMapper {
 									pred, 10 * similarity * entity.getScore(),
 									label);
 							((RelationCandidatesArrayList) relations)
-									.addDistinctCandidate(candidate);
+							.addDistinctCandidate(candidate);
 						}
 					} else if (inputManager.isActiveOption(
 							"RelationManagerSimilarity", "Levenshtein")) {
@@ -149,7 +163,7 @@ public class RelationMapperImpl implements RelationMapper {
 									pred, 10 * similarity * entity.getScore(),
 									label);
 							((RelationCandidatesArrayList) relations)
-									.addDistinctCandidate(candidate);
+							.addDistinctCandidate(candidate);
 						}
 					} else {
 						logger.error("No valid RelationManagerSimilarity found, can not find RelationCandidates!");

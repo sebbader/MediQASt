@@ -180,14 +180,15 @@ public class LuceneSearcher {
 		String term = input_term;
 		term = term.replaceAll("\\-[0-9]+_", " ").replaceAll("\\-[0-9]+", "");
 		term = term.replace(" 's ", "'s ");
-		String original_term = term.toLowerCase();
+		term = term.toLowerCase();
+		String original_term = term;
 
 
 		//
 		// handle search Parameter
 		//
 		// lemmatize if needed
-		String query_term = term.toLowerCase();
+		String query_term = term.replace("-", " ");
 		if (inputManager.isActiveOption("LuceneStandardMapper:Lemmatize", "true") ) {
 			StanfordLemmatizer lemmatizer = inputManager.getLemmatizer();
 			query_term = lemmatizer.lemmatize(query_term);
@@ -197,6 +198,12 @@ public class LuceneSearcher {
 		if (inputManager.isActiveOption("LuceneStandardMapper:StopwordRemoval", "true") ) {
 			MyStemmer stemmer = new MyStemmer();
 			query_term = stemmer.removeStopwords(query_term);
+		}
+
+		// use own lucene scoring formulae
+		boolean customFormula = false;
+		if (inputManager.isActiveOption("LuceneStandardMapper:Formula", "own") ) {
+			customFormula = true;
 		}
 
 		// prepare term for the Lucene searcher by telling Lucene to apply AND for the words of 'term'
@@ -224,10 +231,10 @@ public class LuceneSearcher {
 
 
 		// prepare term for the Lucene searcher by telling Lucene to apply AND for the words of 'term'
-		boolean fuzzySearch = false;
+		//boolean fuzzySearch = false;
 		String fuzzyParam = "0";
 		if (inputManager.isActiveOption("LuceneStandardMapper:FuzzySearch", "true") ) {
-			fuzzySearch = true;
+			//fuzzySearch = true;
 			try {
 				fuzzyParam = inputManager.getOption("LuceneStandardMapper:FuzzyParam");
 				String fuzzy_query = "";
@@ -250,18 +257,25 @@ public class LuceneSearcher {
 			}
 		} 
 
+		try {
+			numberOfHits = Integer.parseInt(inputManager.getOption("LuceneStandardMapper:NumberOfHits")); 
+		} catch (Exception e) {
+			logger.debug(e);
+			logger.error("Could not read NumberOfHits, use default parameter 20");
+			numberOfHits = 20;
+		}
 
 		logger.info("Lucene Search Query Text: " + query_term);
 
-		
-		
+
+
 		Query q;
 		// create the query the standard way
-//		QueryParser queryParser = new ComplexPhraseQueryParser("labels", analyzer);
-//		Query q = queryParser.parse(query_term);
-		
+		//		QueryParser queryParser = new ComplexPhraseQueryParser("labels", analyzer);
+		//		Query q = queryParser.parse(query_term);
+
 		// use the MultiFieldQuery to search in fields "labels", "keywords" and "nodes"
-		String[] search_fields = {KeywordSearcher.LABELS, KeywordSearcher.KEYWORDS, KeywordSearcher.NODE};
+		String[] search_fields = {KeywordSearcher.LABELS, KeywordSearcher.KEYWORDS};//, KeywordSearcher.NODE};
 		MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(search_fields, analyzer); 
 		Query multiFieldQuery = multiFieldQueryParser.parse(query_term);
 		q = multiFieldQuery;
@@ -303,10 +317,10 @@ public class LuceneSearcher {
 			}
 
 		logger.debug("Parsed Lucene Search Query" + q.toString());
-		
-		
+
+
 		// -------------------------------------------------
-		
+
 		boolean adjustFieldNorm = inputManager.isActiveOption("LuceneStandardMapper:AdjustFieldNorm", true);
 		boolean divideByOccurance = inputManager.isActiveOption("LuceneStandardMapper:DivideByOccurrence", true);
 		boolean boostPerfectMatch = inputManager.isActiveOption("LuceneStandardMapper:BoostPerfectMatch", true);
@@ -314,7 +328,7 @@ public class LuceneSearcher {
 		// get three times more hits than necessary in order to still have
 		// enough after deleting duplicates
 		// (this is not deterministic)
-		TopDocs hits = searcher.search(q, numberOfHits * 3);
+		TopDocs hits = searcher.search(q, 1000);
 		ScoreDoc[] scoreDocs = hits.scoreDocs;
 		for (int n = 0; n < scoreDocs.length; ++n) {
 			ScoreDoc sd = scoreDocs[n];
@@ -328,41 +342,46 @@ public class LuceneSearcher {
 			String uri = "";
 			String label = "";
 			String keywords = "";
-			
+
 			List<Float> nodeScores = new ArrayList<Float>();
 			List<Float> labelScores = new ArrayList<Float>();
 			List<Float> keywordScores = new ArrayList<Float>();
-			
+
 			Explanation explanation = searcher.explain(q, sd.doc);
-			
+
 			try {
 
 				for (IndexableField f : fields) {
 					if (f.name().toLowerCase().contains(KeywordSearcher.NODE)) {
-						
+
 						// get the text
 						uri = f.stringValue();
 
 						float new_node_score = getNewScore(original_term, f, 0.1f, adjustFieldNorm, boostPerfectMatch, searchPerfectOnly, fuzzyParam, explanation); 
 						if (new_node_score > 0) numberOfOccurance++;
 						nodeScores.add(new_node_score);
-						
+
 					} else if (f.name().toLowerCase().contains(KeywordSearcher.LABELS)) {
 						// get the text
 						label += f.stringValue() + " - ";
 
-						float new_label_score = getNewScore(original_term, f, 2.0f, adjustFieldNorm, boostPerfectMatch, searchPerfectOnly, fuzzyParam, explanation); 
+						float new_label_score = getNewScore(original_term, f, 1.5f, adjustFieldNorm, boostPerfectMatch, searchPerfectOnly, fuzzyParam, explanation); 
 						if (new_label_score > 0) numberOfOccurance++;
 						labelScores.add(new_label_score);
-						
+
 					} else if ("keywords".equalsIgnoreCase(f.name())) {
 						keywords += f.stringValue() + " - ";
 
 						float new_keywords_score = getNewScore(original_term, f, 1.0f, adjustFieldNorm, boostPerfectMatch, searchPerfectOnly, fuzzyParam, explanation); 
 						if (new_keywords_score > 0) numberOfOccurance++;
 						keywordScores.add(new_keywords_score);
-						
+
 					}
+
+					//					if (uri.equalsIgnoreCase("<http://id.who.int/icd/entity/372746086>")) {
+					//						@SuppressWarnings("unused")
+					//						int i = 1 + 1;
+					//					}
 				}
 			} catch (Exception e) {
 				logger.error("Error during lucene search for " + type, e);
@@ -372,17 +391,17 @@ public class LuceneSearcher {
 			// score by Lucene regards all other matching fields of the
 			// document, too.
 			// This behaviour is not wanted here
-//			if (!divideByOccurance) {
-//				numberOfLabelsContainingTerm = 1;
-//			}
-//			if (numberOfLabelsContainingTerm == 0) {
-//				numberOfLabelsContainingTerm = 1;
-//			}
-//			if (boostPerfectMatch) {
-//				boost = 1;
-//			}
+			//			if (!divideByOccurance) {
+			//				numberOfLabelsContainingTerm = 1;
+			//			}
+			//			if (numberOfLabelsContainingTerm == 0) {
+			//				numberOfLabelsContainingTerm = 1;
+			//			}
+			//			if (boostPerfectMatch) {
+			//				boost = 1;
+			//			}
 
-			
+
 			if (logger.isDebugEnabled()) {
 				Explanation explain = searcher.explain(q, sd.doc);	
 				logger.debug("Explain Lucene Score:");
@@ -391,33 +410,44 @@ public class LuceneSearcher {
 				logger.debug(explain);	
 			}
 
-			logger.debug("Old Score by Lucene Search Engine: " + lucene_score);
+			if (customFormula) {
+				logger.debug("Old Score by Lucene Search Engine: " + lucene_score);
 
-			float score = 0;
-			for (Float node_score : nodeScores) { score += node_score;}
-			for (Float label_score : labelScores) { score += label_score;}
-			for (Float keyword_score : keywordScores) { score += keyword_score;}
-			if (divideByOccurance){
-				if (numberOfOccurance > 0) {
-					score = (float) (score / Math.sqrt(numberOfOccurance));
+				float score = 0;
+				float score1 = 0;
+				float score2 = 0;
+				float score3 = 0;
+				for (Float node_score : nodeScores) { score1 += node_score;}
+				for (Float label_score : labelScores) { score2 += label_score;}
+				for (Float keyword_score : keywordScores) { score3 += keyword_score;}
+
+				float coord = getCoord(explanation);
+				score = (score1 + score2 + score3 ) * coord;
+
+				if (divideByOccurance && (numberOfOccurance > 0)) {
+					//					score = (float) (score / Math.sqrt(numberOfOccurance));
+					score = (float) (score / numberOfOccurance);
+					logger.debug("score = (node_score(" + score1 + ") + label_score(" + score2 + ") + keyword_score(" + score3 + ") ) * coord(" + coord + ") / SquRoot(" + numberOfOccurance + ")");
+				} else {
+					logger.debug("score = (node_score(" + score1 + ") + label_score(" + score2 + ") + keyword_score(" + score3 + ") ) * coord(" + coord + ") ");
 				}
-			}
-			float coord = getCoord(explanation);
-			score = score * coord;
-			//+ "*" + boost +" / SquareRoot(" + numberOfLabelsContainingTerm + ") / " + fieldNorm + " * " + ownNorm);
 
-			logger.debug("New Score " + score + " = " + score); 
-			candidates.add(createCandidate(uri, score, label, keywords, type));
+				logger.debug("New Score " + score + " = " + score); 
+				candidates.add(createCandidate(uri, score, label, keywords, type));
+
+			} else {
+				candidates.add(createCandidate(uri, lucene_score, label, keywords, type));
+			}
 		}
 
 		// only regard the entity with the highest score
+		candidates.sort(new CustomComparator());
 		candidates = removeDuplicates(candidates);
 
 		// normalize the scores into interval [0, 1]
 		// remark: not used anymore, original score applys better
 		// normalizeScores(candidates);
 
-		candidates.sort(new CustomComparator());
 
 		// not necessary since 4.0.0
 		// searcher.close();
@@ -431,11 +461,12 @@ public class LuceneSearcher {
 		float ownNorm = Float.MAX_VALUE;
 		float maxNorm = 0;
 		int boost = 1;
-		
+
 		boolean fieldContainsTerm = false;
+		boolean fieldContainsPartialTerm = false;
 		String[] query_words = original_term.split(" ");
 		String[] field_words = f.stringValue().toLowerCase().split(" ");
-		
+
 		if (searchPerfectOnly) {
 			// normalize the quantity of found fields 
 			// in the end score
@@ -457,14 +488,21 @@ public class LuceneSearcher {
 					}
 
 					// boost in case of a partial match
-					if (f.stringValue().equalsIgnoreCase(query_words[i])) {
+					if (field_words[j].equalsIgnoreCase(query_words[i])) {
+//						fieldContainsPartialTerm = true;
 						boost += 1;
 					}
+
+					// boost in case of a partial match
+//					if (fieldContainsPartialTerm) {
+//						boost += 1;
+//					}
 				}
 			}
 
 		}
 		//--------
+
 
 		// boost in case of a perfect match
 		if (f.stringValue().equalsIgnoreCase(original_term)) {
@@ -472,14 +510,14 @@ public class LuceneSearcher {
 		}
 		if (!boostPerfectMatch) boost = 1;
 		if (!fieldContainsTerm) return 0.0f;
-		
+
 		// get the score
 		float field_score = getScore(f.name(), explanation);
 
 		// compute own norm
 		int length = f.stringValue().split(" ").length;
 		ownNorm = (float) (1.0d / Math.sqrt(length));
-		
+
 		// get the fieldNorm
 		float fieldNorm = 1;
 		if (adjustFieldNorm) {
@@ -500,16 +538,16 @@ public class LuceneSearcher {
 		for (Explanation explanation: fieldExplanations) {
 			String fieldExplain = explanation.toString();
 			if (fieldExplain.contains(field))
-			for (String line : fieldExplain.split("\n")) {
-				if (line.matches(".*MATCH.*")){
-					score += Float.parseFloat(line.split(" =")[0]);
+				for (String line : fieldExplain.split("\n")) {
+					if (line.matches(".*MATCH.*weight.*")){
+						score += Float.parseFloat(line.split(" =")[0]);
+					}
 				}
-			}
-		
+
 		}
 		return score;
 	}
-	
+
 	private float getCoord(Explanation explain) {
 		Explanation[] fieldExplanations = explain.getDetails();
 		for (Explanation explanation: fieldExplanations) {
@@ -519,7 +557,7 @@ public class LuceneSearcher {
 					return Float.parseFloat(line.split(" =")[0]);
 				}
 			}
-		
+
 		}
 		return 1;
 	}
@@ -529,12 +567,12 @@ public class LuceneSearcher {
 		for (Explanation explanation: fieldExplanations) {
 			String fieldExplain = explanation.toString();
 			if (fieldExplain.contains(field))
-			for (String line : fieldExplain.split("\n")) {
-				if (line.matches(".*fieldNorm.*")){
-					return Float.parseFloat(line.split(" =")[0]);
+				for (String line : fieldExplain.split("\n")) {
+					if (line.matches(".*fieldNorm.*")){
+						return Float.parseFloat(line.split(" =")[0]);
+					}
 				}
-			}
-		
+
 		}
 		return 0;
 	}

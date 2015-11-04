@@ -23,12 +23,23 @@ public class LuceneSearcherTest {
 
 	HashMap<String, String> param = new HashMap<String, String>();
 	
-//	private String text = "cancer";
+//	private String text = "types of neoplasia";
 //	 private String text = "athlete's foot";
 //	 private String text = "lung cancer";
 //	 private String text = "side effect"; 
-	 private String text = "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"; 	
-
+//	 private String text = "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"; 	
+//	 private String text = "rdfstype"; 	
+//	 private String text = "MAPK14"; 
+//	 private String text = "amnesia"; 
+//	 private String text = "acetylsalicylic acid";
+//	 private String text = "aspirin";
+//	 private String text = "cerebral ischaemic stroke";
+//	 private String text = "PHIQHXFUZVPYII-UHFFFAOYSA-N";
+//	 private String text = "C0027719";
+//	 private String text = "diabetes mellitus due to infection";
+	 private String text = "subtertian fever";
+//	 private String text = "the side effect";
+//	private String text = "Malignant neoplasms of skin";
 
 	@Before
 	public void prepare() {
@@ -37,6 +48,9 @@ public class LuceneSearcherTest {
 		param.put("resourceMapper", "luceneStandard");
 		param.put("findEntityAndClass", "true");
 		param.put("RelationManagerSimilarity", "Levenshtein");
+
+		param.put("LuceneStandardMapper:Formula", "own");
+//		param.put("LuceneStandardMapper:Formula", "lucene");
 		
 //		param.put("LuceneStandardMapper:QueryType", "standard");
 //		param.put("LuceneStandardMapper:QueryType", "boolean");
@@ -45,18 +59,18 @@ public class LuceneSearcherTest {
 		param.put("LuceneStandardMapper:AdjustFieldNorm", "true");
 //		param.put("LuceneStandardMapper:AdjustFieldNorm", "false");
 		
-//		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+		param.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+//		param.put("LuceneStandardMapper:BoostPerfectMatch", "false");
 		
 //		param.put("LuceneStandardMapper:Lemmatize", "true");
 		param.put("LuceneStandardMapper:Lemmatize", "false");
 		
-//		param.put("LuceneStandardMapper:StopwordRemoval", "true");
-		param.put("LuceneStandardMapper:StopwordRemoval", "false");
+		param.put("LuceneStandardMapper:StopwordRemoval", "true");
+//		param.put("LuceneStandardMapper:StopwordRemoval", "false");
 		
-		param.put("LuceneStandardMapper:SearchPerfect", "only");
+//		param.put("LuceneStandardMapper:SearchPerfect", "only");
 //		param.put("LuceneStandardMapper:SearchPerfect", "also");
-//		param.put("LuceneStandardMapper:SearchPerfect", "no");
+		param.put("LuceneStandardMapper:SearchPerfect", "no");
 		
 		param.put("LuceneStandardMapper:DivideByOccurrence", "true");
 //		param.put("LuceneStandardMapper:DivideByOccurrence", "false");
@@ -67,6 +81,8 @@ public class LuceneSearcherTest {
 //		param.put("LuceneStandardMapper:FuzzySearch", "false");
 		
 		param.put("LuceneStandardMapper:FuzzyParam", "1");
+		
+		param.put("LuceneStandardMapper:NumberOfHits", "20");
 	}
 
 	@Test

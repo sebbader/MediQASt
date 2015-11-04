@@ -11,6 +11,7 @@ public class GeneralCandidate implements RdfCandidate {
 	private String uri;
 	private String label;
 	private RdfCandidateTypes type;
+	private RdfCandidate blockingCandidate;
 
 	public GeneralCandidate(String uri, double score, String label) {
 		this.setUri(uri);
@@ -73,6 +74,16 @@ public class GeneralCandidate implements RdfCandidate {
 	public void setPosition(List<Integer> position) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public void setBlockingCandidate(RdfCandidate blockingCandidate) {
+		this.blockingCandidate = blockingCandidate;
+	}
+	
+	@Override
+	public RdfCandidate getBlockingCandidate() {
+		return this.blockingCandidate;
 	}
 
 }

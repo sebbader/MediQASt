@@ -9,6 +9,7 @@ import inputmanagement.impl.QueryTriple;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hp.hpl.jena.query.Query;
 import com.sun.media.jfxmedia.logging.Logger;
 
 import connector.SPARQLEndpointConnector;
@@ -23,19 +24,39 @@ public class CommonMethods {
 	 * @param candidates
 	 * @return
 	 */
-	public static List<? extends Candidate> removeDuplicates(
-			List<? extends Candidate> candidates) {
-		List<Candidate> unique_candidates = new ArrayList<Candidate>();
+	public static List<? extends RdfCandidate> removeDuplicates(
+			List<? extends RdfCandidate> candidates) {
+		List<RdfCandidate> unique_candidates = new ArrayList<RdfCandidate>();
 
 		if (candidates == null)
 			return unique_candidates;
 
-		for (Candidate candidate1 : candidates) {
+		for (RdfCandidate candidate1 : candidates) {
 			boolean isDuplicate = false;
-			for (Candidate candidate2 : unique_candidates) {
+//			if (candidate1.getText().equalsIgnoreCase("<http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0002622>")) {
+//				int i = 1 + 1;
+//			}
+			for (RdfCandidate candidate2 : unique_candidates) {
 				if (candidate1.getText().equalsIgnoreCase(candidate2.getText())) {
-					if (candidate1.getScore() > candidate2.getScore())
+					
+					List<Integer> can1Positions = candidate1.getPosition();
+					List<Integer> can2Positions = candidate2.getPosition();
+					List<Integer> overlap = new ArrayList<Integer>();
+					for (int pos : can1Positions) {
+						if (can2Positions.contains(pos)) {
+							overlap.add(pos);
+						}
+					}
+					if (candidate1.getScore() > candidate2.getScore()) {
 						candidate2.setScore(candidate1.getScore());
+						candidate2.setPosition(can1Positions);
+						
+					} else if(!overlap.isEmpty() && (candidate1.getScore() >= candidate2.getScore())) {
+						candidate2.setPosition(can1Positions);
+					}
+					
+					
+					
 					isDuplicate = true;
 				}
 			}
@@ -289,5 +310,17 @@ public class CommonMethods {
 		}
 
 		return true;
+	}
+
+	public static double getTriplesScore(List<QueryTriple> triples) {
+		if (triples.isEmpty()) return 0.0;
+		
+		double score = 0.0;
+		for (QueryTriple triple : triples) {
+			score += triple.getScore();
+		}
+		
+		double final_score = score / ((double) triples.size());
+		return final_score;
 	}
 }

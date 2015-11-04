@@ -1,0 +1,776 @@
+<?xml version="1.0"?>
+<dataset id="testquestion set">
+
+	<!-- Keyword queries -->
+	<question id="1" source="dbpedia">
+		<query><![CDATA[What is athlete's foot?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Athlete's_foot>. }]]></sparql>
+		<answer>http://dbpedia.org/resource/Athlete's_foot</answer>
+	</question>
+	
+	<question id="2" source="dbpedia">
+		<query><![CDATA[Where is the liver?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Liver> .}]]></sparql>
+		<answer>http://dbpedia.org/resource/Human_liver</answer>
+		<answer>http://dbpedia.org/resource/Liver</answer>
+	</question>
+	
+
+	
+	<question id="3" source="drugbank">
+		<query><![CDATA[What is Nexium?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2002/07/owl#sameAs> <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00338</answer>
+		<answer>http://dbpedia.org/resource/Omeprazole</answer>
+		<answer>http://dbpedia.org/resource/Esomeprazole</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/page/drugs/4594</answer>
+	</question>
+	
+	<question id="4" source="icd">
+		<query><![CDATA[What is alcohol dependence?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri  <http://www.w3.org/2002/07/owl#sameAs> <http://id.who.int/icd/entity/1580466198> .}]]></sparql>
+		<answer>http://id.who.int/icd/entity/1580466198</answer>
+		<answer>http://dbpedia.org/resource/Alcohol_dependence</answer>
+		<answer>http://dbpedia.org/resource/Alcoholism</answer>
+		<answer>http://dbpedia.org/resource/Disease_theory_of_alcoholism</answer>
+		<answer>http://dbpedia.org/resource/Substance_dependence</answer>
+	</question>
+	
+	<question id="5" source="sider">
+		<query><![CDATA[What is bigeminy?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri ?rel <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662</answer>
+	</question>
+	
+	
+	<!-- class queries -->
+	<question id="6" source="icd">
+		<query><![CDATA[What are Narcolepsy and Kleine Levin syndrome?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://www.w3.org/2004/02/skos/core#narrowerTransitive> <http://id.who.int/icd/entity/1180849398> . ?uri <http://www.w3.org/2004/02/skos/core#narrowerTransitive> <http://id.who.int/icd/entity/1201727099> .}]]></sparql>
+		<answer>http://id.who.int/icd/entity/2024456840</answer>
+		<answer>http://dbpedia.org/resource/Category:Sleep_disorders</answer>
+	</question>
+	
+	<question id="7" source="dbpedia">
+		<query><![CDATA[What is a type of neoplasia?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Types_of_neoplasia> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Desmoplastic_fibroma</answer>
+		<answer>http://dbpedia.org/resource/Mucinous_cystadenoma</answer>
+		<answer>http://dbpedia.org/resource/Myoma</answer>
+		<answer>http://dbpedia.org/resource/Pelvic_tumor</answer>
+		<answer>http://dbpedia.org/resource/Papillary_tumors_of_the_pineal_region</answer>
+		<answer>http://dbpedia.org/resource/Cancer</answer>
+		<answer>http://dbpedia.org/resource/Blue_rubber_bleb_nevus_syndrome</answer>
+		<answer>http://dbpedia.org/resource/Glomus_tumor</answer>
+		<answer>http://dbpedia.org/resource/Kaposi's_sarcoma</answer>
+		<answer>http://dbpedia.org/resource/Lymphangioma</answer>
+		<answer>http://dbpedia.org/resource/Vascular_tissue_neoplasm</answer>
+		<answer>http://dbpedia.org/resource/Cancer_of_unknown_primary_origin</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0205699</answer>
+		<answer>http://dbpedia.org/resource/Desmoplastic_fibroma</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0006826</answer>
+		<answer>http://id.who.int/icd/entity/1880513528</answer>
+		<answer>http://id.who.int/icd/entity/440437263</answer>
+		<answer>http://id.who.int/icd/entity/2131977134</answer>
+	</question>
+	
+	
+	<!-- one predicate queries -->
+	<question id="8" source="dbpedia">
+		<!-- will most likely not work as literal search is necessary -> example for limitation of approach -->
+		<query><![CDATA[What has the MEsHID D002056?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://dbpedia.org/ontology/meshId> "D002056" . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Burn</answer>
+		<answer>http://id.who.int/icd/entity/1605092722</answer>
+		<answer>http://id.who.int/icd/entity/1831158013</answer>
+	</question>
+	
+	<question id="9" source="dbpedia">
+		<!-- will most likely not work yet because predicate needs mapping to different terms -> example for limitation of approach -->
+		<query><![CDATA[Who died of asthma?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://dbpedia.org/property/deathCause> <http://dbpedia.org/resource/Asthma> .}]]></sparql>
+		<answer>http://dbpedia.org/resource/Mary_Dimmick_Harrison</answer>
+		<answer>http://dbpedia.org/resource/Neil_Hamilton_(actor)</answer>
+		<answer>http://dbpedia.org/resource/Pauline_Frederick</answer>
+		<answer>http://dbpedia.org/resource/Clare_Cathcart</answer>
+	</question>
+	
+	<question id="10" source="icd">
+		<query><![CDATA[What is the definition of malignant neoplasms of skin?]]></query>
+		<sparql><![CDATA[select distinct ?uri where {<http://id.who.int/icd/entity/1706880799> <http://www.w3.org/2004/02/skos/core#definition> ?uri . }]]></sparql>
+		<answer>A primary or metastatic tumor involving the skin. Primary malignant skin tumors most often are carcinomas (either basal cell or squamous cell carcinomas that arise from cells in the epidermis) or melanomas that arise from pigment-containing skin melanocytes. Metastatic tumors to the skin include carcinomas and lymphomas.@en</answer>
+	</question>
+
+	<question id="11" source="drugbank">
+		<query><![CDATA[What has the target MAPK14?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/target> <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/1540> . }]]></sparql>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01953</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01807</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01988</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02277</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02352</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04338</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04632</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04797</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01948</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02195</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02873</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02984</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB03980</answer>
+	</question>
+	
+	<!-- two predicate queries -->		
+	<question id="12" source="sider">
+		<query><![CDATA[Which drugs have rheumatic fever as a side effect?]]></query>
+		<sparql><![CDATA[SELECT DISTINCT ?uri WHERE { ?uri a <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/drugs> . ?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0015967> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Cefaclor</answer>
+		<answer>http://dbpedia.org/resource/Cefpodoxime</answer>
+		<answer>http://dbpedia.org/resource/Cefprozil</answer>
+		<answer>http://dbpedia.org/resource/Ceftibuten</answer>
+		<answer>http://dbpedia.org/resource/Ceftriaxone</answer>
+		<answer>http://dbpedia.org/resource/Clarithromycin</answer>
+		<answer>http://dbpedia.org/resource/Doxycycline</answer>
+		<answer>http://dbpedia.org/resource/Methylprednisolone</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00567</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01211</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01212</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00254</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00833</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00959</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01150</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01415</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01416</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2609</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2646</answer>
+		<answer>http://dbpedia.org/resource/Amoxicillin</answer>
+		<answer>http://dbpedia.org/resource/Cefadroxil</answer>
+		<answer>http://dbpedia.org/resource/Cefditoren</answer>
+		<answer>http://dbpedia.org/resource/Erythromycin</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00199</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00207</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00359</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00417</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00945</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01053</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01060</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01066</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01140</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2610</answer>
+		<answer>http://dbpedia.org/resource/Sulfadiazine</answer>
+		<answer>http://dbpedia.org/resource/Aspirin</answer>
+		<answer>http://dbpedia.org/resource/Cefazolin</answer>
+		<answer>http://dbpedia.org/resource/Cefdinir</answer>
+		<answer>http://dbpedia.org/resource/Cefixime</answer>
+		<answer>http://dbpedia.org/resource/Cefradine</answer>
+		<answer>http://dbpedia.org/resource/Cefuroxime</answer>
+		<answer>http://dbpedia.org/resource/Clindamycin</answer>
+		<answer>http://dbpedia.org/resource/Loracarbef</answer>
+		<answer>http://dbpedia.org/resource/Oxytetracycline</answer>
+		<answer>http://dbpedia.org/resource/Prednisolone</answer>
+		<answer>http://dbpedia.org/resource/Prednisone</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00447</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00535</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00595</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00635</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00671</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00860</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01112</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01190</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01327</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01333</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2673</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3956</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4900</answer>
+		<answer>http://dbpedia.org/resource/Phenoxymethylpenicillin</answer>
+		<answer>http://dbpedia.org/resource/Benzylpenicillin</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2171</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2244</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2269</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2349</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2617</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2654</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2656</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2658</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2666</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2675</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2786</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3161</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3255</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4159</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4645</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4730</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4894</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5215</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/54547</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/54688</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/6398970</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/9571074</answer>
+		<answer>http://dbpedia.org/resource/Cephalexin</answer>
+	</question>
+	
+	<question id="13" source="subject: sider">
+		<query><![CDATA[Which sider drugs have the side effect amnesia?]]></query>
+		<sparql><![CDATA[select distinct ?uri  where {  ?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0002622> . ?uri a <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/drugs> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Acamprosate</answer>
+		<answer>http://dbpedia.org/resource/Alfuzosin</answer>
+		<answer>http://dbpedia.org/resource/Allopurinol</answer>
+		<answer>http://dbpedia.org/resource/Amantadine</answer>
+		<answer>http://dbpedia.org/resource/Amiloride</answer>
+		<answer>http://dbpedia.org/resource/Amlodipine</answer>
+		<answer>http://dbpedia.org/resource/Anagrelide</answer>
+		<answer>http://dbpedia.org/resource/Aripiprazole</answer>
+		<answer>http://dbpedia.org/resource/Armodafinil</answer>
+		<answer>http://dbpedia.org/resource/Atazanavir</answer>
+		<answer>http://dbpedia.org/resource/Atenolol</answer>
+		<answer>http://dbpedia.org/resource/Atorvastatin</answer>
+		<answer>http://dbpedia.org/resource/Atropine</answer>
+		<answer>http://dbpedia.org/resource/Baclofen</answer>
+		<answer>http://dbpedia.org/resource/Betaxolol</answer>
+		<answer>http://dbpedia.org/resource/Bromazepam</answer>
+		<answer>http://dbpedia.org/resource/Budesonide</answer>
+		<answer>http://dbpedia.org/resource/Bupropion</answer>
+		<answer>http://dbpedia.org/resource/Capecitabine</answer>
+		<answer>http://dbpedia.org/resource/Carbamazepine</answer>
+		<answer>http://dbpedia.org/resource/Carboprost</answer>
+		<answer>http://dbpedia.org/resource/Carmustine</answer>
+		<answer>http://dbpedia.org/resource/Carvedilol</answer>
+		<answer>http://dbpedia.org/resource/Cetirizine</answer>
+		<answer>http://dbpedia.org/resource/Cidofovir</answer>
+		<answer>http://dbpedia.org/resource/Cisapride</answer>
+		<answer>http://dbpedia.org/resource/Citalopram</answer>
+		<answer>http://dbpedia.org/resource/Clonazepam</answer>
+		<answer>http://dbpedia.org/resource/Clozapine</answer>
+		<answer>http://dbpedia.org/resource/Dasatinib</answer>
+		<answer>http://dbpedia.org/resource/Daunorubicin</answer>
+		<answer>http://dbpedia.org/resource/Diatrizoate</answer>
+		<answer>http://dbpedia.org/resource/Diazepam</answer>
+		<answer>http://dbpedia.org/resource/Diltiazem</answer>
+		<answer>http://dbpedia.org/resource/Diphenhydramine</answer>
+		<answer>http://dbpedia.org/resource/Divalproex_sodium</answer>
+		<answer>http://dbpedia.org/resource/Doxazosin</answer>
+		<answer>http://dbpedia.org/resource/Efavirenz</answer>
+		<answer>http://dbpedia.org/resource/Eletriptan</answer>
+		<answer>http://dbpedia.org/resource/Entacapone</answer>
+		<answer>http://dbpedia.org/resource/Escitalopram</answer>
+		<answer>http://dbpedia.org/resource/Estazolam</answer>
+		<answer>http://dbpedia.org/resource/Estradiol</answer>
+		<answer>http://dbpedia.org/resource/Fentanyl</answer>
+		<answer>http://dbpedia.org/resource/Fluoxetine</answer>
+		<answer>http://dbpedia.org/resource/Flurbiprofen</answer>
+		<answer>http://dbpedia.org/resource/Fluvoxamine</answer>
+		<answer>http://dbpedia.org/resource/Foscarnet</answer>
+		<answer>http://dbpedia.org/resource/Frovatriptan</answer>
+		<answer>http://dbpedia.org/resource/Gabapentin</answer>
+		<answer>http://dbpedia.org/resource/Gadoversetamide</answer>
+		<answer>http://dbpedia.org/resource/Gadoxetic_acid</answer>
+		<answer>http://dbpedia.org/resource/Glatiramer_acetate</answer>
+		<answer>http://dbpedia.org/resource/Guanfacine</answer>
+		<answer>http://dbpedia.org/resource/Hydromorphone</answer>
+		<answer>http://dbpedia.org/resource/Indapamide</answer>
+		<answer>http://dbpedia.org/resource/Iopamidol</answer>
+		<answer>http://dbpedia.org/resource/Iopromide</answer>
+		<answer>http://dbpedia.org/resource/Isosorbide_mononitrate</answer>
+		<answer>http://dbpedia.org/resource/Ketoprofen</answer>
+		<answer>http://dbpedia.org/resource/Lamotrigine</answer>
+		<answer>http://dbpedia.org/resource/Lansoprazole</answer>
+		<answer>http://dbpedia.org/resource/Leuprolide</answer>
+		<answer>http://dbpedia.org/resource/Levetiracetam</answer>
+		<answer>http://dbpedia.org/resource/Levocetirizine</answer>
+		<answer>http://dbpedia.org/resource/Levofloxacin</answer>
+		<answer>http://dbpedia.org/resource/Lorazepam</answer>
+		<answer>http://dbpedia.org/resource/Marinol</answer>
+		<answer>http://dbpedia.org/resource/Medroxyprogesterone</answer>
+		<answer>http://dbpedia.org/resource/Memantine</answer>
+		<answer>http://dbpedia.org/resource/Methocarbamol</answer>
+		<answer>http://dbpedia.org/resource/Methyltestosterone</answer>
+		<answer>http://dbpedia.org/resource/Metoprolol</answer>
+		<answer>http://dbpedia.org/resource/Midazolam</answer>
+		<answer>http://dbpedia.org/resource/Mirtazapine</answer>
+		<answer>http://dbpedia.org/resource/Modafinil</answer>
+		<answer>http://dbpedia.org/resource/Morphine</answer>
+		<answer>http://dbpedia.org/resource/Moxifloxacin</answer>
+		<answer>http://dbpedia.org/resource/Naproxen</answer>
+		<answer>http://dbpedia.org/resource/Nelarabine</answer>
+		<answer>http://dbpedia.org/resource/Nicotine</answer>
+		<answer>http://dbpedia.org/resource/Nifedipine</answer>
+		<answer>http://dbpedia.org/resource/Octreotide</answer>
+		<answer>http://dbpedia.org/resource/Ofloxacin</answer>
+		<answer>http://dbpedia.org/resource/Olanzapine</answer>
+		<answer>http://dbpedia.org/resource/Oxazepam</answer>
+		<answer>http://dbpedia.org/resource/Oxcarbazepine</answer>
+		<answer>http://dbpedia.org/resource/Oxybutynin</answer>
+		<answer>http://dbpedia.org/resource/Oxycodone</answer>
+		<answer>http://dbpedia.org/resource/Paroxetine</answer>
+		<answer>http://dbpedia.org/resource/Pentostatin</answer>
+		<answer>http://dbpedia.org/resource/Pergolide</answer>
+		<answer>http://dbpedia.org/resource/Perindopril</answer>
+		<answer>http://dbpedia.org/resource/Phenytoin</answer>
+		<answer>http://dbpedia.org/resource/Podofilox</answer>
+		<answer>http://dbpedia.org/resource/Posaconazole</answer>
+		<answer>http://dbpedia.org/resource/Pramipexole</answer>
+		<answer>http://dbpedia.org/resource/Pregabalin</answer>
+		<answer>http://dbpedia.org/resource/Propafenone</answer>
+		<answer>http://dbpedia.org/resource/Propranolol</answer>
+		<answer>http://dbpedia.org/resource/Quetiapine</answer>
+		<answer>http://dbpedia.org/resource/Quinapril</answer>
+		<answer>http://dbpedia.org/resource/Rabeprazole</answer>
+		<answer>http://dbpedia.org/resource/Ramipril</answer>
+		<answer>http://dbpedia.org/resource/Rasagiline</answer>
+		<answer>http://dbpedia.org/resource/Remifentanil</answer>
+		<answer>http://dbpedia.org/resource/Riluzole</answer>
+		<answer>http://dbpedia.org/resource/Risperidone</answer>
+		<answer>http://dbpedia.org/resource/Ritonavir</answer>
+		<answer>http://dbpedia.org/resource/Rivastigmine</answer>
+		<answer>http://dbpedia.org/resource/Ropinirole</answer>
+		<answer>http://dbpedia.org/resource/Saquinavir</answer>
+		<answer>http://dbpedia.org/resource/Selegiline</answer>
+		<answer>http://dbpedia.org/resource/Sertraline</answer>
+		<answer>http://dbpedia.org/resource/Sibutramine</answer>
+		<answer>http://dbpedia.org/resource/Sumatriptan</answer>
+		<answer>http://dbpedia.org/resource/Tacrine</answer>
+		<answer>http://dbpedia.org/resource/Tacrolimus</answer>
+		<answer>http://dbpedia.org/resource/Temazepam</answer>
+		<answer>http://dbpedia.org/resource/Temozolomide</answer>
+		<answer>http://dbpedia.org/resource/Testosterone</answer>
+		<answer>http://dbpedia.org/resource/Tetrahydrocannabinol</answer>
+		<answer>http://dbpedia.org/resource/Thalidomide</answer>
+		<answer>http://dbpedia.org/resource/Tolcapone</answer>
+		<answer>http://dbpedia.org/resource/Topiramate</answer>
+		<answer>http://dbpedia.org/resource/Tramadol</answer>
+		<answer>http://dbpedia.org/resource/Triazolam</answer>
+		<answer>http://dbpedia.org/resource/Troglitazone</answer>
+		<answer>http://dbpedia.org/resource/Trovafloxacin</answer>
+		<answer>http://dbpedia.org/resource/Ursodiol</answer>
+		<answer>http://dbpedia.org/resource/Valganciclovir</answer>
+		<answer>http://dbpedia.org/resource/Valproic_acid</answer>
+		<answer>http://dbpedia.org/resource/Vardenafil</answer>
+		<answer>http://dbpedia.org/resource/Varenicline</answer>
+		<answer>http://dbpedia.org/resource/Venlafaxine</answer>
+		<answer>http://dbpedia.org/resource/Vigabatrin</answer>
+		<answer>http://dbpedia.org/resource/Voriconazole</answer>
+		<answer>http://dbpedia.org/resource/Zalcitabine</answer>
+		<answer>http://dbpedia.org/resource/Zaleplon</answer>
+		<answer>http://dbpedia.org/resource/Ziprasidone</answer>
+		<answer>http://dbpedia.org/resource/Zolpidem</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00007</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00104</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00176</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00178</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00181</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00184</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00186</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00193</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00195</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00197</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00215</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00216</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00218</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00230</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00231</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00246</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00252</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00261</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00262</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00264</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00268</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00271</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00273</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00285</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00295</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00323</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00327</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00334</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00335</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00341</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00343</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00346</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00363</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00369</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00370</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00381</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00382</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00413</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00423</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00425</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00429</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00437</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00448</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00470</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00472</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00494</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00497</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00503</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00510</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00529</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00538</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00552</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00555</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00564</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00571</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00572</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00582</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00590</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00594</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00603</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00604</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00624</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00625</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00659</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00669</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00683</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00685</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00694</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00705</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00712</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00715</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00734</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00740</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00745</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00776</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00783</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00788</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00790</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00808</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00813</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00829</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00842</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00853</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00862</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00864</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00881</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00897</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00899</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00915</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00943</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00962</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00989</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00996</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00998</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01004</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01009</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01018</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01020</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01037</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01041</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01043</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01062</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01068</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01072</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01075</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01076</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01080</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01101</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01104</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01105</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01115</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01129</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01136</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01137</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01156</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01165</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01175</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01179</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01182</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01186</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01202</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01215</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01222</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01224</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01232</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01238</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01254</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01263</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01273</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01280</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01320</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01367</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01558</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01586</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01610</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB05259</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/10631</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/110634</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/122316</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/125889</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1302</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/147912</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/148192</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/16231</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/170361</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1775</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1935</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/206</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2092</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2130</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2140</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2142</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2162</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2182</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2249</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2250</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2284</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2369</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2441</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2462</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2554</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2578</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2585</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2678</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2749</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/27661</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2769</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2771</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2801</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2802</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2818</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2958</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2978</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3016</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3062316</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3075</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3081884</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3100</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3121</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3157</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3203</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3261</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3345</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3386</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3394</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3404</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3414</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/34312</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3446</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3454</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3519</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3648</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3661</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3702</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3734</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3736</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3825</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3878</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3883</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3911</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/3958</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4054</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4107</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4160</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4171</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4192</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4205</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4236</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4253</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4259</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/42615</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/444</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/444013</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4485</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/450</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/450096</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4583</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4585</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4616</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4634</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4635</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4659568</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4659569</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4691</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4739</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4745</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4865</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4885</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4932</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4946</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5002</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5005</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5029</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5038</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5070</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5073</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5076</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5077</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5095</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5195</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5203</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5210</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5229711</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5358</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5359</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5372</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5391</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5394</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5408</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5426</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/54374</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5514</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5523</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5556</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5591</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5625</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/56339</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5645</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5656</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5665</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5718</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5719</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5732</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/59708</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60184</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60613</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60787</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60795</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60815</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60854</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/60953</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/62959</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/64147</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/6503</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/71158</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/71616</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/77992</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/77993</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/807</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/83786</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/942</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/96312</answer>
+	</question>
+	
+	
+	<question id="14" source="dbpedia">
+		<query><![CDATA[Which drugs contain acetylsalicylic acid?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri a <http://dbpedia.org/ontology/Drug> .?uri <http://www.w3.org/2002/07/owl#sameAs> <http://dbpedia.org/resource/Aspirin> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Aspirin</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00945</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2244</answer>
+		<answer>http://dbpedia.org/resource/Acetylsalicylic_acid/dipyridamole</answer>
+		<answer>http://id.who.int/icd/entity/706936574</answer>
+		<answer>http://id.who.int/icd/entity/1179418327</answer>
+		<answer>http://id.who.int/icd/entity/372746086</answer>
+	</question>
+
+	<!-- cross database queries -->
+	<question id="15" source="dbpedia and icd">
+		<query><![CDATA[What is the definition of lung cancer?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { <http://id.who.int/icd/entity/316539081> <http://www.w3.org/2004/02/skos/core#definition> ?label .}} limit 10]]></sparql>
+		<answer>"A primary or metastatic malignant neoplasm involving the lung."@en</answer>
+		<answer>"A primary or metastatic malignant neoplasm involving the trachea"@en</answer>
+	</question>
+	
+	<question id="16" source="dbpedia and icd">
+		<query><![CDATA[What are signs or symptoms of bochdalek hernia?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { <http://dbpedia.org/resource/Malaria> <http://id.who.int/icd/icd/schema/signsAndSymptoms> ?uri .}]]></sparql>
+		<answer>Acute encephalopathy</answer>
+		<answer>Anemia</answer>
+		<answer>Arthralgia</answer>
+		<answer>Chills</answer>
+		<answer>Coma</answer>
+		<answer>Convulsions</answer>
+		<answer>Diarrhea</answer>
+		<answer>Fever</answer>
+		<answer>Generalized edema</answer>
+		<answer>Glomerulonephritis</answer>
+		<answer>Headache</answer>
+		<answer>ypoproteinemia</answer>
+		<answer>Malaise</answer>
+		<answer>Myalgia</answer>
+		<answer>Nausea</answer>
+		<answer>Nontraumatic splenic rupture</answer>
+		<answer>Proteinuria</answer>
+		<answer>Shaking</answer>
+		<answer>Splenomegaly</answer>
+		<answer>Sweating</answer>
+		<answer>Thrombocytopenia</answer>
+		<answer>Vomiting</answer>
+	</question>
+	
+	<question id="17" source="dbpedia and icd">
+		<query><![CDATA[What is the ICD10 code of cerebral ischaemic stroke?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri <http://id.who.int/icd/relation#hasICD10code> <http://id.who.int/icd/entity/636274910> . }]]></sparql>
+		<answer>I63</answer>
+	</question>
+	
+	<question id="18" source="dbpedia and drugbank">
+		<query><![CDATA[What is a possible disease target of PHIQHXFUZVPYII-UHFFFAOYSA-N?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { <http://dbpedia.org/resource/Carnitine> <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/possibleDiseaseTarget> ?uri . }]]></sparql>
+			<answer>http://dbpedia.org/resource/Myopathy</answer>
+			<answer>http://dbpedia.org/resource/Rheumatoid_arthritis</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0003873</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0026848</answer>
+			<answer>http://id.who.int/icd/entity/1159616108</answer>
+			<answer>http://id.who.int/icd/entity/521279908</answer>
+			<answer>http://id.who.int/icd/entity/833816211</answer>
+			<answer>http://id.who.int/icd/entity/576319925</answer>
+			<answer>http://purl.org/net/tcm/tcm.lifescience.ntu.edu.tw/id/disease/Arthritis_Rheumatoid</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/999</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/802</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/1761</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/1762</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/198</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/199</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2020</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2021</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2022</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/277</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/3305</answer>
+			<answer>http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/3795</answer>
+	</question>
+	
+		
+	<question id="19" source="subject: dbpedia and sider">
+		<query><![CDATA[Diabetes is the death cause of whom?]]></query>
+		<sparql><![CDATA[select distinct ?uri where {  ?uri <http://dbpedia.org/ontology/deathCause> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0011849> . }]]></sparql>
+		<answer>http://dbpedia.org/resource/Alexander_Graham_Bell</answer>
+		<answer>http://dbpedia.org/resource/Arai_Ikunosuke</answer>
+		<answer>http://dbpedia.org/resource/Archibald_Gracie_IV</answer>
+		<answer>http://dbpedia.org/resource/Charles_DeWitt_Watts</answer>
+		<answer>http://dbpedia.org/resource/Christopher_Hewett</answer>
+		<answer>http://dbpedia.org/resource/Claudia_McNeil</answer>
+		<answer>http://dbpedia.org/resource/Daniel_Burke_(executive)</answer>
+		<answer>http://dbpedia.org/resource/Daniel_Escobar</answer>
+		<answer>http://dbpedia.org/resource/Douglas_Spencer</answer>
+		<answer>http://dbpedia.org/resource/Edith_Massey</answer>
+		<answer>http://dbpedia.org/resource/Edward_Grady_Partin</answer>
+		<answer>http://dbpedia.org/resource/Elaine_Stritch</answer>
+		<answer>http://dbpedia.org/resource/Esther_Rolle</answer>
+		<answer>http://dbpedia.org/resource/F._D._Reeve</answer>
+		<answer>http://dbpedia.org/resource/Guy_Stockwell</answer>
+		<answer>http://dbpedia.org/resource/Hal_B._Wallis</answer>
+		<answer>http://dbpedia.org/resource/Herman_W._Hellman</answer>
+		<answer>http://dbpedia.org/resource/James_Farmer</answer>
+		<answer>http://dbpedia.org/resource/Jan_Sterling</answer>
+		<answer>http://dbpedia.org/resource/Jeff_Dwire</answer>
+		<answer>http://dbpedia.org/resource/Jimmy_O'Neill_(DJ)</answer>
+		<answer>http://dbpedia.org/resource/Joan_McCracken</answer>
+		<answer>http://dbpedia.org/resource/John_Wilkinson_(industrialist)</answer>
+		<answer>http://dbpedia.org/resource/Johnny_Cash</answer>
+		<answer>http://dbpedia.org/resource/Joseph_D._Bryant</answer>
+		<answer>http://dbpedia.org/resource/Leo_McKern</answer>
+		<answer>http://dbpedia.org/resource/Mabel_King</answer>
+		<answer>http://dbpedia.org/resource/Mau_Piailug</answer>
+		<answer>http://dbpedia.org/resource/Piramerd</answer>
+		<answer>http://dbpedia.org/resource/Rosetta_LeNoire</answer>
+		<answer>http://dbpedia.org/resource/Wayne_Allwine</answer>
+		<answer>http://dbpedia.org/resource/Greg_Burson</answer>
+		<answer>http://dbpedia.org/resource/John_Dehner</answer>
+	</question>
+	
+	<!-- three predicate query -->
+	<question id="20" source="sider">
+		<query><![CDATA[Which drug has the side effect hemorrhage and also the side effect with the id C0027719?]]></query>
+		<sparql><![CDATA[select distinct ?uri where { ?uri a <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/drugs> .?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0019080> . ?uri <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/sider/sideEffect> <http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0027719> .}]]></sparql>		
+		<answer>http://dbpedia.org/resource/Naproxen</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00788</answer>
+		<answer>http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1302</answer>
+	</question>
+	
+	
+	<!-- relation queries -->
+	<question id="21" source="sider">
+		<query><![CDATA[What is the connection between CID0000001046 and Pyrazinamide?]]></query>
+		<sparql><![CDATA[select distinct ?variable where {<http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1046> ?variable <http://dbpedia.org/resource/Pyrazinamide> .}]]></sparql>
+		<answer>http://www.w3.org/2002/07/owl#sameAs</answer>
+	</question>
+
+</dataset>

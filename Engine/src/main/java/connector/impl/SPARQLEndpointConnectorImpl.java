@@ -1,5 +1,6 @@
 package connector.impl;
 
+import org.apache.jena.atlas.web.HttpException;
 import org.apache.log4j.Logger;
 
 import com.hp.hpl.jena.query.Query;
@@ -41,6 +42,9 @@ public class SPARQLEndpointConnectorImpl implements SPARQLEndpointConnector {
 		} catch (QueryException e) {
 			logger.error("Error during query execution :", e);
 			throw e;
+		} catch (HttpException e) {
+			logger.error("Http Error, retry...", e);
+			return executeQuery(sparqlQuery);
 		}
 
 	}
@@ -59,6 +63,9 @@ public class SPARQLEndpointConnectorImpl implements SPARQLEndpointConnector {
 		} catch (QueryException e) {
 			logger.debug("Error during query execution :", e);
 			throw e;
+		} catch (HttpException e) {
+			logger.error("Http Error, retry...", e);
+			return executeAsk(pattern);
 		}
 
 		return result;

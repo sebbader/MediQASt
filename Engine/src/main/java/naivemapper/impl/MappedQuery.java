@@ -10,6 +10,7 @@ import naivemapper.impl.InsertResult;
 
 public class MappedQuery implements Cloneable {
 	private List<RdfCandidate> query;
+	private double score = 0.0;
 
 	public MappedQuery(String text) {
 		String[] words = text.split(" ");
@@ -54,6 +55,7 @@ public class MappedQuery implements Cloneable {
 		tmp_query.sort(new WordSorter());
 
 		query = tmp_query;
+		setScore(getScore() + candidate.getScore() * positions.size());
 		return new InsertResult(true, null);
 	}
 
@@ -65,6 +67,7 @@ public class MappedQuery implements Cloneable {
 	public MappedQuery clone() {
 		MappedQuery clonedMappedQuery = new MappedQuery(
 				new ArrayList<RdfCandidate>(this.query));
+		clonedMappedQuery.setScore(this.score);
 		return clonedMappedQuery;
 	}
 
@@ -72,12 +75,21 @@ public class MappedQuery implements Cloneable {
 	public String toString() {
 		return query.toString();
 	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
 }
 
 class Word implements RdfCandidate {
 	private String term;
 	private List<Integer> position;
 	private double score;
+	private RdfCandidate blockingCandidate;
 
 	public Word(String term, int position) {
 		this.setTerm(term);
@@ -128,5 +140,15 @@ class Word implements RdfCandidate {
 	@Override
 	public String toString() {
 		return this.term;
+	}
+
+	@Override
+	public void setBlockingCandidate(RdfCandidate blockingCandidate) {
+		this.blockingCandidate = blockingCandidate;
+	}
+	
+	@Override
+	public RdfCandidate getBlockingCandidate() {
+		return this.blockingCandidate;
 	}
 }
