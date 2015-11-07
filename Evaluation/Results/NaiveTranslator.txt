@@ -1,0 +1,1386 @@
+-------------------------------------------------------------
+Evaluate query #1: What is athlete's foot?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Athlete's_foot
+http://en.wikipedia.org/wiki/Athlete's_foot
+http://dbpedia.org/resource/Athelete%60s_foot
+http://dbpedia.org/resource/Athelete's_foot
+http://dbpedia.org/resource/Athlete%E2%80%99s_foot
+http://dbpedia.org/resource/Athlete's_Foot
+http://dbpedia.org/resource/Athlete's_feet
+http://dbpedia.org/resource/Athlete_foot
+http://dbpedia.org/resource/Athletes'_foot
+http://dbpedia.org/resource/Athletes_Foot
+http://dbpedia.org/resource/Athletes_foot
+http://dbpedia.org/resource/Foot_fungus
+http://dbpedia.org/resource/Foot_ringworm
+http://dbpedia.org/resource/Hong_Kong_feet
+http://dbpedia.org/resource/Hong_Kong_foot
+http://dbpedia.org/resource/Interdigitale_tinea_pedis
+http://dbpedia.org/resource/Moccasin_foot
+http://dbpedia.org/resource/Ringworm_of_the_foot
+http://dbpedia.org/resource/Signs_and_symptoms_of_tinea_pedis
+http://dbpedia.org/resource/Tinea_pedis
+http://id.who.int/icd/entity/107393968
+Athlete's foot@en
+Ringworm of foot@en
+Tinea pedis@en
+Dermatophytosis of the skin of the foot (tinea pedis). The lateral interdigital toe clefts are the most common initial site of infection. Longstanding infection with Trichophyton rubrum, the most commonly implicated organism in Europe and North America, characteristically causes dry scaling over the sole of the foot. Other species which regularly invade the skin of the foot include Epidermophyton floccosum and Trichophyton interdigitale.@en
+Dermatophytosis of foot@en
+Entire foot (body structure)@en
+Foot structure (body structure)@en
+foot (qualifier value)@en
+Skin System (Integumentary System)@en
+Infectious disease (disorder)@en
+Moccasin foot@en
+http://who.int/icd#Disease_Type
+http://dbpedia.org/resource/Foot
+http://dbpedia.org/resource/Foot-and-mouth_disease
+http://dbpedia.org/resource/Toe
+http://en.wikipedia.org/wiki/Foot
+http://dbpedia.org/resource/Foot_(disambiguation)
+http://dbpedia.org/resource/Gastrocnemius_muscle
+http://dbpedia.org/resource/Watermen's_Stairs
+http://dbpedia.org/resource/Broken_foot
+http://dbpedia.org/resource/Dorsum_of_foot
+http://dbpedia.org/resource/Foot_(anatomy)
+http://dbpedia.org/resource/Foot_deformities
+http://dbpedia.org/resource/Foot_dorsum
+http://dbpedia.org/resource/Foot_fracture
+http://dbpedia.org/resource/Foot_fractures
+http://dbpedia.org/resource/Foot_sweat
+http://dbpedia.org/resource/Foot_taboo
+http://dbpedia.org/resource/Foot_type
+http://dbpedia.org/resource/Human_feet
+http://dbpedia.org/resource/Human_foot
+http://dbpedia.org/resource/Instep
+http://dbpedia.org/resource/Category:Foot_diseases
+http://dbpedia.org/resource/Category:Immersion_foot_syndromes
+http://dbpedia.org/resource/Burning_feet_syndrome
+http://dbpedia.org/resource/Janeway_lesion
+http://dbpedia.org/resource/Chilblains
+http://dbpedia.org/resource/Hallux_varus
+http://dbpedia.org/resource/Morton's_neuroma
+http://dbpedia.org/resource/Tarsal_tunnel_syndrome
+http://dbpedia.org/resource/Bunion
+http://dbpedia.org/resource/Wart
+http://dbpedia.org/resource/Plantar_fasciitis
+http://dbpedia.org/resource/Ship_foot
+http://dbpedia.org/resource/Palmoplantar_keratoderma
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0149756
+http://dbpedia.org/resource/Ainhum
+http://dbpedia.org/resource/Callus
+http://dbpedia.org/resource/Calcaneal_spur
+http://dbpedia.org/resource/Plantar_wart
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0043037
+----------------------------------
+found correct answer at position #0
+position 1:http://dbpedia.org/resource/Athlete's_foot
+Precision: 0.013888888888888888
+Recall: 1.0
+F-Measure: 0.0273972602739726
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #2: Where is the liver?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Category:Liver
+http://dbpedia.org/resource/Category:Liver_anatomy
+http://dbpedia.org/resource/Liver
+http://dbpedia.org/resource/Liver_injury
+http://www.w3.org/2004/02/skos/core#Concept
+http://ja.dbpedia.org/resource/Category:??
+http://ko.dbpedia.org/resource/??:?
+http://cs.dbpedia.org/resource/Kategorie:J?tra
+http://de.dbpedia.org/resource/Kategorie:Leber
+http://es.dbpedia.org/resource/Categor?a:H?gado
+http://it.dbpedia.org/resource/Categoria:Fegato
+http://pt.dbpedia.org/resource/Categoria:F?gado
+http://wikidata.dbpedia.org/resource/Q7034672
+http://wikidata.org/entity/Q7034672
+Liver
+http://dbpedia.org/resource/Category:Digestive_system
+http://en.wikipedia.org/wiki/Category:Liver?oldid=553119142
+19401443^^http://www.w3.org/2001/XMLSchema#integer
+553119142^^http://www.w3.org/2001/XMLSchema#integer
+5^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Category:Hormones_of_the_liver
+http://dbpedia.org/resource/Androsterone
+http://dbpedia.org/resource/Betatrophin
+http://pt.dbpedia.org/resource/Categoria:Horm?nios_do_f?gado
+http://wikidata.dbpedia.org/resource/Q8522240
+http://wikidata.org/entity/Q8522240
+Hormones of the liver
+http://dbpedia.org/resource/Category:Hormones_of_the_digestive_system
+http://en.wikipedia.org/wiki/Category:Hormones_of_the_liver?oldid=588526419
+28012214^^http://www.w3.org/2001/XMLSchema#integer
+588526419^^http://www.w3.org/2001/XMLSchema#integer
+6^^http://www.w3.org/2001/XMLSchema#integer
+http://en.wikipedia.org/wiki/Liver
+http://dbpedia.org/resource/Rumaki
+http://dbpedia.org/resource/Francis_Glisson
+http://dbpedia.org/resource/George_Whipple
+http://dbpedia.org/resource/Impression
+http://dbpedia.org/resource/LTBF_(disambiguation)
+http://dbpedia.org/resource/Liver_(disambiguation)
+http://dbpedia.org/resource/Propofol
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00818
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4943
+http://dbpedia.org/resource/Hydrocortamate
+http://dbpedia.org/resource/Hepatocolic_ligament
+http://dbpedia.org/resource/Hepatogastric_ligament
+http://dbpedia.org/resource/Hepatophrenic_ligament
+http://dbpedia.org/resource/Hepatorenal_ligament
+http://dbpedia.org/resource/Hepatic_diverticulum
+http://dbpedia.org/resource/Brotizolam
+http://dbpedia.org/resource/Etidocaine
+http://dbpedia.org/resource/Etizolam
+http://id.who.int/icd/entity/1311573163
+Liver@en
+----------------------------------
+found correct answer at position #2
+position 3:http://dbpedia.org/resource/Liver
+Precision: 0.018867924528301886
+Recall: 1.0
+F-Measure: 0.037037037037037035
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #3: What is Nexium?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Omeprazole
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00338
+http://dbpedia.org/resource/Esomeprazole
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4594
+http://dbpedia.org/resource/Nexen
+http://en.wikipedia.org/wiki/Omeprazole
+http://en.wikipedia.org/wiki/Esomeprazole
+http://dbpedia.org/resource/Opal_(disambiguation)
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB00475
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB00563
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB00628
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB01215
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB00467
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB00582
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB00683
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB01166
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB01167
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB01587
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drug_interactions/DB00338_DB01588
+http://id.who.int/icd/entity/1771811468
+Nerium oleander@en
+----------------------------------
+found correct answer at position #0
+position 1:http://dbpedia.org/resource/Omeprazole
+found correct answer at position #1
+position 2:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00338
+found correct answer at position #2
+position 3:http://dbpedia.org/resource/Esomeprazole
+found correct answer at position #3
+position 4:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00736
+found correct answer at position #4
+position 5:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4594
+Precision: 0.22727272727272727
+Recall: 1.0
+F-Measure: 0.37037037037037035
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #4: What is alcohol dependence?
+-------------------------------------------------------------
+received results:
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0001973
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/54
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0001973
+http://dbpedia.org/resource/Chlorpromazine
+http://dbpedia.org/resource/Clomipramine
+http://dbpedia.org/resource/Donepezil
+http://dbpedia.org/resource/Ergotamine
+http://dbpedia.org/resource/Methysergide
+http://dbpedia.org/resource/Mirtazapine
+http://dbpedia.org/resource/Paliperidone
+http://dbpedia.org/resource/Paroxetine
+http://dbpedia.org/resource/Thiethylperazine
+http://dbpedia.org/resource/Ziprasidone
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00246
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00247
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00477
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4163
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00370
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00372
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00696
+http://dbpedia.org/resource/Alcohol_dependence
+http://dbpedia.org/resource/Alcoholism
+http://dbpedia.org/resource/Disease_theory_of_alcoholism
+http://dbpedia.org/resource/Substance_dependence
+http://id.who.int/icd/entity/1580466198
+http://dbpedia.org/resource/Alcoholics_Anonymous
+http://dbpedia.org/resource/Crime_in_Russia
+http://dbpedia.org/resource/Positive_feedback
+http://en.wikipedia.org/wiki/Alcohol_dependence
+http://en.wikipedia.org/wiki/Alcoholism
+http://en.wikipedia.org/wiki/Disease_theory_of_alcoholism
+http://en.wikipedia.org/wiki/Substance_dependence
+http://id.who.int/icd/entity/1447256030
+http://id.who.int/icd/entity/1554379454
+http://id.who.int/icd/entity/1836362492
+http://id.who.int/icd/entity/490388233
+http://id.who.int/icd/entity/582014993
+http://id.who.int/icd/entity/931320871
+http://dbpedia.org/resource/Binge_drinking
+http://dbpedia.org/resource/Hangover
+http://dbpedia.org/resource/Category:Alcohol
+http://dbpedia.org/resource/Category:Alcohol-related_deaths
+http://dbpedia.org/resource/Category:Alcoholic_beverage_companies
+http://dbpedia.org/resource/Category:Alcohol_abuse
+http://dbpedia.org/resource/Category:Alcohol_by_country
+http://dbpedia.org/resource/Category:Alcohol_distribution_retailers
+http://dbpedia.org/resource/Category:Alcohol_logos
+http://dbpedia.org/resource/Alcohol_abuse
+http://dbpedia.org/resource/Long-term_effects_of_alcohol_consumption
+http://dbpedia.org/resource/Substance_abuse
+http://dbpedia.org/resource/L-741,626
+http://dbpedia.org/resource/Ethylphenidate
+http://id.who.int/icd/entity/714690795
+http://dbpedia.org/resource/Category:Alcohols
+http://www.w3.org/2004/02/skos/core#Concept
+http://cs.dbpedia.org/resource/Kategorie:Alkohol
+http://de.dbpedia.org/resource/Kategorie:Alkoholkonsum
+http://es.dbpedia.org/resource/Categor?a:Alcohol
+http://fr.dbpedia.org/resource/Cat?gorie:Consommation_d'alcool
+http://nl.dbpedia.org/resource/Categorie:Alcohol
+http://dbpedia.org/resource/Substance-related_disorder
+http://dbpedia.org/resource/Substance_use_disorder
+http://dbpedia.org/resource/FOSB
+http://id.who.int/icd/entity/1676588433
+http://dbpedia.org/resource/Category:Substance-related_disorders
+5^^http://www.w3.org/2001/XMLSchema#integer
+----------------------------------
+found correct answer at position #20
+position 21:http://dbpedia.org/resource/Alcohol_dependence
+found correct answer at position #21
+position 22:http://dbpedia.org/resource/Alcoholism
+found correct answer at position #22
+position 23:http://dbpedia.org/resource/Disease_theory_of_alcoholism
+found correct answer at position #23
+position 24:http://dbpedia.org/resource/Substance_dependence
+found correct answer at position #24
+position 25:http://id.who.int/icd/entity/1580466198
+Precision: 0.07575757575757576
+Recall: 1.0
+F-Measure: 0.14084507042253522
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #5: What is bigeminy?
+-------------------------------------------------------------
+received results:
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0262662
+http://dbpedia.org/resource/Iopamidol
+http://dbpedia.org/resource/Aztreonam
+http://dbpedia.org/resource/Fentanyl
+http://dbpedia.org/resource/Midazolam
+http://dbpedia.org/resource/Mirtazapine
+http://dbpedia.org/resource/Propofol
+http://dbpedia.org/resource/Ribavirin
+http://dbpedia.org/resource/Selegiline
+http://dbpedia.org/resource/Voriconazole
+http://dbpedia.org/resource/Zaleplon
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00811
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00813
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00818
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00962
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/4943
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00355
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00370
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00582
+----------------------------------
+found correct answer at position #0
+position 1:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0262662
+Precision: 0.05
+Recall: 1.0
+F-Measure: 0.09523809523809523
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #6: What are Narcolepsy and Kleine Levin syndrome?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Kleine%E2%80%93Levin_syndrome
+http://dbpedia.org/resource/Kleine?Levin_syndrome
+http://en.wikipedia.org/wiki/Kleine?Levin_syndrome
+http://dbpedia.org/resource/KLS_(sleep_disorder)
+http://dbpedia.org/resource/Klein-Levin_syndrome
+http://dbpedia.org/resource/Klein-Levine_Syndrome
+http://dbpedia.org/resource/Kleine-Levin_Syndrome
+http://dbpedia.org/resource/Kleine-Levin_syndrome
+http://dbpedia.org/resource/Kleine-Levine_Syndrome
+http://dbpedia.org/resource/Kleine-Levine_syndrome
+http://dbpedia.org/resource/Kleine-levin_syndrome
+http://dbpedia.org/resource/Kleine_Levin_Syndrome
+http://dbpedia.org/resource/Kline-Levin_syndrome
+http://dbpedia.org/resource/Kline_Levin
+http://dbpedia.org/resource/Sleeping_Beauty_syndrome
+http://dbpedia.org/resource/Sleeping_beauty_syndrome
+http://www.w3.org/2002/07/owl#Thing
+http://dbpedia.org/ontology/Disease
+http://dbpedia.org/ontology/Medicine
+http://www.wikidata.org/entity/Q12136
+http://dbpedia.org/resource/Category:Narcolepsy
+http://dbpedia.org/resource/Cataplexy
+http://dbpedia.org/resource/Narcolepsy
+http://dbpedia.org/resource/Sodium_oxybate
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0007384
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0027404
+http://id.who.int/icd/entity/1201727099
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/812
+http://www.w3.org/2004/02/skos/core#Concept
+http://wikidata.dbpedia.org/resource/Q16808977
+http://wikidata.org/entity/Q16808977
+Narcolepsy
+http://en.wikipedia.org/wiki/Category:Narcolepsy?oldid=606377470
+42582061^^http://www.w3.org/2001/XMLSchema#integer
+606377470^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Catatonia
+http://id.who.int/icd/entity/486722075
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0007384
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0027404
+http://en.wikipedia.org/wiki/Cataplexy
+http://en.wikipedia.org/wiki/Narcolepsy
+http://id.who.int/icd/entity/2024456840
+http://dbpedia.org/resource/Narcolepsy_(disambiguation)
+http://dbpedia.org/resource/Dextroamphetamine
+http://dbpedia.org/resource/Prazosin
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00457
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01576
+http://dbpedia.org/resource/Pramipexole
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00363
+----------------------------------
+found correct answer at position #41
+position 42:http://id.who.int/icd/entity/2024456840
+Precision: 0.02040816326530612
+Recall: 0.5
+F-Measure: 0.039215686274509796
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #7: What are types of neoplasia?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Category:Types_of_neoplasia
+http://dbpedia.org/resource/Category:Respiratory_system_neoplasia
+http://dbpedia.org/resource/Category:Benign_neoplasms
+http://dbpedia.org/resource/Category:Breast_neoplasia
+http://dbpedia.org/resource/Category:Connective/soft_tissue_tumors_and_sarcomas
+http://dbpedia.org/resource/Category:Germ_cell_neoplasia
+http://dbpedia.org/resource/Category:Glandular_and_epithelial_neoplasia
+http://dbpedia.org/resource/Category:Gynaecological_neoplasia
+http://dbpedia.org/resource/Category:Head_and_neck_cancer
+http://dbpedia.org/resource/Category:Hematologic_neoplasms
+http://dbpedia.org/resource/Category:Integumentary_neoplasia
+http://dbpedia.org/resource/Category:Lymphatic_organ_neoplasia
+http://dbpedia.org/resource/Category:Male_genital_neoplasia
+http://dbpedia.org/resource/Category:Myeloid_neoplasia
+http://dbpedia.org/resource/Category:Osseous_and_chondromatous_neoplasia
+http://dbpedia.org/resource/Category:Vascular_neoplasia
+http://dbpedia.org/resource/Category:Urological_neoplasia
+http://dbpedia.org/resource/Category:Nervous_system_neoplasia
+http://dbpedia.org/resource/Category:Digestive_system_neoplasia
+http://dbpedia.org/resource/Category:Heart_neoplasia
+http://dbpedia.org/resource/Cancer
+http://dbpedia.org/resource/List_of_cancer_types
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0205699
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0006826
+http://id.who.int/icd/entity/440437263
+http://data.nytimes.com/47730157209716531200
+http://dbpedia.org/resource/Transformation_(genetics)
+http://dbpedia.org/resource/Health_effects_of_wine
+http://dbpedia.org/resource/Cancer_(constellation)
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0006826
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0205699
+http://en.wikipedia.org/wiki/Cancer
+http://en.wikipedia.org/wiki/List_of_cancer_types
+http://id.who.int/icd/entity/2009008947
+http://dbpedia.org/resource/Cancer_Research_(journal)
+http://dbpedia.org/resource/Oncogene_(journal)
+http://dbpedia.org/resource/Dom_DeLuise
+http://dbpedia.org/resource/Marilyn_Harris_(actress)
+http://dbpedia.org/resource/Stan_and_Jan_Berenstain
+http://dbpedia.org/resource/Bruce_Paltrow
+----------------------------------
+found correct answer at position #20
+position 21:http://dbpedia.org/resource/Cancer
+found correct answer at position #22
+position 23:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0205699
+found correct answer at position #23
+position 24:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0006826
+found correct answer at position #24
+position 25:http://id.who.int/icd/entity/440437263
+Precision: 0.1
+Recall: 0.2222222222222222
+F-Measure: 0.13793103448275865
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #8: What has the MEsHID D002056?
+-------------------------------------------------------------
+received results:
+D002056@en
+D002051@en
+D002006@en
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #9: Who died of asthma?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Category:Asthma
+http://dbpedia.org/resource/Category:Pde4_inhibitors
+http://dbpedia.org/resource/Acute_severe_asthma
+http://dbpedia.org/resource/Asthma
+http://dbpedia.org/resource/Pathophysiology_of_asthma
+http://dbpedia.org/resource/Exercise-induced_bronchoconstriction
+http://dbpedia.org/resource/Bronchospasm
+http://dbpedia.org/resource/Aspirin-induced_asthma
+http://dbpedia.org/resource/Occupational_asthma
+http://dbpedia.org/resource/Reactive_airway_disease
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0004096
+http://id.who.int/icd/entity/370543057
+http://id.who.int/icd/entity/1656445230
+http://purl.org/net/tcm/tcm.lifescience.ntu.edu.tw/id/disease/Asthma
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/116
+http://www.w3.org/2004/02/skos/core#Concept
+http://cs.dbpedia.org/resource/Kategorie:Astma
+http://es.dbpedia.org/resource/Categor?a:Asma
+http://pt.dbpedia.org/resource/Categoria:Asma
+http://wikidata.dbpedia.org/resource/Q8272902
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0004096
+http://en.wikipedia.org/wiki/Asthma
+http://en.wikipedia.org/wiki/Pathophysiology_of_asthma
+http://id.who.int/icd/entity/1461326813
+http://id.who.int/icd/entity/1870104478
+http://id.who.int/icd/entity/1899772084
+http://id.who.int/icd/entity/1582386590
+http://id.who.int/icd/entity/1531458929
+http://dbpedia.org/resource/Journal_of_Asthma_and_Allergy
+http://dbpedia.org/resource/John_Junkin
+http://dbpedia.org/resource/Clare_Cathcart
+http://dbpedia.org/resource/Mary_Dimmick_Harrison
+http://dbpedia.org/resource/Neil_Hamilton_(actor)
+http://dbpedia.org/resource/Pauline_Frederick
+----------------------------------
+found correct answer at position #30
+position 31:http://dbpedia.org/resource/Clare_Cathcart
+found correct answer at position #31
+position 32:http://dbpedia.org/resource/Mary_Dimmick_Harrison
+found correct answer at position #32
+position 33:http://dbpedia.org/resource/Neil_Hamilton_(actor)
+found correct answer at position #33
+position 34:http://dbpedia.org/resource/Pauline_Frederick
+Precision: 0.11764705882352941
+Recall: 1.0
+F-Measure: 0.21052631578947367
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #10: What is the definition of malignant neoplasms of skin?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Category:Hematologic_malignant_neoplasms
+http://dbpedia.org/resource/Plasmacytoma
+http://dbpedia.org/resource/Hodgkin's_lymphoma
+http://dbpedia.org/resource/Lymphoma
+http://dbpedia.org/resource/Plasma_cell_dyscrasia
+http://dbpedia.org/resource/Thyroid_lymphoma
+http://dbpedia.org/resource/Tumors_of_the_hematopoietic_and_lymphoid_tissues
+http://dbpedia.org/resource/Pel-Ebstein_fever
+http://dbpedia.org/resource/Waldenstr%C3%B6m's_macroglobulinemia
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0024299
+http://purl.org/net/tcm/tcm.lifescience.ntu.edu.tw/id/disease/Plasmacytoma
+http://id.who.int/icd/entity/1528863768
+http://purl.org/net/tcm/tcm.lifescience.ntu.edu.tw/id/disease/Lymphoma
+http://id.who.int/icd/entity/1219149360
+http://dbpedia.org/resource/Waldenstr?m's_macroglobulinemia
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/701
+http://dbpedia.org/resource/Adult_T-cell_leukemia
+http://www.w3.org/2004/02/skos/core#Concept
+http://fr.dbpedia.org/resource/Cat?gorie:H?mopathie_maligne
+http://wikidata.dbpedia.org/resource/Q15830425
+http://dbpedia.org/resource/Category:Neoplasms
+http://dbpedia.org/resource/Neoplasm
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0027651
+http://es.dbpedia.org/resource/Categor?a:Neoplasias
+http://wikidata.dbpedia.org/resource/Q16271393
+http://wikidata.org/entity/Q16271393
+Neoplasms
+http://en.wikipedia.org/wiki/Category:Neoplasms?oldid=627037860
+43948415^^http://www.w3.org/2001/XMLSchema#integer
+627037860^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Category:Skin
+http://dbpedia.org/resource/Category:People_executed_by_flaying
+http://dbpedia.org/resource/Category:Skin_anatomy
+http://dbpedia.org/resource/Cellulite
+http://dbpedia.org/resource/Pilosebaceous_unit
+http://dbpedia.org/resource/Birthmark
+http://dbpedia.org/resource/Skin
+http://data.nytimes.com/59420479714398044160
+http://el.dbpedia.org/resource/?????????:?????
+http://ja.dbpedia.org/resource/Category:??
+http://ko.dbpedia.org/resource/??:??
+http://de.dbpedia.org/resource/Kategorie:Haut
+http://es.dbpedia.org/resource/Categor?a:Piel
+http://eu.dbpedia.org/resource/Kategoria:Larruazala
+http://nl.dbpedia.org/resource/Categorie:Huid
+http://pt.dbpedia.org/resource/Categoria:Pele
+http://wikidata.dbpedia.org/resource/Q7337096
+http://wikidata.org/entity/Q7337096
+Skin
+http://dbpedia.org/resource/Hepatocellular_carcinoma
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0023903
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0023903
+http://en.wikipedia.org/wiki/Hepatocellular_carcinoma
+http://dbpedia.org/resource/Lee_Remick
+http://dbpedia.org/resource/Allan_Carr
+http://dbpedia.org/resource/Gregory_Hines
+http://dbpedia.org/resource/Joe_Profaci
+http://dbpedia.org/resource/Margaret_Karcher
+http://dbpedia.org/resource/Richard_Cromwell_(actor)
+http://dbpedia.org/resource/Hashem_El-Serag
+http://dbpedia.org/resource/Dimitrios_Trichopoulos
+http://dbpedia.org/resource/Audre_Lorde
+http://dbpedia.org/resource/Darunavir
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01264
+http://dbpedia.org/resource/Pramipexole
+http://dbpedia.org/resource/Testosterone
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00413
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00624
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01236
+http://id.who.int/icd/entity/69890123
+discuss definition@en
+Recurrent@en
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #11: What has the target MAPK14?
+-------------------------------------------------------------
+received results:
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02195
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02873
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01948
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01953
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02984
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01807
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01988
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02277
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02352
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04338
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04632
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04797
+http://dbpedia.org/resource/MAPK14
+http://purl.org/net/tcm/tcm.lifescience.ntu.edu.tw/id/gene/MAPK14
+http://en.wikipedia.org/wiki/MAPK14
+http://dbpedia.org/resource/P38_mitogen-activated_protein_kinases
+http://dbpedia.org/resource/MAPK14_(gene)
+http://www.w3.org/2002/07/owl#Thing
+http://www.wikidata.org/entity/Q206229
+http://dbpedia.org/ontology/Biomolecule
+http://dbpedia.org/ontology/Protein
+http://www.wikidata.org/entity/Q8054
+MAPK14@es
+MAPK14@en
+La MAP quinasa 14 (MAPK14) es una enzima codificada en humanos por el gen mapk14.La MAPK14 pertenece a la familia de las MAP quinasas. Las MAP quinasas actúan como punto de integración de múltiples señales bioquímicas, y están implicadas en una amplia variedad de procesos celulares tales como proliferación celular, diferenciación celular, regulación de la transcripción y desarrollo.@es
+Mitogen-activated protein kinase 14, also called p38-α, is an enzyme that in humans is encoded by the MAPK14 gene.MAPK14 (NCBI Gene ID: 1432) encodes p38α mitogen-activated protein kinase (MAPK) which is the prototypic member of the p38 MAPK family.  p38 MAPKs are also known as stress-activated serine/threonine-specific kinases (SAPKs).@en
+http://en.wikipedia.org/wiki/MAPK14?oldid=644587137
+1432^^http://www.w3.org/2001/XMLSchema#string
+Mitogen-activated protein kinase 14, also called p38-α, is an enzyme that in humans is encoded by the MAPK14 gene.MAPK14 (NCBI Gene ID: 1432) encodes p38α mitogen-activated protein kinase (MAPK) which is the prototypic member of the p38 MAPK family.  p38 MAPKs are also known as stress-activated serine/threonine-specific kinases (SAPKs).  In addition to MAPK14 for p38α, the p38 MAPK family has three additional members, including MAPK11 (NCBI Gene ID: 5600), MAPK 12 (NCBI Gene ID: 6300) and MAPK13 (NCBI Gene ID: 5603) which encodes p38β, p38γ and p38δ isoforms, respectively.  p38α was originally identified as a tyrosine phosphorylated protein detected in activated immune cell macrophages with an essential role in inflammatory cytokine induction, such as Tumor Necrotic Factor α (TNFα). However, p38α mediated kinase activity has been implicated in many tissues beyond immune systems.  p38α is mainly activated through MAPK kinase kinase cascades and exerts its biological function via downstream substrate phosphorylation.  p38α is implicated in diverse cellular function, from gene expression to programmed cell death through a network of signaling molecules and transcription factors.  Pharmacological and genetic inhibition of p38α not only revealed its biological significance in physiological function but also the potential of targeting p38α in human diseases such as immune disorder and heart failure.@en
+La MAP quinasa 14 (MAPK14) es una enzima codificada en humanos por el gen mapk14.La MAPK14 pertenece a la familia de las MAP quinasas. Las MAP quinasas actúan como punto de integración de múltiples señales bioquímicas, y están implicadas en una amplia variedad de procesos celulares tales como proliferación celular, diferenciación celular, regulación de la transcripción y desarrollo. La MAPK14 es activada por diversos estímulos ambientales relacionados con el estrés y por citoquinas proinflamatorias. Dicha activación requiere la fosforilación llevada a cabo por MAP quinasa quinasas (MKKs), o bien su propia autofosforilación llevada a cabo por la interacción del complejo MAP3K7IP1/TAB1 con MAPK14. Los sustratos de esta quinasa incluyen diversas proteínas o factores de transcripción como ATF2, MEF2C, MAX, el regulador del ciclo celular CDC25B y el supresor tumoral p53, lo que sugiere un papel de esta quinasa en regulación del ciclo celular y la transcripción, así como en respuesta a estrés genotóxico. Se han descrito cuatro variantes transcripcionales de este gen, que codifican diversas isoformas de la quinasa.@es
+Ben-Levy R, Hooper S, Wilson R, Paterson HF, Marshall CJ@en
+Bradham C, McClay DR@en
+http://dbpedia.org/resource/Neuropathy_target_esterase
+http://en.wikipedia.org/wiki/Neuropathy_target_esterase
+http://dbpedia.org/resource/Neuropathy_(disambiguation)
+http://dbpedia.org/resource/PNPLA6
+http://dbpedia.org/resource/PNPLA6_(gene)
+http://dbpedia.org/class/yago/Abstraction100002137
+http://dbpedia.org/class/yago/Chemical114806838
+http://dbpedia.org/class/yago/Compound114818238
+http://dbpedia.org/class/yago/Macromolecule114944888
+http://dbpedia.org/class/yago/Material114580897
+http://dbpedia.org/class/yago/Molecule114682133
+http://dbpedia.org/class/yago/Matter100020827
+http://dbpedia.org/class/yago/OrganicCompound114727670
+http://dbpedia.org/class/yago/PhysicalEntity100001930
+http://dbpedia.org/class/yago/Part113809207
+http://dbpedia.org/resource/Chromatin_target_of_prmt1
+http://en.wikipedia.org/wiki/Chromatin_target_of_prmt1
+Chromatin target of prmt1@en
+Chromatin target of PRMT1 is a protein that in humans is encoded by the CHTOP gene.@en
+http://en.wikipedia.org/wiki/Chromatin_target_of_prmt1?oldid=637724504
+26097^^http://www.w3.org/2001/XMLSchema#string
+43629122^^http://www.w3.org/2001/XMLSchema#integer
+637724504^^http://www.w3.org/2001/XMLSchema#integer
+----------------------------------
+found correct answer at position #0
+position 1:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02195
+found correct answer at position #1
+position 2:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02873
+found correct answer at position #2
+position 3:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01948
+found correct answer at position #3
+position 4:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01953
+found correct answer at position #4
+position 5:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02984
+found correct answer at position #5
+position 6:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01807
+found correct answer at position #6
+position 7:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01988
+found correct answer at position #7
+position 8:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02277
+found correct answer at position #8
+position 9:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB02352
+found correct answer at position #9
+position 10:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04338
+found correct answer at position #10
+position 11:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04632
+found correct answer at position #11
+position 12:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB04797
+Precision: 0.21818181818181817
+Recall: 0.9230769230769231
+F-Measure: 0.3529411764705882
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #12: Which drugs have rheumatic fever as a side effect?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Rheumatic_fever
+http://dbpedia.org/resource/Sydenham's_chorea
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0035436
+http://id.who.int/icd/entity/1799992159
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0035436
+http://en.wikipedia.org/wiki/Rheumatic_fever
+http://en.wikipedia.org/wiki/Sydenham's_chorea
+http://id.who.int/icd/entity/844159716
+http://id.who.int/icd/entity/1503433128
+http://id.who.int/icd/entity/863862503
+http://dbpedia.org/resource/ARF
+http://dbpedia.org/resource/Chorea_(disambiguation)
+http://dbpedia.org/resource/Sydenham_(disambiguation)
+http://dbpedia.org/resource/Vitus_(disambiguation)
+http://dbpedia.org/resource/Adele_C._Howells
+http://dbpedia.org/resource/Cefaclor
+http://dbpedia.org/resource/Cefpodoxime
+http://dbpedia.org/resource/Cefprozil
+http://dbpedia.org/resource/Ceftibuten
+http://dbpedia.org/resource/Ceftriaxone
+----------------------------------
+found correct answer at position #15
+position 16:http://dbpedia.org/resource/Cefaclor
+found correct answer at position #16
+position 17:http://dbpedia.org/resource/Cefpodoxime
+found correct answer at position #17
+position 18:http://dbpedia.org/resource/Cefprozil
+found correct answer at position #18
+position 19:http://dbpedia.org/resource/Ceftibuten
+found correct answer at position #19
+position 20:http://dbpedia.org/resource/Ceftriaxone
+Precision: 0.25
+Recall: 0.060240963855421686
+F-Measure: 0.09708737864077671
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #13: Which sider drugs have the side effect amnesia?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Atenolol
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00335
+http://dbpedia.org/resource/Sibutramine
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01105
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2249
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5210
+http://dbpedia.org/resource/Lorazepam
+http://dbpedia.org/resource/Vigabatrin
+http://dbpedia.org/resource/Iopamidol
+http://dbpedia.org/resource/Morphine
+http://dbpedia.org/resource/Atropine
+http://dbpedia.org/resource/Bromazepam
+http://dbpedia.org/resource/Bupropion
+http://dbpedia.org/resource/Carbamazepine
+http://dbpedia.org/resource/Cidofovir
+http://dbpedia.org/resource/Doxazosin
+http://dbpedia.org/resource/Estazolam
+http://dbpedia.org/resource/Estradiol
+http://dbpedia.org/resource/Fentanyl
+http://dbpedia.org/resource/Fluoxetine
+http://dbpedia.org/resource/Flurbiprofen
+http://dbpedia.org/resource/Medroxyprogesterone
+http://dbpedia.org/resource/Memantine
+http://dbpedia.org/resource/Midazolam
+http://dbpedia.org/resource/Mirtazapine
+http://dbpedia.org/resource/Naproxen
+short term memory loss
+C0701811
+http://dbpedia.org/resource/Amnesia
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0701811
+http://id.who.int/icd/entity/862469859
+----------------------------------
+found correct answer at position #0
+position 1:http://dbpedia.org/resource/Atenolol
+found correct answer at position #1
+position 2:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00335
+found correct answer at position #2
+position 3:http://dbpedia.org/resource/Sibutramine
+found correct answer at position #3
+position 4:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB01105
+found correct answer at position #4
+position 5:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2249
+found correct answer at position #5
+position 6:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/5210
+found correct answer at position #6
+position 7:http://dbpedia.org/resource/Lorazepam
+found correct answer at position #7
+position 8:http://dbpedia.org/resource/Vigabatrin
+found correct answer at position #8
+position 9:http://dbpedia.org/resource/Iopamidol
+found correct answer at position #9
+position 10:http://dbpedia.org/resource/Morphine
+found correct answer at position #10
+position 11:http://dbpedia.org/resource/Atropine
+found correct answer at position #11
+position 12:http://dbpedia.org/resource/Bromazepam
+found correct answer at position #12
+position 13:http://dbpedia.org/resource/Bupropion
+found correct answer at position #13
+position 14:http://dbpedia.org/resource/Carbamazepine
+found correct answer at position #14
+position 15:http://dbpedia.org/resource/Cidofovir
+found correct answer at position #15
+position 16:http://dbpedia.org/resource/Doxazosin
+found correct answer at position #16
+position 17:http://dbpedia.org/resource/Estazolam
+found correct answer at position #17
+position 18:http://dbpedia.org/resource/Estradiol
+found correct answer at position #18
+position 19:http://dbpedia.org/resource/Fentanyl
+found correct answer at position #19
+position 20:http://dbpedia.org/resource/Fluoxetine
+found correct answer at position #20
+position 21:http://dbpedia.org/resource/Flurbiprofen
+found correct answer at position #21
+position 22:http://dbpedia.org/resource/Medroxyprogesterone
+found correct answer at position #22
+position 23:http://dbpedia.org/resource/Memantine
+found correct answer at position #23
+position 24:http://dbpedia.org/resource/Midazolam
+found correct answer at position #24
+position 25:http://dbpedia.org/resource/Mirtazapine
+found correct answer at position #25
+position 26:http://dbpedia.org/resource/Naproxen
+Precision: 0.8387096774193549
+Recall: 0.061465721040189124
+F-Measure: 0.1145374449339207
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #14: Which drugs contain acetylsalicylic acid?
+-------------------------------------------------------------
+received results:
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00945
+http://dbpedia.org/resource/Aspirin
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2244
+http://dbpedia.org/resource/Category:Antiplatelet_drugs
+http://dbpedia.org/resource/Category:Drugs
+http://dbpedia.org/resource/Category:Antibody_mimetics
+http://dbpedia.org/resource/Category:Antidotes
+http://dbpedia.org/resource/Category:Combination_drugs
+http://dbpedia.org/resource/Category:Dosage_forms
+http://dbpedia.org/resource/Category:Drug_addiction
+http://dbpedia.org/resource/Category:Drug_culture
+http://dbpedia.org/resource/Category:Drugs_by_mechanism_of_action
+http://dbpedia.org/resource/Category:Drugs_by_target_organ_system
+http://dbpedia.org/resource/Category:Drugs_by_country
+http://dbpedia.org/resource/Category:Drugs_not_assigned_an_atc_code
+http://dbpedia.org/resource/Category:Enantiopure_drugs
+http://dbpedia.org/resource/Category:Excipients
+http://dbpedia.org/resource/Category:Fictional_drugs
+http://dbpedia.org/resource/Category:Illegal_drugs
+http://dbpedia.org/resource/Category:Medicinal_herbs_and_fungi
+http://dbpedia.org/resource/Category:Ointments
+http://dbpedia.org/resource/Category:Orphan_drugs
+http://dbpedia.org/resource/Category:Patent_medicines
+http://dbpedia.org/resource/Category:Pharmaceutics
+http://dbpedia.org/resource/Acetylsalicylic_acid/dipyridamole
+http://en.wikipedia.org/wiki/Acetylsalicylic_acid/dipyridamole
+http://dbpedia.org/resource/Asasantin
+http://dbpedia.org/resource/Dipyridamole/acetylsalicylic_acid
+http://www.w3.org/2002/07/owl#Thing
+http://dbpedia.org/ontology/Drug
+http://www.wikidata.org/entity/Q8386
+Acetylsalicylic acid/dipyridamole@en
+أساسانتين@ar
+The combination drug acetylsalicylic acid/dipyridamole (trade names Aggrenox, Asasantin) is a drug combination of:Acetylsalicylic acid, the analgesic otherwise (but in higher doses) trademarked as Aspirin Dipyridamole, a drug that inhibits thrombus formation when given chronically and causes vasodilation when given at high doses over short time.↑ ↑@en
+أساسانتين Asasantin ألأساسانتين هو مزيج من العقارات أو الادوية: حمض الصفصاف، ألمسكن علامته ألتجارية الأسبرين. ديبيريدامول, ديبيريدامول (وهو دَواءٌ مُضَاد لِتكدُّس الصفيحات) Dipyridamole، وهو دواء يمنع تشكيل الجلطة ويسبب توسع الأوعية عندما تعطى في جرعات عالية على مدى فترة زمنية قصيرة.@ar
+http://en.wikipedia.org/wiki/Acetylsalicylic_acid/dipyridamole?oldid=627803854
+B01^^http://www.w3.org/2001/XMLSchema#string
+AC30^^http://www.w3.org/2001/XMLSchema#string
+B01@en
+AC30@en
+121018^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Antithrombotic
+Antithrombotic@en
+----------------------------------
+found correct answer at position #0
+position 1:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00945
+found correct answer at position #1
+position 2:http://dbpedia.org/resource/Aspirin
+found correct answer at position #2
+position 3:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2244
+found correct answer at position #24
+position 25:http://dbpedia.org/resource/Acetylsalicylic_acid/dipyridamole
+Precision: 0.09302325581395349
+Recall: 0.6666666666666666
+F-Measure: 0.16326530612244897
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #15: What is the definition of lung cancer?
+-------------------------------------------------------------
+received results:
+A primary or metastatic malignant neoplasm involving the trachea@en
+A primary or metastatic malignant neoplasm involving the lung.@en
+Squamous cell carcinoma is, by far, the most important tumour of the hypopharynx, larynx and trachea. It is clearly related to the abuse of tobacco and alcohol and, as such, could be drastically reduced if individuals would only alter their lifestyles. Precursor lesions have been identified and the genetic-molecular events underlying their origin and progression into clinically apparent carcinomas are gradually being elucidated. The terminology of these precursor lesions, however, is still evolving and no single classification has been universally accepted. The three most commonly used classifications and their equivalent terms are presented@en
+http://dbpedia.org/resource/Category:Lung_cancer
+http://dbpedia.org/resource/Non-small-cell_lung_carcinoma
+http://dbpedia.org/resource/Adenocarcinoma_in_situ_of_the_lung
+http://dbpedia.org/resource/Carcinoid
+http://dbpedia.org/resource/Carcinoid_syndrome
+http://dbpedia.org/resource/Combined_small-cell_lung_carcinoma
+http://dbpedia.org/resource/Giant-cell_carcinoma_of_the_lung
+http://dbpedia.org/resource/Head_and_neck_cancer
+http://dbpedia.org/resource/Large-cell_lung_carcinoma_with_rhabdoid_phenotype
+http://dbpedia.org/resource/Laryngeal_cancer
+http://dbpedia.org/resource/Lung_cancer
+http://dbpedia.org/resource/Respiratory_tract_neoplasm
+http://dbpedia.org/resource/Tracheal_tumor
+http://dbpedia.org/resource/Large-cell_lung_carcinoma
+http://dbpedia.org/resource/Solitary_pulmonary_nodule
+http://dbpedia.org/resource/Squamous-cell_carcinoma
+http://dbpedia.org/resource/Pleuropulmonary_blastoma
+http://dbpedia.org/resource/Small-cell_carcinoma
+http://dbpedia.org/resource/Pancoast_tumor
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0023055
+http://dbpedia.org/resource/Category:Lung
+http://dbpedia.org/resource/Pulmonary_surfactant_protein_D
+http://dbpedia.org/resource/Human_lung
+http://www.w3.org/2004/02/skos/core#Concept
+http://de.dbpedia.org/resource/Kategorie:Lunge
+http://es.dbpedia.org/resource/Categor?a:Pulm?n
+http://id.dbpedia.org/resource/Kategori:Paru-paru
+http://wikidata.dbpedia.org/resource/Q7131304
+http://wikidata.org/entity/Q7131304
+Lung
+http://dbpedia.org/resource/Category:Organs
+http://en.wikipedia.org/wiki/Category:Lung?oldid=545450242
+19401609^^http://www.w3.org/2001/XMLSchema#integer
+545450242^^http://www.w3.org/2001/XMLSchema#integer
+6^^http://www.w3.org/2001/XMLSchema#integer
+----------------------------------
+found correct answer at position #0
+position 1:A primary or metastatic malignant neoplasm involving the trachea@en
+found correct answer at position #1
+position 2:A primary or metastatic malignant neoplasm involving the lung.@en
+Precision: 0.05263157894736842
+Recall: 1.0
+F-Measure: 0.1
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #16: What are signs or symptoms of subtertian fever?
+-------------------------------------------------------------
+received results:
+Arthralgia@en
+Myalgia@en
+Splenomegaly@en
+Anemia@en
+Vomiting@en
+Chills@en
+Thrombocytopenia@en
+Diarrhea@en
+Fever@en
+Headache@en
+http://dbpedia.org/resource/Category:Fever
+http://dbpedia.org/resource/Category:Symptoms_and_signs
+http://www.w3.org/2004/02/skos/core#Concept
+5^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Category:Diarrhea
+http://dbpedia.org/resource/Category:Headaches
+http://dbpedia.org/resource/Category:Abnormal_respiration
+http://dbpedia.org/resource/Category:Gait_abnormalities
+http://dbpedia.org/resource/Category:Pain
+http://dbpedia.org/resource/Category:Vomiting
+http://dbpedia.org/resource/Category:Abdominal_pain
+http://dbpedia.org/resource/Category:Digestive_disease_symptoms
+http://dbpedia.org/resource/Category:Heart_murmurs
+http://dbpedia.org/resource/Fistula
+http://dbpedia.org/resource/Atony
+http://dbpedia.org/resource/Calcinosis
+http://dbpedia.org/resource/Fibrosis
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0016059
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0016169
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/404
+http://eu.dbpedia.org/resource/Kategoria:Sintoma_eta_zantzu_medikoak
+----------------------------------
+found correct answer at position #0
+position 1:Arthralgia@en
+found correct answer at position #1
+position 2:Myalgia@en
+found correct answer at position #2
+position 3:Splenomegaly@en
+found correct answer at position #3
+position 4:Anemia@en
+found correct answer at position #4
+position 5:Vomiting@en
+found correct answer at position #5
+position 6:Chills@en
+found correct answer at position #6
+position 7:Thrombocytopenia@en
+found correct answer at position #7
+position 8:Diarrhea@en
+found correct answer at position #8
+position 9:Fever@en
+found correct answer at position #9
+position 10:Headache@en
+Precision: 0.3225806451612903
+Recall: 1.0
+F-Measure: 0.4878048780487805
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #17: What is the ICD10 code of cerebral ischaemic stroke?
+-------------------------------------------------------------
+received results:
+I63^^http://www.w3.org/2001/XMLSchema#string
+I63
+I61,P10.1^^http://www.w3.org/2001/XMLSchema#string
+I61-I64^^http://www.w3.org/2001/XMLSchema#string
+I61-I64ner^^http://www.w3.org/2001/XMLSchema#string
+I64
+I61
+http://dbpedia.org/resource/Cerebral_infarction
+http://id.who.int/icd/entity/636274910
+http://en.wikipedia.org/wiki/Cerebral_infarction
+http://id.who.int/icd/entity/1595033000
+http://id.who.int/icd/entity/100443965
+http://id.who.int/icd/entity/1035303911
+http://id.who.int/icd/entity/1070137396
+http://id.who.int/icd/entity/136879689
+http://id.who.int/icd/entity/1371457
+http://id.who.int/icd/entity/1551167516
+http://id.who.int/icd/entity/1614716959
+http://id.who.int/icd/entity/369985440
+http://id.who.int/icd/entity/564045534
+http://id.who.int/icd/entity/608901546
+http://id.who.int/icd/entity/846169667
+http://id.who.int/icd/entity/881743301
+http://id.who.int/icd/entity/906188361
+http://id.who.int/icd/entity/975260240
+http://id.who.int/icd/entity/843843448
+http://dbpedia.org/resource/Basanti_Dulal_Nagchaudhuri
+----------------------------------
+found correct answer at position #1
+position 2:I63
+Precision: 0.037037037037037035
+Recall: 1.0
+F-Measure: 0.07142857142857142
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #18: What is a possible disease target of PHIQHXFUZVPYII-UHFFFAOYSA-N?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Myopathy
+http://dbpedia.org/resource/Rheumatoid_arthritis
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0003873
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0026848
+http://id.who.int/icd/entity/1159616108
+http://id.who.int/icd/entity/521279908
+http://id.who.int/icd/entity/833816211
+http://id.who.int/icd/entity/576319925
+http://purl.org/net/tcm/tcm.lifescience.ntu.edu.tw/id/disease/Arthritis_Rheumatoid
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/999
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/802
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/1761
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/1762
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/198
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/199
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2020
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2021
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2022
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/277
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/3305
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/109
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/118
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/200
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/412
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/451
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/551
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/636
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/targets/833
+http://dbpedia.org/resource/Chromatin_target_of_prmt1
+http://en.wikipedia.org/wiki/Chromatin_target_of_prmt1
+http://www.w3.org/2002/07/owl#Thing
+http://www.wikidata.org/entity/Q206229
+http://dbpedia.org/ontology/Biomolecule
+http://dbpedia.org/ontology/Protein
+http://www.wikidata.org/entity/Q8054
+Chromatin target of prmt1@en
+Chromatin target of PRMT1 is a protein that in humans is encoded by the CHTOP gene.@en
+http://en.wikipedia.org/wiki/Chromatin_target_of_prmt1?oldid=637724504
+26097^^http://www.w3.org/2001/XMLSchema#string
+43629122^^http://www.w3.org/2001/XMLSchema#integer
+637724504^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Mechanistic_target_of_rapamycin
+http://en.wikipedia.org/wiki/Mechanistic_target_of_rapamycin
+http://dbpedia.org/resource/David_M._Sabatini
+http://dbpedia.org/resource/Rapt
+http://dbpedia.org/resource/Tor
+http://dbpedia.org/resource/MTORC2
+http://dbpedia.org/resource/MTORC1
+http://dbpedia.org/resource/FK506_binding_protein_12-rapamycin_associated_protein_1
+http://dbpedia.org/resource/FLJ44809
+http://dbpedia.org/resource/FRAP1
+http://dbpedia.org/resource/FRAP2
+http://dbpedia.org/resource/Flj44809
+http://dbpedia.org/resource/Frap2
+http://dbpedia.org/resource/MTOR
+http://dbpedia.org/resource/MTOR_(gene)
+http://dbpedia.org/resource/MTOR_inhibitor
+http://dbpedia.org/resource/MTOR_pathway
+http://dbpedia.org/resource/Mammalian_target_of_rapamycin
+http://dbpedia.org/resource/Mtor
+http://dbpedia.org/resource/RAFT1
+http://dbpedia.org/resource/Osteolysis
+http://dbpedia.org/resource/Pilonidal_cyst
+http://dbpedia.org/resource/Rapp%E2%80%93Hodgkin_syndrome
+http://dbpedia.org/resource/17-beta-hydroxysteroid_dehydrogenase_deficiency
+http://dbpedia.org/resource/Acatalasia
+http://dbpedia.org/resource/Achilles_tendinitis
+http://dbpedia.org/resource/Acute_erythroid_leukemia
+http://dbpedia.org/resource/Acute_necrotizing_ulcerative_gingivitis
+http://dbpedia.org/resource/Aggressive_NK-cell_leukemia
+http://dbpedia.org/resource/Akathisia
+http://dbpedia.org/resource/Alopecia_areata
+http://dbpedia.org/resource/Alpers'_disease
+http://dbpedia.org/resource/Alpha-fetoprotein
+http://dbpedia.org/resource/Amusia
+http://dbpedia.org/resource/Angiomatosis
+http://dbpedia.org/resource/Aortic_dissection
+http://dbpedia.org/resource/Aplasia_cutis_congenita
+http://dbpedia.org/resource/Ascites
+http://dbpedia.org/resource/Astereognosis
+http://dbpedia.org/resource/Atrophodermia_vermiculata
+----------------------------------
+found correct answer at position #0
+position 1:http://dbpedia.org/resource/Myopathy
+found correct answer at position #1
+position 2:http://dbpedia.org/resource/Rheumatoid_arthritis
+found correct answer at position #2
+position 3:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0003873
+found correct answer at position #3
+position 4:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0026848
+found correct answer at position #4
+position 5:http://id.who.int/icd/entity/1159616108
+found correct answer at position #5
+position 6:http://id.who.int/icd/entity/521279908
+found correct answer at position #6
+position 7:http://id.who.int/icd/entity/833816211
+found correct answer at position #7
+position 8:http://id.who.int/icd/entity/576319925
+found correct answer at position #8
+position 9:http://purl.org/net/tcm/tcm.lifescience.ntu.edu.tw/id/disease/Arthritis_Rheumatoid
+found correct answer at position #9
+position 10:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/999
+found correct answer at position #10
+position 11:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/802
+found correct answer at position #11
+position 12:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/1761
+found correct answer at position #12
+position 13:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/1762
+found correct answer at position #13
+position 14:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/198
+found correct answer at position #14
+position 15:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/199
+found correct answer at position #15
+position 16:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2020
+found correct answer at position #16
+position 17:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2021
+found correct answer at position #17
+position 18:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/2022
+found correct answer at position #18
+position 19:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/277
+found correct answer at position #19
+position 20:http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/3305
+Precision: 0.24691358024691357
+Recall: 0.9523809523809523
+F-Measure: 0.39215686274509803
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #19: Diabetes is the death cause of whom?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Alexander_Graham_Bell
+http://dbpedia.org/resource/Arai_Ikunosuke
+http://dbpedia.org/resource/Archibald_Gracie_IV
+http://dbpedia.org/resource/Charles_DeWitt_Watts
+http://dbpedia.org/resource/Christopher_Hewett
+http://dbpedia.org/resource/Claudia_McNeil
+http://dbpedia.org/resource/Daniel_Burke_(executive)
+http://dbpedia.org/resource/Daniel_Escobar
+http://dbpedia.org/resource/Douglas_Spencer
+http://dbpedia.org/resource/Edith_Massey
+http://dbpedia.org/resource/Edward_Grady_Partin
+http://dbpedia.org/resource/Elaine_Stritch
+http://dbpedia.org/resource/Esther_Rolle
+http://dbpedia.org/resource/F._D._Reeve
+http://dbpedia.org/resource/Guy_Stockwell
+http://dbpedia.org/resource/Hal_B._Wallis
+http://dbpedia.org/resource/Herman_W._Hellman
+http://dbpedia.org/resource/James_Farmer
+http://dbpedia.org/resource/Jan_Sterling
+http://dbpedia.org/resource/Jeff_Dwire
+http://dbpedia.org/resource/Joseph_D._Bryant
+http://dbpedia.org/resource/Leo_McKern
+http://dbpedia.org/resource/Piramerd
+http://dbpedia.org/resource/John_Dehner
+http://dbpedia.org/resource/Narayan_Gopal
+http://www.w3.org/2004/02/skos/core#Concept
+http://dbpedia.org/resource/Category:Lists_of_people_by_cause_of_death
+http://fr.dbpedia.org/resource/Cat?gorie:Liste_de_personnes_par_circonstance_de_d?c?s
+http://nl.dbpedia.org/resource/Categorie:Lijsten_van_personen_naar_doodsoorzaak
+http://wikidata.dbpedia.org/resource/Q6960888
+http://wikidata.org/entity/Q6960888
+Lists of people by cause of death
+http://en.wikipedia.org/wiki/Category:Lists_of_people_by_cause_of_death?oldid=543794972
+703886^^http://www.w3.org/2001/XMLSchema#integer
+543794972^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Death_from_laughter
+http://dbpedia.org/resource/Category:Causes_of_death
+http://ja.dbpedia.org/resource/Category:??
+http://ko.dbpedia.org/resource/??:???_??
+http://de.dbpedia.org/resource/Kategorie:Todesart
+http://es.dbpedia.org/resource/Categor?a:Causas_de_muerte
+http://eu.dbpedia.org/resource/Kategoria:Heriotza_arrazoiak
+http://id.dbpedia.org/resource/Kategori:Penyebab_kematian
+http://it.dbpedia.org/resource/Categoria:Cause_di_morte
+http://pt.dbpedia.org/resource/Categoria:Causas_de_morte
+http://wikidata.dbpedia.org/resource/Q7158616
+http://wikidata.org/entity/Q7158616
+Causes of death
+http://dbpedia.org/resource/Category:Death
+http://en.wikipedia.org/wiki/Category:Causes_of_death?oldid=572130702
+5271061^^http://www.w3.org/2001/XMLSchema#integer
+572130702^^http://www.w3.org/2001/XMLSchema#integer
+3^^http://www.w3.org/2001/XMLSchema#integer
+http://dbpedia.org/resource/Category:Causes_of_death_specific_to_men
+http://dbpedia.org/resource/Category:Causes_of_death_specific_to_women
+http://dbpedia.org/resource/Dennis_Ferguson
+----------------------------------
+found correct answer at position #0
+position 1:http://dbpedia.org/resource/Alexander_Graham_Bell
+found correct answer at position #1
+position 2:http://dbpedia.org/resource/Arai_Ikunosuke
+found correct answer at position #2
+position 3:http://dbpedia.org/resource/Archibald_Gracie_IV
+found correct answer at position #3
+position 4:http://dbpedia.org/resource/Charles_DeWitt_Watts
+found correct answer at position #4
+position 5:http://dbpedia.org/resource/Christopher_Hewett
+found correct answer at position #5
+position 6:http://dbpedia.org/resource/Claudia_McNeil
+found correct answer at position #6
+position 7:http://dbpedia.org/resource/Daniel_Burke_(executive)
+found correct answer at position #7
+position 8:http://dbpedia.org/resource/Daniel_Escobar
+found correct answer at position #8
+position 9:http://dbpedia.org/resource/Douglas_Spencer
+found correct answer at position #9
+position 10:http://dbpedia.org/resource/Edith_Massey
+found correct answer at position #10
+position 11:http://dbpedia.org/resource/Edward_Grady_Partin
+found correct answer at position #11
+position 12:http://dbpedia.org/resource/Elaine_Stritch
+found correct answer at position #12
+position 13:http://dbpedia.org/resource/Esther_Rolle
+found correct answer at position #13
+position 14:http://dbpedia.org/resource/F._D._Reeve
+found correct answer at position #14
+position 15:http://dbpedia.org/resource/Guy_Stockwell
+found correct answer at position #15
+position 16:http://dbpedia.org/resource/Hal_B._Wallis
+found correct answer at position #16
+position 17:http://dbpedia.org/resource/Herman_W._Hellman
+found correct answer at position #17
+position 18:http://dbpedia.org/resource/James_Farmer
+found correct answer at position #18
+position 19:http://dbpedia.org/resource/Jan_Sterling
+found correct answer at position #19
+position 20:http://dbpedia.org/resource/Jeff_Dwire
+found correct answer at position #20
+position 21:http://dbpedia.org/resource/Joseph_D._Bryant
+found correct answer at position #21
+position 22:http://dbpedia.org/resource/Leo_McKern
+found correct answer at position #22
+position 23:http://dbpedia.org/resource/Piramerd
+found correct answer at position #23
+position 24:http://dbpedia.org/resource/John_Dehner
+Precision: 0.42857142857142855
+Recall: 0.7272727272727273
+F-Measure: 0.5393258426966292
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #20: Which drug has the side effect hemorrhage and also the side effect with the id C0027719?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Ambrisentan
+http://dbpedia.org/resource/Carnitine
+http://dbpedia.org/resource/Lorazepam
+http://dbpedia.org/resource/Mafenide
+http://dbpedia.org/resource/Arformoterol
+http://dbpedia.org/resource/Iopamidol
+http://dbpedia.org/resource/Acitretin
+http://dbpedia.org/resource/Alosetron
+http://dbpedia.org/resource/Amphotericin_B
+http://dbpedia.org/resource/Amrinone
+http://dbpedia.org/resource/Amsacrine
+http://dbpedia.org/resource/Anastrozole
+http://dbpedia.org/resource/Bupropion
+http://dbpedia.org/resource/Candesartan
+http://dbpedia.org/resource/Carboplatin
+http://dbpedia.org/resource/Cefaclor
+http://dbpedia.org/resource/Cefepime
+http://dbpedia.org/resource/Cefpodoxime
+http://dbpedia.org/resource/Cefprozil
+http://dbpedia.org/resource/Ceftibuten
+http://dbpedia.org/resource/Naproxen
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00788
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1302
+HEMORRHAGE
+bleeding
+blood loss
+C0019080
+----------------------------------
+found correct answer at position #20
+position 21:http://dbpedia.org/resource/Naproxen
+found correct answer at position #21
+position 22:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00788
+found correct answer at position #22
+position 23:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/1302
+Precision: 0.1111111111111111
+Recall: 1.0
+F-Measure: 0.19999999999999998
+
+-------------------------------------------------
+Evaluation:
+-------------------------------------------------
+1: What is athlete's foot? has result:
+Precision 0.013888888888888888 | Recall 1.0 | F-Measure 0.0273972602739726
+Elapsed Time 10821229640
+2: Where is the liver? has result:
+Precision 0.018867924528301886 | Recall 1.0 | F-Measure 0.037037037037037035
+Elapsed Time 6280686392
+3: What is Nexium? has result:
+Precision 0.22727272727272727 | Recall 1.0 | F-Measure 0.37037037037037035
+Elapsed Time 221213136
+4: What is alcohol dependence? has result:
+Precision 0.07575757575757576 | Recall 1.0 | F-Measure 0.14084507042253522
+Elapsed Time 13230210340
+5: What is bigeminy? has result:
+Precision 0.05 | Recall 1.0 | F-Measure 0.09523809523809523
+Elapsed Time 38037365
+6: What are Narcolepsy and Kleine Levin syndrome? has result:
+Precision 0.02040816326530612 | Recall 0.5 | F-Measure 0.039215686274509796
+Elapsed Time 11277004337
+7: What are types of neoplasia? has result:
+Precision 0.1 | Recall 0.2222222222222222 | F-Measure 0.13793103448275865
+Elapsed Time 12903476297
+8: What has the MEsHID D002056? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 441565799
+9: Who died of asthma? has result:
+Precision 0.11764705882352941 | Recall 1.0 | F-Measure 0.21052631578947367
+Elapsed Time 4926480828
+10: What is the definition of malignant neoplasms of skin? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 27757603040
+11: What has the target MAPK14? has result:
+Precision 0.21818181818181817 | Recall 0.9230769230769231 | F-Measure 0.3529411764705882
+Elapsed Time 3232365629
+12: Which drugs have rheumatic fever as a side effect? has result:
+Precision 0.25 | Recall 0.060240963855421686 | F-Measure 0.09708737864077671
+Elapsed Time 24154507141
+13: Which sider drugs have the side effect amnesia? has result:
+Precision 0.8387096774193549 | Recall 0.061465721040189124 | F-Measure 0.1145374449339207
+Elapsed Time 18786547547
+14: Which drugs contain acetylsalicylic acid? has result:
+Precision 0.09302325581395349 | Recall 0.6666666666666666 | F-Measure 0.16326530612244897
+Elapsed Time 16788620319
+15: What is the definition of lung cancer? has result:
+Precision 0.05263157894736842 | Recall 1.0 | F-Measure 0.1
+Elapsed Time 11576097719
+16: What are signs or symptoms of subtertian fever? has result:
+Precision 0.3225806451612903 | Recall 1.0 | F-Measure 0.4878048780487805
+Elapsed Time 14252995236
+17: What is the ICD10 code of cerebral ischaemic stroke? has result:
+Precision 0.037037037037037035 | Recall 1.0 | F-Measure 0.07142857142857142
+Elapsed Time 18770580343
+18: What is a possible disease target of PHIQHXFUZVPYII-UHFFFAOYSA-N? has result:
+Precision 0.24691358024691357 | Recall 0.9523809523809523 | F-Measure 0.39215686274509803
+Elapsed Time 32226459726
+19: Diabetes is the death cause of whom? has result:
+Precision 0.42857142857142855 | Recall 0.7272727272727273 | F-Measure 0.5393258426966292
+Elapsed Time 14979246413
+20: Which drug has the side effect hemorrhage and also the side effect with the id C0027719? has result:
+Precision 0.1111111111111111 | Recall 1.0 | F-Measure 0.19999999999999998
+Elapsed Time 31018829838
+-------------------------------------------------
+Average results:
+Precision 0.16113012355133027 | Recall 0.7056663088257551 |  F-Measure 0.262354793536206 | Elapsed Time 13.684187854
+-------------------------------------------------
+

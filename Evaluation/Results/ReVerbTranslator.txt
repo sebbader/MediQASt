@@ -1,0 +1,401 @@
+-------------------------------------------------------------
+Evaluate query #1: What is athlete's foot?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Athlete's_foot
+http://en.wikipedia.org/wiki/Athlete's_foot
+http://dbpedia.org/resource/Athelete%60s_foot
+http://id.who.int/icd/entity/107393968
+Athlete's foot@en
+Ringworm of foot@en
+----------------------------------
+found correct answer at position #0
+position 1:http://dbpedia.org/resource/Athlete's_foot
+Precision: 0.16666666666666666
+Recall: 1.0
+F-Measure: 0.2857142857142857
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #2: Where is the liver?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Category:Liver
+http://dbpedia.org/resource/Category:Liver_anatomy
+http://dbpedia.org/resource/Liver
+http://dbpedia.org/resource/Category:Hormones_of_the_liver
+http://dbpedia.org/resource/Androsterone
+http://dbpedia.org/resource/Betatrophin
+----------------------------------
+found correct answer at position #2
+position 3:http://dbpedia.org/resource/Liver
+Precision: 0.16666666666666666
+Recall: 1.0
+F-Measure: 0.2857142857142857
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #3: What is Nexium?
+-------------------------------------------------------------
+received results:
+----------------------------------
+Could not find any correct answer!
+Precision: NaN
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #4: What is alcohol dependence?
+-------------------------------------------------------------
+received results:
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0001973
+http://wifo5-04.informatik.uni-mannheim.de/diseasome/resource/diseases/54
+http://wifo5-04.informatik.uni-mannheim.de/sider/data/side_effects/C0001973
+http://dbpedia.org/resource/Alcohol_dependence
+http://dbpedia.org/resource/Alcoholism
+http://dbpedia.org/resource/Disease_theory_of_alcoholism
+----------------------------------
+found correct answer at position #3
+position 4:http://dbpedia.org/resource/Alcohol_dependence
+found correct answer at position #4
+position 5:http://dbpedia.org/resource/Alcoholism
+found correct answer at position #5
+position 6:http://dbpedia.org/resource/Disease_theory_of_alcoholism
+Precision: 0.5
+Recall: 0.6
+F-Measure: 0.5454545454545454
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #5: What is bigeminy?
+-------------------------------------------------------------
+received results:
+----------------------------------
+Could not find any correct answer!
+Precision: NaN
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #6: What are Narcolepsy and Kleine Levin syndrome?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Bartter_syndrome
+http://en.wikipedia.org/wiki/Bartter_syndrome
+http://dbpedia.org/resource/Bartter's_syndrome
+http://dbpedia.org/resource/Currarino_syndrome
+http://en.wikipedia.org/wiki/Currarino_syndrome
+http://dbpedia.org/resource/Currarino_triad
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #7: What are types of neoplasia?
+-------------------------------------------------------------
+received results:
+----------------------------------
+Could not find any correct answer!
+Precision: NaN
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #8: What has the MEsHID D002056?
+-------------------------------------------------------------
+received results:
+http://www.openlinksw.com/virtrdf-data-formats#default-iid
+http://www.openlinksw.com/virtrdf-data-formats#default-iid-nullable
+http://www.openlinksw.com/virtrdf-data-formats#default-iid-nonblank
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #9: Who died of asthma?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Category:Asthma
+http://dbpedia.org/resource/Category:Pde4_inhibitors
+http://dbpedia.org/resource/Acute_severe_asthma
+http://dbpedia.org/resource/Asthma
+http://dbpedia.org/resource/Pathophysiology_of_asthma
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/side_effects/C0004096
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #10: What is the definition of malignant neoplasms of skin?
+-------------------------------------------------------------
+received results:
+A primary or metastatic tumor involving the skin. Primary malignant skin tumors most often are carcinomas (either basal cell or squamous cell carcinomas that arise from cells in the epidermis) or melanomas that arise from pigment-containing skin melanocytes. Metastatic tumors to the skin include carcinomas and lymphomas.@en
+----------------------------------
+found correct answer at position #0
+position 1:A primary or metastatic tumor involving the skin. Primary malignant skin tumors most often are carcinomas (either basal cell or squamous cell carcinomas that arise from cells in the epidermis) or melanomas that arise from pigment-containing skin melanocytes. Metastatic tumors to the skin include carcinomas and lymphomas.@en
+Precision: 1.0
+Recall: 1.0
+F-Measure: 1.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #11: What has the target MAPK14?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Neuropathy_target_esterase
+http://en.wikipedia.org/wiki/Neuropathy_target_esterase
+http://dbpedia.org/resource/Neuropathy_(disambiguation)
+http://dbpedia.org/resource/Chromatin_target_of_prmt1
+http://en.wikipedia.org/wiki/Chromatin_target_of_prmt1
+http://www.w3.org/2002/07/owl#Thing
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #12: Which drugs have rheumatic fever as a side effect?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Health_effects_of_pesticides
+http://dbpedia.org/resource/Pesticide_poisoning
+http://id.who.int/icd/entity/381589800
+http://dbpedia.org/resource/Chlorophyll(ide)_b_reductase
+http://en.wikipedia.org/wiki/Chlorophyll(ide)_b_reductase
+http://dbpedia.org/resource/EC_1.1.1.294
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #13: Which sider drugs have the side effect amnesia?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Anterior_triangle_of_the_neck
+http://en.wikipedia.org/wiki/Anterior_triangle_of_the_neck
+http://dbpedia.org/resource/Anterior_triangle
+http://dbpedia.org/resource/Buccal_branch_of_the_facial_nerve
+http://en.wikipedia.org/wiki/Buccal_branch_of_the_facial_nerve
+http://dbpedia.org/resource/Buccal
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #14: Which drugs contain acetylsalicylic acid?
+-------------------------------------------------------------
+received results:
+http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00945
+http://dbpedia.org/resource/Aspirin
+http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2244
+----------------------------------
+found correct answer at position #0
+position 1:http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00945
+found correct answer at position #1
+position 2:http://dbpedia.org/resource/Aspirin
+found correct answer at position #2
+position 3:http://wifo5-04.informatik.uni-mannheim.de/sider/resource/drugs/2244
+Precision: 1.0
+Recall: 0.5
+F-Measure: 0.6666666666666666
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #15: What is the definition of lung cancer?
+-------------------------------------------------------------
+received results:
+----------------------------------
+Could not find any correct answer!
+Precision: NaN
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #16: What are signs or symptoms of subtertian fever?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Health_effects_of_pesticides
+http://dbpedia.org/resource/Pesticide_poisoning
+http://id.who.int/icd/entity/381589800
+http://dbpedia.org/resource/Category:Symptoms_and_signs
+http://dbpedia.org/resource/Category:Diarrhea
+http://dbpedia.org/resource/Category:Fever
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #17: What is the ICD10 code of cerebral ischaemic stroke?
+-------------------------------------------------------------
+received results:
+I63
+I63^^http://www.w3.org/2001/XMLSchema#string
+----------------------------------
+found correct answer at position #0
+position 1:I63
+Precision: 0.5
+Recall: 1.0
+F-Measure: 0.6666666666666666
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #18: What is a possible disease target of PHIQHXFUZVPYII-UHFFFAOYSA-N?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Esophageal_disease
+http://en.wikipedia.org/wiki/Esophageal_disease
+http://dbpedia.org/resource/Diseases_of_oesophagus
+http://dbpedia.org/resource/K%C3%B6hler_disease
+http://dbpedia.org/resource/K?hler_disease
+http://en.wikipedia.org/wiki/K?hler_disease
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #19: Diabetes is the death cause of whom?
+-------------------------------------------------------------
+received results:
+http://www.w3.org/2004/02/skos/core#Concept
+http://dbpedia.org/resource/Category:Diabetes
+http://ja.dbpedia.org/resource/Category:???
+http://www.w3.org/2002/07/owl#Thing
+http://dbpedia.org/class/yago/Abstraction100002137
+http://dbpedia.org/ontology/Disease
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+Start converting NL to SPARQL
+
+
+-------------------------------------------------------------
+Evaluate query #20: Which drug has the side effect hemorrhage and also the side effect with the id C0027719?
+-------------------------------------------------------------
+received results:
+http://dbpedia.org/resource/Anterior_triangle_of_the_neck
+http://en.wikipedia.org/wiki/Anterior_triangle_of_the_neck
+http://dbpedia.org/resource/Anterior_triangle
+http://dbpedia.org/resource/Buccal_branch_of_the_facial_nerve
+http://en.wikipedia.org/wiki/Buccal_branch_of_the_facial_nerve
+http://dbpedia.org/resource/Buccal
+----------------------------------
+Could not find any correct answer!
+Precision: 0.0
+Recall: 0.0
+F-Measure: 0.0
+
+-------------------------------------------------
+Evaluation:
+-------------------------------------------------
+1: What is athlete's foot? has result:
+Precision 0.16666666666666666 | Recall 1.0 | F-Measure 0.2857142857142857
+Elapsed Time 10085574834
+2: Where is the liver? has result:
+Precision 0.16666666666666666 | Recall 1.0 | F-Measure 0.2857142857142857
+Elapsed Time 1382803995
+3: What is Nexium? has result:
+Precision NaN | Recall 0.0 | F-Measure 0.0
+Elapsed Time 587723144
+4: What is alcohol dependence? has result:
+Precision 0.5 | Recall 0.6 | F-Measure 0.5454545454545454
+Elapsed Time 2230396721
+5: What is bigeminy? has result:
+Precision NaN | Recall 0.0 | F-Measure 0.0
+Elapsed Time 937714195
+6: What are Narcolepsy and Kleine Levin syndrome? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 5404801081
+7: What are types of neoplasia? has result:
+Precision NaN | Recall 0.0 | F-Measure 0.0
+Elapsed Time 818774252
+8: What has the MEsHID D002056? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 667782490
+9: Who died of asthma? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 572776111
+10: What is the definition of malignant neoplasms of skin? has result:
+Precision 1.0 | Recall 1.0 | F-Measure 1.0
+Elapsed Time 2986540321
+11: What has the target MAPK14? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 537470422
+12: Which drugs have rheumatic fever as a side effect? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 1075568134
+13: Which sider drugs have the side effect amnesia? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 1362293031
+14: Which drugs contain acetylsalicylic acid? has result:
+Precision 1.0 | Recall 0.5 | F-Measure 0.6666666666666666
+Elapsed Time 2502319091
+15: What is the definition of lung cancer? has result:
+Precision NaN | Recall 0.0 | F-Measure 0.0
+Elapsed Time 1444066756
+16: What are signs or symptoms of subtertian fever? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 1470623202
+17: What is the ICD10 code of cerebral ischaemic stroke? has result:
+Precision 0.5 | Recall 1.0 | F-Measure 0.6666666666666666
+Elapsed Time 1388904900
+18: What is a possible disease target of PHIQHXFUZVPYII-UHFFFAOYSA-N? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 4334232397
+19: Diabetes is the death cause of whom? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 735237706
+20: Which drug has the side effect hemorrhage and also the side effect with the id C0027719? has result:
+Precision 0.0 | Recall 0.0 | F-Measure 0.0
+Elapsed Time 1674729501
+-------------------------------------------------
+Average results:
+Precision 0.16666666666666666 | Recall 0.255 | F-Measure(average) 0.1725108225108225 | F-Measure(macro) 0.2015810276679842 | Elapsed Time 2.110016614
+-------------------------------------------------
+
