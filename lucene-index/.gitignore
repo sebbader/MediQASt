@@ -4,6 +4,4 @@ entities_index/*
 entities_index/lucene/*
 relations_index/*
 relations_index/lucene/*
-*_old/**
-*-old/**
 

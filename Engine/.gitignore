@@ -10,4 +10,4 @@ tmp*/**
 models/**
 classifiers/**
 StanfordNerClassifiers/**
-/build/
+build/**

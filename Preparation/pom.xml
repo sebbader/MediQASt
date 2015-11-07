@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>edu.sbader.masterarbeit</groupId>
+		<artifactId>NaturalLang2SPARQL</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<!-- Repositories -->
+	<repositories>
+		<repository>
+			<id>nxparser-repo</id>
+			<url>http://nxparser.googlecode.com/svn/snapshots</url>
+		</repository>
+	</repositories>
+	
+	<!-- Dependencies -->
+	<dependencies>
+
+		<dependency>
+			<groupId>org.semanticweb.yars</groupId>
+			<artifactId>nxparser-parsers</artifactId>
+			<version>2.2-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.semanticweb.yars</groupId>
+			<artifactId>nxparser-utilities-uri</artifactId>
+			<version>2.2-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semanticweb.yars</groupId>
+			<artifactId>nxparser-model-datatypes</artifactId>
+			<version>2.2-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.semanticweb.yars</groupId>
+			<artifactId>nxparser-api</artifactId>
+			<version>2.2-SNAPSHOT</version>
+		</dependency>
+	
+	
+		<dependency>
+			<groupId>edu.sheffield</groupId>
+			<artifactId>simmetrics</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+	</dependencies>
+	<artifactId>Preparation</artifactId>
+</project>

@@ -73,8 +73,8 @@ public class RdfEvalOne extends Evaluation
 		// SPARQL Generator
 		param.put("sparqlGenerator", "standard");
 
-		param.put("NumberOfSparqlCandidates", "3");
-		param.put("SparqlLimit", "20");
+		param.put("NumberOfSparqlCandidates", "2");
+		param.put("SparqlLimit", "5");
 		param.put("numberOfTriplesPerSparql", "2");
 		param.put("sparqlOption", "greedy");
 		param.put("KeyWordQuestionThreshold", "0.4");

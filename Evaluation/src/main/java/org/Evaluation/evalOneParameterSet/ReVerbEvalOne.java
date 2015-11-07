@@ -72,8 +72,8 @@ public class ReVerbEvalOne extends Evaluation
 		// SPARQL Generator
 		param.put("sparqlGenerator", "standard");
 
-		param.put("NumberOfSparqlCandidates", "10");
-		param.put("SparqlLimit", "100");
+		param.put("NumberOfSparqlCandidates", "2");
+		param.put("SparqlLimit", "3");
 		param.put("numberOfTriplesPerSparql", "2");
 		param.put("sparqlOption", "greedy");
 		param.put("KeyWordQuestionThreshold", "0.4");

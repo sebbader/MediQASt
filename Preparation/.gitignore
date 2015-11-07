@@ -1,0 +1,4 @@
+target/*
+data/**
+logs/**
+dbpedia_category_hierarchy/**

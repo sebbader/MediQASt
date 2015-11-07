@@ -35,7 +35,6 @@ import configuration.impl.ConfigManagerImpl;
 public class MediQASt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Logger logger;
-	//	private final String home = "/Users/Sebastian/git/MediQASt/MediQASt_project_code/";
 
 	/**
 	 * Default constructor. 
@@ -45,7 +44,7 @@ public class MediQASt extends HttpServlet {
 	public MediQASt() throws IOException {
 		ConfigManager configManager = new ConfigManagerImpl();
 		this.logger = configManager.getLogger();
-		//		this.logger = Logger.getRootLogger();
+		//this.logger = Logger.getRootLogger();
 
 	}
 
@@ -67,181 +66,229 @@ public class MediQASt extends HttpServlet {
 		HashMap<String, String> parameter = new HashMap<String, String>();
 		if (apporach.equalsIgnoreCase("rule based")) {
 
-			parameter.put("questionAnalyser", "rulebased");
+			// standard parameter
+			parameter.put("directSparqlPossible", "true");
 
-
-			//--------------------------------------------------------
-
-			parameter.put("resourceMapper", "luceneStandard");
-			parameter.put("considerRelationEnvironment", "false");
+			// Analyzer
+			parameter.put("questionAnalyzer", "rulebased");
 			parameter.put("findEntityAndClass", "true");
-			parameter.put("RelationManagerSimilarity", "Levenshtein");
 
-			//			parameter.put("LuceneStandardMapper:QueryType", "standard");
-			//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
-			//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
+			parameter.put("RelationManagerSimilarity", "Levenshtein");
+			//parameter.put("RelationManagerSimilarity", "WordNet");
+
+
+			// Mapper
+			parameter.put("resourceMapper", "luceneStandard");
+
+			parameter.put("LuceneStandardMapper:Formula", "own");
+			//parameter.put("LuceneStandardMapper:Formula", "lucene");
 
 			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-			//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+			//parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
 
-			//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
 
-			//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
+			//parameter.put("LuceneStandardMapper:Lemmatize", "true");
 			parameter.put("LuceneStandardMapper:Lemmatize", "false");
 
-			//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
-			parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
+			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
+			//parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
 
-			//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
-			//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
+			//parameter.put("LuceneStandardMapper:SearchPerfect", "only");
 			parameter.put("LuceneStandardMapper:SearchPerfect", "no");
 
-			//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
-			parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
-
-			//			parameter.put("considerRelationEnvironment", false);
+			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
+			//parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
 
 			parameter.put("LuceneStandardMapper:FuzzySearch", "true");
-			//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
+			//parameter.put("LuceneStandardMapper:FuzzySearch", "false");
 
 			parameter.put("LuceneStandardMapper:FuzzyParam", "1");
+			//parameter.put("LuceneStandardMapper:FuzzyParam", "2");
 
+			parameter.put("LuceneStandardMapper:NumberOfHits", "20");
 
-			//-------------------------------------------------
-
+			
+			// SPARQL Generator
 			parameter.put("sparqlGenerator", "standard");
-			parameter.put("NumberOfSparqlCandidates", "30");
-			parameter.put("SparqlLimit", "100");
+
+			parameter.put("NumberOfSparqlCandidates", "40");
+			parameter.put("SparqlLimit", "1000");
 			parameter.put("numberOfTriplesPerSparql", "2");
 			parameter.put("sparqlOption", "greedy");
+			parameter.put("KeyWordQuestionThreshold", "0.4");
 
-			parameter.put("KeyWordQuestionThreshold", "0.5");
 
 		} else if (apporach.equalsIgnoreCase("naive")) {
 
-			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-			parameter.put("LuceneStandardMapper:Lemmatize", "false");
-			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
-			parameter.put("considerRelationEnvironment", "false");
+			parameter.put("directSparqlPossible", "true");
+
+			// Analyzer
+			parameter.put("questionAnalyzer", "naive");
 			parameter.put("findEntityAndClass", "true");
+
 			parameter.put("RelationManagerSimilarity", "Levenshtein");
+			//parameter.put("RelationManagerSimilarity", "WordNet");
 
+
+			// Mapper
 			parameter.put("resourceMapper", "naive");
-			parameter.put("NaiveMapper:windows", "3");
-			parameter.put("NaiveMapper:threshold", "0.5");
-			parameter.put("NaiveMapper:filter", "true");
 
-			parameter.put("sparqlGenerator", "standard");
-			parameter.put("NumberOfSparqlCandidates", "30");
-			parameter.put("SparqlLimit", "100");
+			//parameter.put("NaiveMapper:windows", "2");
+//			parameter.put("NaiveMapper:windows", "3");
+			parameter.put("NaiveMapper:windows", "4");
+
+			parameter.put("NaiveMapper:threshold", "0.0");
+			//parameter.put("NaiveMapper:threshold", "0.5");
+
+			parameter.put("NaiveAnalyzer:ValidateSteps", "1");
+//			parameter.put("NaiveAnalyzer:ValidateSteps", "2");
+
+			parameter.put("LuceneStandardMapper:Formula", "own");
+//			parameter.put("LuceneStandardMapper:Formula", "lucene");
+
+			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "true");
+			//parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+
+			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+
+			//parameter.put("LuceneStandardMapper:Lemmatize", "true");
+			parameter.put("LuceneStandardMapper:Lemmatize", "false");
+
+			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
+			//parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
+
+			//parameter.put("LuceneStandardMapper:SearchPerfect", "only");
+			parameter.put("LuceneStandardMapper:SearchPerfect", "no");
+
+			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
+			//parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
+
+			parameter.put("LuceneStandardMapper:FuzzySearch", "true");
+			//parameter.put("LuceneStandardMapper:FuzzySearch", "false");
+
+			parameter.put("LuceneStandardMapper:FuzzyParam", "1");
+//			parameter.put("LuceneStandardMapper:FuzzyParam", "2");
+
+			parameter.put("LuceneStandardMapper:NumberOfHits", "20");
+
+
+			// SPARQL Generator
+
+			parameter.put("NumberOfSparqlCandidates", "20");
+			parameter.put("SparqlLimit", "50");
 			parameter.put("numberOfTriplesPerSparql", "2");
 			parameter.put("sparqlOption", "greedy");
-
-			parameter.put("KeyWordQuestionThreshold", "0.5");
+			parameter.put("KeyWordQuestionThreshold", "0.4");
 
 		} else if (apporach.equalsIgnoreCase("binary relation")) {
 
-			parameter.put("questionAnalyser", "ReVerb");
+			parameter.put("directSparqlPossible", "true");
 
-
-			//---------------------------------------------------------
-
-			parameter.put("resourceMapper", "luceneStandard");
-			parameter.put("considerRelationEnvironment", "false");
+			// Analyzer
+			parameter.put("questionAnalyzer", "reverb");
 			parameter.put("findEntityAndClass", "true");
+
 			parameter.put("RelationManagerSimilarity", "Levenshtein");
+			//parameter.put("RelationManagerSimilarity", "WordNet");
 
-			//			parameter.put("LuceneStandardMapper:QueryType", "standard");
-			//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
-			//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
 
+			// Mapper
+			parameter.put("resourceMapper", "luceneStandard");
+
+			parameter.put("LuceneStandardMapper:Formula", "own");
+			//parameter.put("LuceneStandardMapper:Formula", "lucene");
+			
 			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-			//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+			//parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
 
-			//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+			//parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
 
-			//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
+			//parameter.put("LuceneStandardMapper:Lemmatize", "true");
 			parameter.put("LuceneStandardMapper:Lemmatize", "false");
 
-			//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
-			parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
+			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
+			//parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
 
-			//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
-			//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
+			//parameter.put("LuceneStandardMapper:SearchPerfect", "only");
 			parameter.put("LuceneStandardMapper:SearchPerfect", "no");
 
-			//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
-			parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
-
-			//			parameter.put("considerRelationEnvironment", false);
+			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
+			//parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
 
 			parameter.put("LuceneStandardMapper:FuzzySearch", "true");
-			//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
+			//parameter.put("LuceneStandardMapper:FuzzySearch", "false");
 
 			parameter.put("LuceneStandardMapper:FuzzyParam", "1");
+			//parameter.put("LuceneStandardMapper:FuzzyParam", "2");
 
+			parameter.put("LuceneStandardMapper:NumberOfHits", "10");
 
-			//---------------------------------------------------
-
+			// SPARQL Generator
 			parameter.put("sparqlGenerator", "standard");
-			parameter.put("NumberOfSparqlCandidates", "30");
-			parameter.put("SparqlLimit", "100");
+
+			parameter.put("NumberOfSparqlCandidates", "2");
+			parameter.put("SparqlLimit", "3");
 			parameter.put("numberOfTriplesPerSparql", "2");
 			parameter.put("sparqlOption", "greedy");
-
-			parameter.put("KeyWordQuestionThreshold", "0.5");
+			parameter.put("KeyWordQuestionThreshold", "0.4");
 
 		} else if (apporach.equalsIgnoreCase("pattern based")) {
 
-			parameter.put("questionAnalyser", "RdfGroundedString");
+			parameter.put("directSparqlPossible", "true");
 
-			// ---------------------------------------------
-
-			parameter.put("resourceMapper", "RdfGroundedString");
+			// Analyzer
+			parameter.put("questionAnalyzer", "rdfgroundedstring");
 			parameter.put("findEntityAndClass", "true");
 
-			//			parameter.put("LuceneStandardMapper:QueryType", "standard");
-			//			parameter.put("LuceneStandardMapper:QueryType", "boolean");
-			//			parameter.put("LuceneStandardMapper:QueryType", "DisjunctionMax");
+			parameter.put("RelationManagerSimilarity", "Levenshtein");
+			//parameter.put("RelationManagerSimilarity", "WordNet");
 
+
+			// Mapper
+			parameter.put("resourceMapper", "rdfgroundedstring");
+
+			parameter.put("LuceneStandardMapper:Formula", "own");
+			//parameter.put("LuceneStandardMapper:Formula", "lucene");
+			
 			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "true");
-			//			parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
+			//parameter.put("LuceneStandardMapper:AdjustFieldNorm", "false");
 
-			//			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
-			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
+			parameter.put("LuceneStandardMapper:BoostPerfectMatch", "true");
+			//parameter.put("LuceneStandardMapper:BoostPerfectMatch", "false");
 
-			//			parameter.put("LuceneStandardMapper:Lemmatize", "true");
+			//parameter.put("LuceneStandardMapper:Lemmatize", "true");
 			parameter.put("LuceneStandardMapper:Lemmatize", "false");
 
-			//			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
-			parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
+			parameter.put("LuceneStandardMapper:StopwordRemoval", "true");
+			//parameter.put("LuceneStandardMapper:StopwordRemoval", "false");
 
-			//			parameter.put("LuceneStandardMapper:SearchPerfect", "only");
-			//			parameter.put("LuceneStandardMapper:SearchPerfect", "also");
+			//parameter.put("LuceneStandardMapper:SearchPerfect", "only");
 			parameter.put("LuceneStandardMapper:SearchPerfect", "no");
 
-			//			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
-			parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
-
-			//			parameter.put("considerRelationEnvironment", false);
+			parameter.put("LuceneStandardMapper:DivideByOccurrence", "true");
+			//parameter.put("LuceneStandardMapper:DivideByOccurrence", "false");
 
 			parameter.put("LuceneStandardMapper:FuzzySearch", "true");
-			//			parameter.put("LuceneStandardMapper:FuzzySearch", "false");
+			//parameter.put("LuceneStandardMapper:FuzzySearch", "false");
 
 			parameter.put("LuceneStandardMapper:FuzzyParam", "1");
+			//parameter.put("LuceneStandardMapper:FuzzyParam", "2");
+
+			parameter.put("LuceneStandardMapper:NumberOfHits", "10");
 
 
-			//--------------------------------------------
-
+			// SPARQL Generator
 			parameter.put("sparqlGenerator", "standard");
-			parameter.put("NumberOfSparqlCandidates", "30");
-			parameter.put("SparqlLimit", "100");
+
+			parameter.put("NumberOfSparqlCandidates", "5");
+			parameter.put("SparqlLimit", "20");
 			parameter.put("numberOfTriplesPerSparql", "2");
 			parameter.put("sparqlOption", "greedy");
-
-			parameter.put("KeyWordQuestionThreshold", "0.5");
+			parameter.put("KeyWordQuestionThreshold", "0.4");
 		}
 
 
